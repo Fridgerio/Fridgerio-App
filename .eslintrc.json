@@ -43,7 +43,7 @@
     "func-call-spacing": 2,
     "func-name-matching": 2,
     "function-paren-newline": 2,
-    "guard-for-in": [2, "consistent"],
+    "guard-for-in": 2,
     "jsx-quotes": 2,
     "key-spacing": 2,
     "keyword-spacing": 2,
