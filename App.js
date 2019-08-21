@@ -6,20 +6,31 @@ import {
 import HomeScreen from './src/screens/HomeScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: {
-      title: 'Home',
+const AppNavigator = createStackNavigator(
+  /* order of screens matters, first one will be loaded as initial screen */
+  {
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        title: 'Home',
+      },
+    },
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: {
+        title: 'Settings',
+      },
     },
   },
-  Settings: {
-    screen: SettingsScreen,
-    navigationOptions: {
-      title: 'Settings',
+  {
+    defaultNavigationOptions: {
+      /* handles configuration options for all screens */
+      headerStyle: {
+        backgroundColor: 'hotpink',
+      },
     },
-  },
-});
+  }
+);
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -38,6 +49,7 @@ const TabNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
+      /* TODO: tintColor only working on Home, even when not active */
       activeTintColor: 'hotpink',
     },
   }
