@@ -23,8 +23,11 @@ const AppNavigator = createStackNavigator(
         headerTintColor: 'white', // font color,
         // headerTitle: can be used to render a react component as title, e.g. icon. The header prop can receive a react element but not a component,
         // headerBackImage: display custom image in header back button,
-        // headerRight or headerLeft: to display react element on the right or left side of the title; can replace the back button
+        // headerRight or headerLeft: to display react element on the right or left side of the title; can replace the back button, styled by headerRightContainerStyle or headerLeftContainerStyle, e.g. to change the padding
+        /* headerTitleContainerStyle: further style settings for the title container, e.g. positioning or padding */
       },
+      /* passing parameters as props to single screens */
+      params: { defaultText: 'Fridgerio' },
     },
   },
   {
@@ -33,7 +36,18 @@ const AppNavigator = createStackNavigator(
       headerStyle: {
         backgroundColor: 'hotpink', // background color
       },
-      headerTintColor: 'yellow', // font color default
+      headerTintColor: 'yellow', // font color default for the whole header
+      headerTitleStyle: {
+        fontWeight: 'normal',
+        /* color changes only the color of the title */
+        color: 'white',
+      },
+      headerBackTitleStyle: {
+        /* styles the back button title */
+        color: 'greenyellow',
+      },
+      /* gesturesEnabled enables swiping between screens, defaults to true for iOS and to false on Android */
+      gesturesEnabled: true,
     },
   }
 );
