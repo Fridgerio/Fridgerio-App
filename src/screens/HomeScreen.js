@@ -1,15 +1,21 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import defaultNavigatorOptions from '../utils/StackNavigator';
 
 function HomeScreen() {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Hello from Home</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+});
 
 const HomeNavigator = createStackNavigator(
   /* order of screens matters, first one will be loaded as initial screen */
