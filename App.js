@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   createAppContainer,
   createStackNavigator,
@@ -5,6 +6,8 @@ import {
 } from 'react-navigation';
 import HomeScreen from './src/screens/HomeScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 const AppNavigator = createStackNavigator(
   /* order of screens matters, first one will be loaded as initial screen */
@@ -52,18 +55,28 @@ const AppNavigator = createStackNavigator(
   }
 );
 
+const TabHomeIcon = ({ tintColor }) => (
+  <Ionicons name="md-home" size={24} color={tintColor} />
+);
+
+const TabSettingsIcon = ({ tintColor }) => (
+  <Ionicons name="md-settings" size={24} color={tintColor} />
+);
+
 const TabNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: AppNavigator,
       navigationOptions: {
-        title: 'Home',
+        // title: 'Home',
+        tabBarIcon: TabHomeIcon,
       },
     },
     Settings: {
       screen: SettingsScreen,
       navigationOptions: {
-        title: 'Settings',
+        // title: 'Settings',
+        tabBarIcon: TabSettingsIcon,
       },
     },
   },
