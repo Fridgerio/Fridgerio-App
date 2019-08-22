@@ -89,3 +89,13 @@ const TabNavigator = createBottomTabNavigator(
 );
 
 export default createAppContainer(TabNavigator);
+
+const { string } = PropTypes;
+
+TabHomeIcon.propTypes = {
+  tintColor: string.isRequired,
+};
+
+TabSettingsIcon.propTypes = {
+  tintColor: string.isRequired,
+};
