@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-function SettingsScreen() {
+function ListScreen() {
   return (
     <View style={styles.container}>
-      <Text>Hello from Settings</Text>
+      <Text>Hello from List</Text>
     </View>
   );
 }
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
   },
 });
 
-SettingsScreen.navigationOptions = {
-  header: null,
+ListScreen.navigationOptions = {
+  title: 'Your Products',
 };
 
-export default SettingsScreen;
+export default ListScreen;

@@ -1,11 +1,18 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
-import { HomeStack, SettingsStack } from './StackNavigators';
+import {
+  HomeStack,
+  AddStack,
+  ListStack,
+  SettingsStack,
+} from './StackNavigators';
 import { Ionicons } from '@expo/vector-icons';
 
 export default createBottomTabNavigator(
   {
     Home: HomeStack,
+    Add: AddStack,
+    List: ListStack,
     Settings: SettingsStack,
   },
   {
@@ -17,6 +24,12 @@ export default createBottomTabNavigator(
         switch (routeName) {
           case 'Home':
             icon = 'md-home';
+            break;
+          case 'Add':
+            icon = 'ios-add-circle';
+            break;
+          case 'List':
+            icon = 'md-list-box';
             break;
           case 'Settings':
             icon = 'md-settings';
