@@ -1,5 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 import HomeScreen from './screens/HomeScreen';
+import AddScreen from './screens/AddScreen';
+import ListScreen from './screens/ListScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
 /*
@@ -29,9 +31,11 @@ const defaultOptions = {
 };
 
 const HomeStack = createStackNavigator({ HomeScreen }, defaultOptions);
+const AddStack = createStackNavigator({ AddScreen }, defaultOptions);
+const ListStack = createStackNavigator({ ListScreen }, defaultOptions);
 const SettingsStack = createStackNavigator({ SettingsScreen }, defaultOptions);
 
-export { HomeStack, SettingsStack };
+export { HomeStack, AddStack, ListStack, SettingsStack };
 
 /*
 ----------
