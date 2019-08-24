@@ -3,6 +3,7 @@ import HomeScreen from './screens/HomeScreen';
 import AddScreen from './screens/AddScreen';
 import ListScreen from './screens/ListScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import DummyScreen from './screens/DummyScreen';
 
 /*
 ----------
@@ -30,7 +31,10 @@ const defaultOptions = {
   },
 };
 
-const HomeStack = createStackNavigator({ HomeScreen }, defaultOptions);
+const HomeStack = createStackNavigator(
+  { HomeScreen, DummyScreen },
+  defaultOptions
+);
 const AddStack = createStackNavigator({ AddScreen }, defaultOptions);
 const ListStack = createStackNavigator({ ListScreen }, defaultOptions);
 const SettingsStack = createStackNavigator({ SettingsScreen }, defaultOptions);
