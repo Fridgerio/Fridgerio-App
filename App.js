@@ -1,19 +1,20 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import TabNavigator from './src/TabNavigator';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
-}
+export default createAppContainer(TabNavigator);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+/**
+----------
+implement switchNavigator for authentication flow or loading screen:
+
+const switchNavigator = createSwitchNavigator({
+  LoadingScreen,
+  AuthScreen,
+  TabNavigator,
 });
+
+createAppContainer(switchNavigator);
+
+https://reactnavigation.org/docs/en/switch-navigator.html
+----------
+*/
