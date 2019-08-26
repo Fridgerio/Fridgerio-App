@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBottomTabNavigator } from 'react-navigation';
+import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import {
   HomeStack,
   AddStack,
@@ -8,7 +8,7 @@ import {
 } from './StackNavigators';
 import { Ionicons } from '@expo/vector-icons';
 
-export default createBottomTabNavigator(
+const TabNavigator = createBottomTabNavigator(
   {
     Home: HomeStack,
     Add: AddStack,
@@ -52,6 +52,23 @@ export default createBottomTabNavigator(
     },
   }
 );
+
+export default createAppContainer(TabNavigator);
+
+/**
+----------
+implement switchNavigator for authentication flow:
+
+const switchNavigator = createSwitchNavigator({
+  AuthScreen,
+  TabNavigator,
+});
+
+createAppContainer(switchNavigator);
+
+https://reactnavigation.org/docs/en/switch-navigator.html
+----------
+*/
 
 /*
 ----------
