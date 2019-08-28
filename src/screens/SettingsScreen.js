@@ -1,12 +1,13 @@
 import React from 'react';
 import { ScrollView, View, Text } from 'react-native';
+import ToggleSwitch from 'toggle-switch-react-native';
 
 function SettingsScreen() {
   return (
     <ScrollView>
       <View>
-        <Text>Sprache</Text>
-        <Text>Design</Text>
+        <ToggleSwitch isOn label="Sprache" />
+        <ToggleSwitch isOn label="Design" />
         <Text>Benachrichtigungen</Text>
       </View>
       <View>
