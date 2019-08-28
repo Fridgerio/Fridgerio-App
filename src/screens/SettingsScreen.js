@@ -38,6 +38,10 @@ function SettingsScreen() {
 
 export default SettingsScreen;
 
+SettingsScreen.navigationOptions = {
+  title: 'Einstellungen',
+};
+
 const SettingsView = styled.View`
   padding: 5px 10px;
   margin: 5px 0;
