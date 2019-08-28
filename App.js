@@ -1,9 +1,27 @@
 import React, { useState } from 'react';
+import { createAppContainer } from 'react-navigation';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
 import { Ionicons } from '@expo/vector-icons';
-import AppContainer from './src/TabNavigator';
+import TabNavigator from './src/TabNavigator';
+
+/**
+----------
+implement switchNavigator for authentication flow:
+
+const switchNavigator = createSwitchNavigator({
+  AuthScreen,
+  TabNavigator,
+});
+
+ const AppContainer = createAppContainer(switchNavigator);
+
+https://reactnavigation.org/docs/en/switch-navigator.html
+----------
+*/
+
+const AppContainer = createAppContainer(TabNavigator);
 
 /**
 ----------

@@ -8,7 +8,7 @@ import {
 } from './StackNavigators';
 import { Ionicons } from '@expo/vector-icons';
 
-const TabNavigator = createBottomTabNavigator(
+export default createBottomTabNavigator(
   {
     Home: HomeStack,
     Add: AddStack,
@@ -52,23 +52,6 @@ const TabNavigator = createBottomTabNavigator(
     },
   }
 );
-
-export default createAppContainer(TabNavigator);
-
-/**
-----------
-implement switchNavigator for authentication flow:
-
-const switchNavigator = createSwitchNavigator({
-  AuthScreen,
-  TabNavigator,
-});
-
-createAppContainer(switchNavigator);
-
-https://reactnavigation.org/docs/en/switch-navigator.html
-----------
-*/
 
 /*
 ----------
