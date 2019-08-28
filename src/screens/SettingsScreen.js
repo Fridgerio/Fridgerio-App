@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, Linking } from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native';
 
 function SettingsScreen() {
@@ -15,7 +15,12 @@ function SettingsScreen() {
         <Text>Teile die App</Text>
       </View>
       <View>
-        <Text>Hilfe / FAQ</Text>
+        <Text
+          onPress={() =>
+            Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
+        >
+          Hilfe / FAQ
+        </Text>
         <Text>Impressum</Text>
         <Text>Datenschutzerklärung</Text>
       </View>
