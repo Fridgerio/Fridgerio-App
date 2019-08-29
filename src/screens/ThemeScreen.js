@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-function AddScreen() {
+function ThemeScreen() {
   return (
     <View style={styles.container}>
-      <Text>Hello from Add</Text>
+      <Text>Hello from ThemeScreen</Text>
     </View>
   );
 }
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
   },
 });
 
-AddScreen.navigationOptions = {
-  title: 'Add Product',
+ThemeScreen.navigationOptions = {
+  title: 'HelpScreen',
 };
 
-export default AddScreen;
+export default ThemeScreen;
