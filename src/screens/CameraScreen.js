@@ -9,7 +9,6 @@ import { Ionicons } from '@expo/vector-icons';
 function CameraScreen() {
   // // const [barcodeScanning, setBarcodeScanning] = useState(false);
   // // const [flash, setFlash] = useState(false);
-  // // const [ratio] = useState('16:9');
   // const [type] = useState('back');
   // // const toggleFlash = () => setFlash(!flash);
   // // const toggleBarcodeScanning = () => setBarcodeScanning(!barcodeScanning);
@@ -33,7 +32,6 @@ function CameraScreen() {
   //       }}
   //       type={type}
   //       // flashMode={flash}
-  //       // ratio={ratio}
   //       // onMountError={handleMountError}
   //       // barCodeScannerSettings={{
   //       // barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13],
@@ -50,6 +48,7 @@ function CameraScreen() {
   const [autoFocus] = useState(true);
   const [zoom] = useState(0);
   const [whiteBalance] = useState('auto');
+  const [ratio] = useState('16:9');
   useEffect(() => {
     const askPermission = async () => {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -70,6 +69,7 @@ function CameraScreen() {
         autoFocus={autoFocus}
         zoom={zoom}
         whiteBalance={whiteBalance}
+        ratio={ratio}
       >
         <View
           style={{
