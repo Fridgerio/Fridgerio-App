@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 function ProductFormScreen() {
   return (
@@ -20,6 +21,11 @@ const styles = StyleSheet.create({
 
 ProductFormScreen.navigationOptions = {
   title: 'Add Product',
+  headerRight: (
+    <Text>
+      <Ionicons name="md-trash" size={22} color="white" />
+    </Text>
+  ),
 };
 
 export default ProductFormScreen;
