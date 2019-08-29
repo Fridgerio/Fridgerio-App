@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import { ScrollView, Text, TextInput, Picker } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 function ProductFormScreen() {
   return (
-    <View style={styles.container}>
+    <ScrollView>
       <Text>Name</Text>
       <TextInput placeholder="z.B. Tomate" editable />
 
@@ -15,18 +15,9 @@ function ProductFormScreen() {
         editable={false}
         textAlignVertical="top"
       />
-    </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    padding: 20,
-  },
-});
 
 ProductFormScreen.navigationOptions = {
   title: 'Add Product',
