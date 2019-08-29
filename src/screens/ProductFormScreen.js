@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   Button,
+  Image,
   Picker,
   DatePickerIOS,
   DatePickerAndroid,
@@ -47,6 +48,11 @@ function ProductFormScreen() {
         <Picker.Item label="Nudeln, Reis usw." value="TBD" />
         <Picker.Item label="Getränke" value="TBD" />
       </Picker>
+
+      <Image
+        style={{ width: 150, height: 150 }}
+        source={{ uri: 'https://via.placeholder.com/150' }}
+      />
 
       <Text>Menge</Text>
       <Picker prompt="Menge" selectedValue={1}>
