@@ -78,6 +78,14 @@ function ProductFormScreen() {
         <Picker.Item label="14" value={14} />
       </Picker>
 
+      <Text>Füge ein Label hinzu</Text>
+      <Ionicons name="md-square" size={32} color="red" />
+      <Ionicons name="md-checkbox" size={32} color="hotpink" />
+      <Ionicons name="md-square" size={32} color="orange" />
+      <Ionicons name="md-square" size={32} color="yellow" />
+      <Ionicons name="md-square" size={32} color="green" />
+      <Ionicons name="md-square" size={32} color="blue" />
+
       <Text>Note</Text>
       <TextInput
         placeholder="Add custom note"
