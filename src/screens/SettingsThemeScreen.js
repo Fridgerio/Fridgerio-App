@@ -6,44 +6,34 @@ import { Ionicons } from '@expo/vector-icons';
 function SettingsThemeScreen() {
   return (
     <ScrollView>
-      <LanguageLinks>
-        <GermanLink>
-          <GermanLabel>Deutsch</GermanLabel>
+      <ThemeLinks>
+        <ThemeLink>
+          <ThemeLabel>Light</ThemeLabel>
+        </ThemeLink>
+        <ThemeLink>
+          <ThemeLabel>Dark</ThemeLabel>
           <Ionicons name="md-checkmark" size={24} />
-        </GermanLink>
-        <EnglishLink>
-          <EnglishLabel>English</EnglishLabel>
-        </EnglishLink>
-      </LanguageLinks>
+        </ThemeLink>
+      </ThemeLinks>
     </ScrollView>
   );
 }
 
 export default SettingsThemeScreen;
 
-const LanguageLinks = styled.View`
+const ThemeLinks = styled.View`
   padding: 5px 15px;
   margin: 5px 0;
   border-bottom-width: 1px;
   border-bottom-color: #f0f0f0;
 `;
 
-const GermanLink = styled.View`
+const ThemeLink = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
 
-const GermanLabel = styled.Text`
-  padding: 4px 0;
-  font-size: 16px;
-`;
-
-const EnglishLink = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const EnglishLabel = styled.Text`
+const ThemeLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
 `;

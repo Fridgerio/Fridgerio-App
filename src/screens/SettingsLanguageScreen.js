@@ -7,13 +7,13 @@ function SettingsLanguageScreen() {
   return (
     <ScrollView>
       <LanguageLinks>
-        <GermanLink>
-          <GermanLabel>Deutsch</GermanLabel>
+        <LanguageLink>
+          <LanguageLabel>Deutsch</LanguageLabel>
           <Ionicons name="md-checkmark" size={24} />
-        </GermanLink>
-        <EnglishLink>
-          <EnglishLabel>English</EnglishLabel>
-        </EnglishLink>
+        </LanguageLink>
+        <LanguageLink>
+          <LanguageLabel>English</LanguageLabel>
+        </LanguageLink>
       </LanguageLinks>
     </ScrollView>
   );
@@ -32,22 +32,12 @@ const LanguageLinks = styled.View`
   border-bottom-color: #f0f0f0;
 `;
 
-const GermanLink = styled.View`
+const LanguageLink = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
 
-const GermanLabel = styled.Text`
-  padding: 4px 0;
-  font-size: 16px;
-`;
-
-const EnglishLink = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const EnglishLabel = styled.Text`
+const LanguageLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
 `;
