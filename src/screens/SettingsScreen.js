@@ -1,27 +1,35 @@
 import React from 'react';
 import { ScrollView, Linking } from 'react-native';
-// import ToggleSwitch from 'toggle-switch-react-native';
 import styled from 'styled-components';
 import { Ionicons } from '@expo/vector-icons';
 
-function SettingsScreen() {
+function SettingsScreen({ navigation }) {
   return (
     <ScrollView>
       <GeneralSettingsLinks>
         <LanguageLink>
           <LanguageLabel>Sprache</LanguageLabel>
-          <Ionicons name="ios-arrow-forward" size={24} />
+          <Ionicons
+            name="ios-arrow-forward"
+            size={24}
+            onPress={() => navigation.navigate('SettingsLanguageScreen')}
+          />
         </LanguageLink>
         <ThemeLink>
           <ThemeLabel>Design</ThemeLabel>
-          {/* <ToggleButton>
-            <ToggleSwitch isOn onColor="hotpink" />
-          </ToggleButton> */}
-          <Ionicons name="ios-arrow-forward" size={24} />
+          <Ionicons
+            name="ios-arrow-forward"
+            size={24}
+            onPress={() => navigation.navigate('SettingsThemeScreen')}
+          />
         </ThemeLink>
         <NotificationsLink>
           <NotificationsLabel>Benachrichtigungen</NotificationsLabel>
-          <Ionicons name="ios-arrow-forward" size={24} />
+          <Ionicons
+            name="ios-arrow-forward"
+            size={24}
+            onPress={() => navigation.navigate('SettingsNotificationsScreen')}
+          />
         </NotificationsLink>
       </GeneralSettingsLinks>
       <SocialLinks>
@@ -48,11 +56,19 @@ function SettingsScreen() {
       <LegalLinks>
         <LegalNoticeLink>
           <LegalNoticeLabel>Impressum</LegalNoticeLabel>
-          <Ionicons name="ios-arrow-forward" size={24} />
+          <Ionicons
+            name="ios-arrow-forward"
+            size={24}
+            onPress={() => navigation.navigate('LegalNoticeScreen')}
+          />
         </LegalNoticeLink>
         <PrivacyPolicyLink>
           <PrivacyPolicyLabel>Datenschutzerklärung</PrivacyPolicyLabel>
-          <Ionicons name="ios-arrow-forward" size={24} />
+          <Ionicons
+            name="ios-arrow-forward"
+            size={24}
+            onPress={() => navigation.navigate('PrivacyPolicyScreen')}
+          />
         </PrivacyPolicyLink>
       </LegalLinks>
     </ScrollView>
