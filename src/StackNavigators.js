@@ -4,6 +4,13 @@ import ProductFormScreen from './screens/ProductFormScreen';
 import ListScreen from './screens/ListScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import DummyScreen from './screens/DummyScreen';
+import SettingsLanguageScreen from './screens/SettingsLanguageScreen';
+import SettingsNotificationsScreen from './screens/SettingsNotificationsScreen';
+import LegalNoticeScreen from './screens/LegalNoticeScreen';
+import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
+import SettingsThemeScreen from './screens/SettingsThemeScreen';
+import CameraScreen from './screens/CameraScreen';
+
 
 /*
 ----------
@@ -32,12 +39,22 @@ const defaultOptions = {
 };
 
 const HomeStack = createStackNavigator(
-  { HomeScreen, DummyScreen },
+  { HomeScreen, CameraScreen },
   defaultOptions
 );
 const AddStack = createStackNavigator({ ProductFormScreen }, defaultOptions);
 const ListStack = createStackNavigator({ ListScreen }, defaultOptions);
-const SettingsStack = createStackNavigator({ SettingsScreen }, defaultOptions);
+const SettingsStack = createStackNavigator(
+  {
+    SettingsScreen,
+    SettingsLanguageScreen,
+    SettingsNotificationsScreen,
+    SettingsThemeScreen,
+    LegalNoticeScreen,
+    PrivacyPolicyScreen,
+  },
+  defaultOptions
+);
 
 export { HomeStack, AddStack, ListStack, SettingsStack };
 
