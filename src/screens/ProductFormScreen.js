@@ -3,6 +3,7 @@ import {
   ScrollView,
   Text,
   TextInput,
+  Button,
   Picker,
   DatePickerIOS,
   DatePickerAndroid,
@@ -84,6 +85,9 @@ function ProductFormScreen() {
         editable={false}
         textAlignVertical="top"
       />
+
+      <Button title="Speichern" />
+      <Button title="Abbrechen" />
     </ScrollView>
   );
 }
