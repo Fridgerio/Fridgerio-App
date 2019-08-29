@@ -1,10 +1,12 @@
 import React from 'react';
 import { Dimensions, View, StyleSheet, Text, TextInput } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 function Header() {
   return (
-    <View>
+    <View style={styles.headerContainer}>
       <TextInput style={styles.searchBar} value={'Suche nach Produkt...'} />
+      <Ionicons name="ios-search" size={24} />
     </View>
   );
 }
@@ -26,9 +28,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
+  headerContainer: {
+    flexDirection: 'row',
+  },
   searchBar: {
     height: 35,
     width: width,
+    marginRight: 30,
     borderColor: 'gray',
     borderWidth: 1,
     backgroundColor: 'whitesmoke',
