@@ -1,6 +1,36 @@
 import React from 'react';
-import { ScrollView, Text, TextInput, Picker } from 'react-native';
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  Picker,
+  DatePickerIOS,
+  DatePickerAndroid,
+  Platform,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
+function BBDatePickerIOS() {
+  return (
+    <DatePickerIOS
+      initialDate={new Date()}
+      minimumDate={new Date()}
+      mode="date"
+    />
+  );
+}
+
+function BBDatePickerAndroid() {
+  // DatePickerAndroid.open({
+  //   date: new Date(),
+  // });
+  return 'Not available yet';
+}
+
+const BBDatePicker = Platform.select({
+  ios: () => BBDatePickerIOS,
+  android: () => BBDatePickerAndroid,
+})();
 
 function ProductFormScreen() {
   return (
@@ -25,6 +55,9 @@ function ProductFormScreen() {
         <Picker.Item label="4" value={4} />
         <Picker.Item label="5" value={5} />
       </Picker>
+
+      <Text>Mindesthaltbarkeitsdatum</Text>
+      <BBDatePicker />
 
       <Text>Benachrichtigung</Text>
       <Picker prompt="Benachrichtigung" selectedValue={1}>
