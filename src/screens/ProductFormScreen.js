@@ -1,11 +1,20 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 function ProductFormScreen() {
   return (
     <View style={styles.container}>
-      <Text>Hello from ProductFormScreen</Text>
+      <Text>Name</Text>
+      <TextInput placeholder="z.B. Tomate" editable />
+
+      <Text>Note</Text>
+      <TextInput
+        placeholder="Add custom note"
+        multiline
+        editable={false}
+        textAlignVertical="top"
+      />
     </View>
   );
 }
@@ -13,8 +22,8 @@ function ProductFormScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     padding: 20,
   },
 });
