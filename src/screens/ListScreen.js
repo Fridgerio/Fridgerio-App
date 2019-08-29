@@ -1,5 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { Dimensions, View, StyleSheet, Text, TextInput } from 'react-native';
+
+function Header() {
+  return (
+    <View>
+      <TextInput style={styles.searchBar} value={'Suche nach Produkt...'} />
+    </View>
+  );
+}
 
 function ListScreen() {
   return (
@@ -9,6 +17,8 @@ function ListScreen() {
   );
 }
 
+const width = Dimensions.get('window').width * 0.7;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -16,10 +26,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
+  searchBar: {
+    height: 35,
+    width: width,
+    borderColor: 'gray',
+    borderWidth: 1,
+    backgroundColor: 'whitesmoke',
+    paddingHorizontal: 20,
+    color: 'darkgray',
+  },
 });
 
 ListScreen.navigationOptions = {
-  title: 'Your Products',
+  headerTitle: <Header />,
+  headerStyle: {
+    height: 60,
+    backgroundColor: 'hotpink',
+  },
 };
 
 export default ListScreen;
