@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation';
 import HomeScreen from './screens/HomeScreen';
-import AddScreen from './screens/AddScreen';
+import ProductFormScreen from './screens/ProductFormScreen';
 import ListScreen from './screens/ListScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import DummyScreen from './screens/DummyScreen';
@@ -35,7 +35,7 @@ const HomeStack = createStackNavigator(
   { HomeScreen, DummyScreen },
   defaultOptions
 );
-const AddStack = createStackNavigator({ AddScreen }, defaultOptions);
+const AddStack = createStackNavigator({ ProductFormScreen }, defaultOptions);
 const ListStack = createStackNavigator({ ListScreen }, defaultOptions);
 const SettingsStack = createStackNavigator({ SettingsScreen }, defaultOptions);
 
