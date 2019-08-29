@@ -25,7 +25,7 @@ function BBDatePickerAndroid() {
   // DatePickerAndroid.open({
   //   date: new Date(),
   // });
-  return 'Not available yet';
+  return <Text>Not available yet</Text>;
 }
 
 const BBDatePicker = Platform.select({
