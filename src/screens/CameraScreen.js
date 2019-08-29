@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 
-function CameraScreen() {
+function CameraScreen({ navigation }) {
   const [hasCameraPermission, toggleCameraPermission] = useState(null);
   const [scanned, toggleScanned] = useState(false);
   useEffect(() => {
@@ -32,10 +32,14 @@ function CameraScreen() {
       />
       {scanned && (
         <Button
-          title={'Tap to Scan Again'}
+          title={'Nochmals scannen'}
           onPress={() => toggleScanned(false)}
         />
       )}
+      <Button
+        title={'Manuell eingeben'}
+        onPress={() => navigation.navigate('ProductFormScreen')}
+      />
     </View>
   );
 }
