@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { BarCodeScanner } from 'expo';
+import { View, StyleSheet, Text, Button } from 'react-native';
 import { Camera } from 'expo-camera';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 
 function CameraScreen() {
-  // // const [barcodeScanning, setBarcodeScanning] = useState(false);
   // // const [flash, setFlash] = useState(false);
   // const [type] = useState('back');
   // // const toggleFlash = () => setFlash(!flash);
-  // // const toggleBarcodeScanning = () => setBarcodeScanning(!barcodeScanning);
-  // // const onBarCodeScanned = code => {
-  // // toggleBarcodeScanning();
-  // // Alert.alert(`Barcode found: ${code.data}`);
-  // // };
-  // // const handleMountError = ({ message }) => console.error(message);
   // // const renderTopBar = () => (
   // // <View>
   // // <TouchableOpacity onPress={toggleFlash}>
@@ -32,11 +25,6 @@ function CameraScreen() {
   //       }}
   //       type={type}
   //       // flashMode={flash}
-  //       // onMountError={handleMountError}
-  //       // barCodeScannerSettings={{
-  //       // barCodeTypes: [BarCodeScanner.Constants.BarCodeType.ean13],
-  //       // }}
-  //       // onBarCodeScanned={barcodeScanning ? onBarCodeScanned : undefined}
   //     >
   //       {/* {renderTopBar()} */}
   //     </Camera>
@@ -44,11 +32,7 @@ function CameraScreen() {
   // );
   // return <View style={styles.container}>{renderCamera()}</View>;
   const [hasCameraPermission, toggleCameraPermission] = useState(null);
-  const [type] = useState(Camera.Constants.Type.back);
-  const [autoFocus] = useState(true);
-  const [zoom] = useState(0);
-  const [whiteBalance] = useState('auto');
-  const [ratio] = useState('16:9');
+  const [scanned, toggleScanned] = useState(false);
   useEffect(() => {
     const askPermission = async () => {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -56,29 +40,29 @@ function CameraScreen() {
     };
     askPermission();
   }, []);
+  const handleBarCodeScanned = ({ type, data }) => {
+    toggleScanned(true);
+    alert(`Bar code with type ${type} and data ${data} has been scanned.`);
+  };
   if (hasCameraPermission === null) {
-    return <View />;
+    return <Text>Frage Kameraerlaubnis ab.</Text>;
   } else if (hasCameraPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <Text>Kein Zugriff auf Kamera.</Text>;
   }
   return (
-    <View style={{ flex: 1 }}>
-      <Camera
-        style={{ flex: 1 }}
-        type={type}
-        autoFocus={autoFocus}
-        zoom={zoom}
-        whiteBalance={whiteBalance}
-        ratio={ratio}
-      >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'transparent',
-            flexDirection: 'row',
-          }}
+    <View
+      style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}
+    >
+      <BarCodeScanner
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        style={StyleSheet.absoluteFillObject}
+      />
+      {scanned && (
+        <Button
+          title={'Tap to Scan Again'}
+          onPress={() => toggleScanned(false)}
         />
-      </Camera>
+      )}
     </View>
   );
 }
