@@ -19,6 +19,10 @@ function SettingsThemeScreen() {
   );
 }
 
+SettingsThemeScreen.navigationOptions = {
+  title: 'Wähle ein Theme',
+};
+
 export default SettingsThemeScreen;
 
 const ThemeLinks = styled.View`

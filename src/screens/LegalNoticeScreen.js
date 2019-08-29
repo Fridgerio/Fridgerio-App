@@ -19,4 +19,8 @@ function LegalNoticeScreen() {
   );
 }
 
+LegalNoticeScreen.navigationOptions = {
+  title: 'Impressum',
+};
+
 export default LegalNoticeScreen;

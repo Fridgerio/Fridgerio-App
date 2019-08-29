@@ -148,4 +148,8 @@ function SettingsNotificationsScreen() {
   );
 }
 
+SettingsNotificationsScreen.navigationOptions = {
+  title: 'Benachrichtigungserinnerungen',
+};
+
 export default SettingsNotificationsScreen;

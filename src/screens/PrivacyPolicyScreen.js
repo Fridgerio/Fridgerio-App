@@ -19,4 +19,8 @@ function PrivacyPolicyScreen() {
   );
 }
 
+PrivacyPolicyScreen.navigationOptions = {
+  title: 'Datenschutzerklärung',
+};
+
 export default PrivacyPolicyScreen;

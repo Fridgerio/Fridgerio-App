@@ -19,11 +19,11 @@ function SettingsLanguageScreen() {
   );
 }
 
-export default SettingsLanguageScreen;
+SettingsLanguageScreen.navigationOptions = {
+  title: 'Wähle eine Sprache',
+};
 
-// LanguageScreen.navigationOptions = {
-//  title: 'Sprache wählen',
-// };
+export default SettingsLanguageScreen;
 
 const LanguageLinks = styled.View`
   padding: 5px 15px;
