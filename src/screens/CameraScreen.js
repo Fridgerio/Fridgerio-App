@@ -12,7 +12,6 @@ function CameraScreen() {
   // // const [ratio] = useState('16:9');
   // // const [whiteBalance] = useState('auto');
   // // const [zoom] = useState(0);
-  // // const [autoFocus] = useState(true);
   // const [type] = useState('back');
   // // const toggleFlash = () => setFlash(!flash);
   // // const toggleBarcodeScanning = () => setBarcodeScanning(!barcodeScanning);
@@ -36,7 +35,6 @@ function CameraScreen() {
   //       }}
   //       type={type}
   //       // flashMode={flash}
-  //       // autoFocus={autoFocus}
   //       // zoom={zoom}
   //       // whiteBalance={whiteBalance}
   //       // ratio={ratio}
@@ -53,6 +51,7 @@ function CameraScreen() {
   // return <View style={styles.container}>{renderCamera()}</View>;
   const [hasCameraPermission, toggleCameraPermission] = useState(null);
   const [type] = useState(Camera.Constants.Type.back);
+  const [autoFocus] = useState(true);
   useEffect(() => {
     const askPermission = async () => {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -67,7 +66,7 @@ function CameraScreen() {
   }
   return (
     <View style={{ flex: 1 }}>
-      <Camera style={{ flex: 1 }} type={type}>
+      <Camera style={{ flex: 1 }} type={type} autoFocus={autoFocus}>
         <View
           style={{
             flex: 1,
