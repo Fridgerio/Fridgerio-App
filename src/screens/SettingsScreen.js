@@ -1,36 +1,59 @@
 import React from 'react';
 import { ScrollView, Linking } from 'react-native';
-import ToggleSwitch from 'toggle-switch-react-native';
+// import ToggleSwitch from 'toggle-switch-react-native';
 import styled from 'styled-components';
+import { Ionicons } from '@expo/vector-icons';
 
 function SettingsScreen() {
   return (
     <ScrollView>
-      <SettingsView>
-        <LanguageLink>Sprache</LanguageLink>
+      <GeneralSettingsLinks>
+        <LanguageLink>
+          <LanguageLabel>Sprache</LanguageLabel>
+          <Ionicons name="ios-arrow-forward" size={24} />
+        </LanguageLink>
         <ThemeLink>
           <ThemeLabel>Design</ThemeLabel>
-          <ToggleButton>
+          {/* <ToggleButton>
             <ToggleSwitch isOn onColor="hotpink" />
-          </ToggleButton>
+          </ToggleButton> */}
+          <Ionicons name="ios-arrow-forward" size={24} />
         </ThemeLink>
-        <NotificationsLink>Benachrichtigungen</NotificationsLink>
-      </SettingsView>
+        <NotificationsLink>
+          <NotificationsLabel>Benachrichtigungen</NotificationsLabel>
+          <Ionicons name="ios-arrow-forward" size={24} />
+        </NotificationsLink>
+      </GeneralSettingsLinks>
       <SocialLinks>
-        <RateLink>Bewerte die App</RateLink>
-        <ShareLink>Teile die App</ShareLink>
+        <RateLink>
+          <RateLabel>Bewerte die App</RateLabel>
+          <Ionicons name="ios-arrow-forward" size={24} />
+        </RateLink>
+        <ShareLink>
+          <ShareLabel>Teile die App</ShareLabel>
+          <Ionicons name="ios-arrow-forward" size={24} />
+        </ShareLink>
       </SocialLinks>
-      <HelpView>
-        <HelpLink
-          onPress={() =>
-            Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
-        >
-          Hilfe / FAQ
+      <HelpLinks>
+        <HelpLink>
+          <HelpLabel
+            onPress={() =>
+              Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
+          >
+            Hilfe / FAQ
+          </HelpLabel>
+          <Ionicons name="ios-arrow-forward" size={24} />
         </HelpLink>
-      </HelpView>
+      </HelpLinks>
       <LegalLinks>
-        <LegalNoticeLink>Impressum</LegalNoticeLink>
-        <PrivacyPolicyLink>Datenschutzerklärung</PrivacyPolicyLink>
+        <LegalNoticeLink>
+          <LegalNoticeLabel>Impressum</LegalNoticeLabel>
+          <Ionicons name="ios-arrow-forward" size={24} />
+        </LegalNoticeLink>
+        <PrivacyPolicyLink>
+          <PrivacyPolicyLabel>Datenschutzerklärung</PrivacyPolicyLabel>
+          <Ionicons name="ios-arrow-forward" size={24} />
+        </PrivacyPolicyLink>
       </LegalLinks>
     </ScrollView>
   );
@@ -42,14 +65,19 @@ SettingsScreen.navigationOptions = {
   title: 'Einstellungen',
 };
 
-const SettingsView = styled.View`
-  padding: 5px 10px;
+const GeneralSettingsLinks = styled.View`
+  padding: 5px 15px;
   margin: 5px 0;
   border-bottom-width: 1px;
   border-bottom-color: #f0f0f0;
 `;
 
-const LanguageLink = styled.Text`
+const LanguageLink = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const LanguageLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
 `;
@@ -69,53 +97,83 @@ const ToggleButton = styled.View`
   text-align: right;
 `;
 
-const NotificationsLink = styled.Text`
+const NotificationsLink = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const NotificationsLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
 `;
 
 const SocialLinks = styled.View`
-  padding: 5px 10px;
+  padding: 5px 15px;
   margin: 5px 0;
   border-bottom-width: 1px;
   border-bottom-color: #f0f0f0;
 `;
 
-const RateLink = styled.Text`
+const RateLink = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const RateLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
 `;
 
-const ShareLink = styled.Text`
+const ShareLink = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const ShareLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
 `;
 
-const HelpView = styled.View`
-  padding: 5px 10px;
+const HelpLinks = styled.View`
+  padding: 5px 15px;
   margin: 5px 0;
   border-bottom-width: 1px;
   border-bottom-color: #f0f0f0;
 `;
 
-const HelpLink = styled.Text`
+const HelpLink = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const HelpLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
 `;
 
 const LegalLinks = styled.View`
-  padding: 5px 10px;
+  padding: 5px 15px;
   margin: 5px 0;
   border-bottom-width: 1px;
   border-bottom-color: #f0f0f0;
 `;
 
-const LegalNoticeLink = styled.Text`
+const LegalNoticeLink = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const LegalNoticeLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
 `;
 
-const PrivacyPolicyLink = styled.Text`
+const PrivacyPolicyLink = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const PrivacyPolicyLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
 `;
