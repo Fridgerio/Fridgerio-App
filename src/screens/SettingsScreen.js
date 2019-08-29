@@ -7,29 +7,21 @@ function SettingsScreen({ navigation }) {
   return (
     <ScrollView>
       <GeneralSettingsLinks>
-        <LanguageLink>
+        <LanguageLink
+          onPress={() => navigation.navigate('SettingsLanguageScreen')}
+        >
           <LanguageLabel>Sprache</LanguageLabel>
-          <Ionicons
-            name="ios-arrow-forward"
-            size={24}
-            onPress={() => navigation.navigate('SettingsLanguageScreen')}
-          />
+          <Ionicons name="ios-arrow-forward" size={24} />
         </LanguageLink>
-        <ThemeLink>
+        <ThemeLink onPress={() => navigation.navigate('SettingsThemeScreen')}>
           <ThemeLabel>Design</ThemeLabel>
-          <Ionicons
-            name="ios-arrow-forward"
-            size={24}
-            onPress={() => navigation.navigate('SettingsThemeScreen')}
-          />
+          <Ionicons name="ios-arrow-forward" size={24} />
         </ThemeLink>
-        <NotificationsLink>
+        <NotificationsLink
+          onPress={() => navigation.navigate('SettingsNotificationsScreen')}
+        >
           <NotificationsLabel>Benachrichtigungen</NotificationsLabel>
-          <Ionicons
-            name="ios-arrow-forward"
-            size={24}
-            onPress={() => navigation.navigate('SettingsNotificationsScreen')}
-          />
+          <Ionicons name="ios-arrow-forward" size={24} />
         </NotificationsLink>
       </GeneralSettingsLinks>
       <SocialLinks>
@@ -43,32 +35,26 @@ function SettingsScreen({ navigation }) {
         </ShareLink>
       </SocialLinks>
       <HelpLinks>
-        <HelpLink>
-          <HelpLabel
-            onPress={() =>
-              Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
-          >
-            Hilfe / FAQ
-          </HelpLabel>
+        <HelpLink
+          onPress={() =>
+            Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
+        >
+          <HelpLabel>Hilfe / FAQ</HelpLabel>
           <Ionicons name="ios-arrow-forward" size={24} />
         </HelpLink>
       </HelpLinks>
       <LegalLinks>
-        <LegalNoticeLink>
+        <LegalNoticeLink
+          onPress={() => navigation.navigate('LegalNoticeScreen')}
+        >
           <LegalNoticeLabel>Impressum</LegalNoticeLabel>
-          <Ionicons
-            name="ios-arrow-forward"
-            size={24}
-            onPress={() => navigation.navigate('LegalNoticeScreen')}
-          />
+          <Ionicons name="ios-arrow-forward" size={24} />
         </LegalNoticeLink>
-        <PrivacyPolicyLink>
+        <PrivacyPolicyLink
+          onPress={() => navigation.navigate('PrivacyPolicyScreen')}
+        >
           <PrivacyPolicyLabel>Datenschutzerklärung</PrivacyPolicyLabel>
-          <Ionicons
-            name="ios-arrow-forward"
-            size={24}
-            onPress={() => navigation.navigate('PrivacyPolicyScreen')}
-          />
+          <Ionicons name="ios-arrow-forward" size={24} />
         </PrivacyPolicyLink>
       </LegalLinks>
     </ScrollView>
@@ -88,9 +74,10 @@ const GeneralSettingsLinks = styled.View`
   border-bottom-color: #f0f0f0;
 `;
 
-const LanguageLink = styled.View`
+const LanguageLink = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
+  padding: 5px 0;
 `;
 
 const LanguageLabel = styled.Text`
@@ -98,9 +85,10 @@ const LanguageLabel = styled.Text`
   font-size: 16px;
 `;
 
-const ThemeLink = styled.View`
+const ThemeLink = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
+  padding: 5px 0;
 `;
 
 const ThemeLabel = styled.Text`
@@ -108,14 +96,10 @@ const ThemeLabel = styled.Text`
   font-size: 16px;
 `;
 
-const ToggleButton = styled.View`
-  padding: 4px 0;
-  text-align: right;
-`;
-
-const NotificationsLink = styled.View`
+const NotificationsLink = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
+  padding: 5px 0;
 `;
 
 const NotificationsLabel = styled.Text`
@@ -130,9 +114,10 @@ const SocialLinks = styled.View`
   border-bottom-color: #f0f0f0;
 `;
 
-const RateLink = styled.View`
+const RateLink = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
+  padding: 5px 0;
 `;
 
 const RateLabel = styled.Text`
@@ -140,9 +125,10 @@ const RateLabel = styled.Text`
   font-size: 16px;
 `;
 
-const ShareLink = styled.View`
+const ShareLink = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
+  padding: 5px 0;
 `;
 
 const ShareLabel = styled.Text`
@@ -157,9 +143,10 @@ const HelpLinks = styled.View`
   border-bottom-color: #f0f0f0;
 `;
 
-const HelpLink = styled.View`
+const HelpLink = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
+  padding: 5px 0;
 `;
 
 const HelpLabel = styled.Text`
@@ -174,9 +161,10 @@ const LegalLinks = styled.View`
   border-bottom-color: #f0f0f0;
 `;
 
-const LegalNoticeLink = styled.View`
+const LegalNoticeLink = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
+  padding: 5px 0;
 `;
 
 const LegalNoticeLabel = styled.Text`
@@ -184,9 +172,10 @@ const LegalNoticeLabel = styled.Text`
   font-size: 16px;
 `;
 
-const PrivacyPolicyLink = styled.View`
+const PrivacyPolicyLink = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
+  padding: 5px 0;
 `;
 
 const PrivacyPolicyLabel = styled.Text`
