@@ -10,7 +10,6 @@ function CameraScreen() {
   // // const [barcodeScanning, setBarcodeScanning] = useState(false);
   // // const [flash, setFlash] = useState(false);
   // // const [ratio] = useState('16:9');
-  // // const [whiteBalance] = useState('auto');
   // const [type] = useState('back');
   // // const toggleFlash = () => setFlash(!flash);
   // // const toggleBarcodeScanning = () => setBarcodeScanning(!barcodeScanning);
@@ -34,7 +33,6 @@ function CameraScreen() {
   //       }}
   //       type={type}
   //       // flashMode={flash}
-  //       // whiteBalance={whiteBalance}
   //       // ratio={ratio}
   //       // onMountError={handleMountError}
   //       // barCodeScannerSettings={{
@@ -51,6 +49,7 @@ function CameraScreen() {
   const [type] = useState(Camera.Constants.Type.back);
   const [autoFocus] = useState(true);
   const [zoom] = useState(0);
+  const [whiteBalance] = useState('auto');
   useEffect(() => {
     const askPermission = async () => {
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -65,8 +64,13 @@ function CameraScreen() {
   }
   return (
     <View style={{ flex: 1 }}>
-      <Camera style={{ flex: 1 }} type={type} autoFocus={autoFocus}
-zoom={zoom}>
+      <Camera
+        style={{ flex: 1 }}
+        type={type}
+        autoFocus={autoFocus}
+        zoom={zoom}
+        whiteBalance={whiteBalance}
+      >
         <View
           style={{
             flex: 1,
