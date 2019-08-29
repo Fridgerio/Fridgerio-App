@@ -4,6 +4,7 @@ import ProductFormScreen from './screens/ProductFormScreen';
 import ListScreen from './screens/ListScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import DummyScreen from './screens/DummyScreen';
+import CameraScreen from './screens/CameraScreen';
 
 /*
 ----------
@@ -32,7 +33,7 @@ const defaultOptions = {
 };
 
 const HomeStack = createStackNavigator(
-  { HomeScreen, DummyScreen },
+  { HomeScreen, CameraScreen },
   defaultOptions
 );
 const AddStack = createStackNavigator({ ProductFormScreen }, defaultOptions);
