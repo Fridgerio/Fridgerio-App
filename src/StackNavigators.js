@@ -9,6 +9,8 @@ import SettingsNotificationsScreen from './screens/SettingsNotificationsScreen';
 import LegalNoticeScreen from './screens/LegalNoticeScreen';
 import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
 import SettingsThemeScreen from './screens/SettingsThemeScreen';
+import CameraScreen from './screens/CameraScreen';
+
 
 /*
 ----------
@@ -37,7 +39,7 @@ const defaultOptions = {
 };
 
 const HomeStack = createStackNavigator(
-  { HomeScreen, DummyScreen },
+  { HomeScreen, CameraScreen },
   defaultOptions
 );
 const AddStack = createStackNavigator({ ProductFormScreen }, defaultOptions);

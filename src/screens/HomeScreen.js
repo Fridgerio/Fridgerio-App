@@ -7,10 +7,7 @@ function HomeScreen({ navigation }) {
       <Text>Hello from Home</Text>
       <Button
         title="Navigate"
-        onPress={() =>
-          navigation.navigate('DummyScreen', {
-            greeting: 'Hello, world!',
-          })}
+        onPress={() => navigation.navigate('CameraScreen')}
       />
     </View>
   );
