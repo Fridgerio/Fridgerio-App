@@ -63,10 +63,12 @@ function CategoryFilter() {
 function ListScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.categoryListContainer}>
-        <Ionicons name="ios-arrow-back" size={28} color="lightgray" />
-        <CategoryFilter />
-        <Ionicons name="ios-arrow-forward" size={28} color="lightgray" />
+      <View style={styles.container}>
+        <View style={styles.categoryListContainer}>
+          <Ionicons name="ios-arrow-back" size={28} color="lightgray" />
+          <CategoryFilter />
+          <Ionicons name="ios-arrow-forward" size={28} color="lightgray" />
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -76,7 +78,9 @@ function ListScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
+    flex: 1,
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
   searchBarContainer: {
     flex: 1,
@@ -93,7 +97,7 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     fontSize: 28,
-    color: 'gray',
+    color: '#1b4e55',
     alignSelf: 'center',
     marginHorizontal: 15,
     marginTop: 3,
