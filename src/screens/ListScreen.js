@@ -72,6 +72,21 @@ function Product() {
   );
 }
 
+function ProductEdit() {
+  return (
+    <View style={styles.productEdit}>
+      <View style={styles.edit}>
+        <Text style={{ color: 'white' }}>Edit</Text>
+      </View>
+      <MaterialCommunityIcons
+        name="food-fork-drink"
+        style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
+      />
+      <Text>Random Food</Text>
+    </View>
+  );
+}
+
 function ListScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -82,6 +97,7 @@ function ListScreen() {
           <Ionicons name="ios-arrow-forward" size={28} color="lightgray" />
         </View>
         <Product />
+        <ProductEdit />
         <Product />
         <Product />
       </View>
@@ -133,6 +149,21 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'lightgray',
     padding: 15,
+  },
+  productEdit: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 80,
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+  },
+  edit: {
+    height: 80,
+    width: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'green',
+    marginRight: 15,
   },
 });
 
