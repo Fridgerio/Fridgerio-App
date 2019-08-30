@@ -54,11 +54,11 @@ function ListScreen() {
   );
 }
 
-const width = Dimensions.get('window').width * 0.7;
+const width = Dimensions.get('window').width * 0.8;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 15,
   },
   searchBarContainer: {
     flexDirection: 'row',
