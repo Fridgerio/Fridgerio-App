@@ -7,8 +7,10 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  FlatList,
+  ScrollView,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 function SearchBar() {
   return (
@@ -24,12 +26,29 @@ function SearchBar() {
   );
 }
 
+function CategoryFilter() {
+  return (
+    <FlatList
+      style={styles.categoryList}
+      horizontal
+      data={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']}
+      keyExtractor={category => category}
+      renderItem={() => (
+        <MaterialCommunityIcons
+          name="food"
+          style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
+        />
+      )}
+    />
+  );
+}
+
 function ListScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <Text>Hello from List</Text>
-      </View>
+      <ScrollView style={styles.container}>
+        <CategoryFilter />
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 }
@@ -38,10 +57,7 @@ const width = Dimensions.get('window').width * 0.7;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+    padding: 10,
   },
   searchBarContainer: {
     flexDirection: 'row',
@@ -63,12 +79,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginTop: 3,
   },
+  categoryList: {
+    marginTop: 10,
+    marginHorizontal: 30,
+  },
 });
 
 ListScreen.navigationOptions = {
   headerTitle: <SearchBar />,
   headerStyle: {
     backgroundColor: '#51c1c9',
+    height: 50,
   },
 };
 
