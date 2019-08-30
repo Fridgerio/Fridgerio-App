@@ -9,6 +9,7 @@ import {
   Keyboard,
   FlatList,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -35,10 +36,12 @@ function CategoryFilter() {
       data={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']}
       keyExtractor={category => category}
       renderItem={() => (
-        <MaterialCommunityIcons
-          name="food"
-          style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
-        />
+        <TouchableOpacity onPress={() => console.warn('clicked')}>
+          <MaterialCommunityIcons
+            name="food"
+            style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
+          />
+        </TouchableOpacity>
       )}
     />
   );
