@@ -52,7 +52,7 @@ function CategoryFilter() {
         <TouchableOpacity onPress={() => console.warn('clicked')}>
           <MaterialCommunityIcons
             name={item.name}
-            style={{ color: '#1b4e55', fontSize: 28, paddingRight: 20 }}
+            style={{ color: '#1b4e55', fontSize: 28, paddingRight: 25 }}
           />
         </TouchableOpacity>
       )}
@@ -63,23 +63,25 @@ function CategoryFilter() {
 function ListScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView style={styles.container}>
+      <View style={styles.categoryListContainer}>
+        <Ionicons name="ios-arrow-back" size={28} color="lightgray" />
         <CategoryFilter />
-      </ScrollView>
+        <Ionicons name="ios-arrow-forward" size={28} color="lightgray" />
+      </View>
     </TouchableWithoutFeedback>
   );
 }
 
-const width = Dimensions.get('window').width * 0.8;
+// const width = Dimensions.get('window').width * 0.8;
 
 const styles = StyleSheet.create({
   container: {
     padding: 15,
   },
   searchBarContainer: {
+    flex: 1,
     flexDirection: 'row',
     height: 35,
-    width: width,
     backgroundColor: 'whitesmoke',
     borderRadius: 5,
     marginBottom: 10,
@@ -96,9 +98,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginTop: 3,
   },
-  categoryList: {
-    marginTop: 10,
+  categoryListContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
     marginHorizontal: 30,
+  },
+  categoryList: {
+    marginHorizontal: 22,
   },
 });
 
@@ -107,6 +114,7 @@ ListScreen.navigationOptions = {
   headerStyle: {
     backgroundColor: '#51c1c9',
     height: 50,
+    marginHorizontal: 30,
   },
 };
 
