@@ -11,7 +11,6 @@ import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
 import SettingsThemeScreen from './screens/SettingsThemeScreen';
 import CameraScreen from './screens/CameraScreen';
 
-
 /*
 ----------
 default values can be overwritten by adding the same property to the navigation options of each individual screen
@@ -23,15 +22,15 @@ https://reactnavigation.org/docs/en/stack-navigator.html
 const defaultOptions = {
   defaultNavigationOptions: {
     headerStyle: {
-      backgroundColor: 'hotpink',
+      backgroundColor: '#1C4E55',
     },
-    headerTintColor: 'yellow',
+    headerTintColor: '#fff',
     headerTitleStyle: {
       fontWeight: 'normal',
-      color: 'white', // overwrites headerTintColor
+      color: '#fff', // overwrites headerTintColor
     },
     headerBackTitleStyle: {
-      color: 'greenyellow',
+      color: '#fff',
     },
     /* gesturesEnabled enables swiping between screens, defaults to true for iOS and to false on Android */
     gesturesEnabled: true,
