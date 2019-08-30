@@ -60,6 +60,18 @@ function CategoryFilter() {
   );
 }
 
+function Product() {
+  return (
+    <View style={styles.product}>
+      <MaterialCommunityIcons
+        name="food-apple"
+        style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
+      />
+      <Text>Random Food</Text>
+    </View>
+  );
+}
+
 function ListScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -69,6 +81,9 @@ function ListScreen() {
           <CategoryFilter />
           <Ionicons name="ios-arrow-forward" size={28} color="lightgray" />
         </View>
+        <Product />
+        <Product />
+        <Product />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -110,6 +125,14 @@ const styles = StyleSheet.create({
   },
   categoryList: {
     marginHorizontal: 22,
+  },
+  product: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 80,
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+    padding: 15,
   },
 });
 
