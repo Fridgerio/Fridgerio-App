@@ -1,21 +1,36 @@
 import React from 'react';
-import { Dimensions, View, StyleSheet, Text, TextInput } from 'react-native';
+import {
+  Dimensions,
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-function Header() {
+function SearchBar() {
   return (
-    <View style={styles.headerContainer}>
-      <TextInput style={styles.searchBar} value={'Suche nach Produkt...'} />
-      <Ionicons name="ios-search" size={24} />
+    <View style={styles.searchBarContainer}>
+      <TextInput
+        style={styles.textInput}
+        placeholder={'Suche nach Produkt...'}
+        /* callback fn is executed both when user hits return on device keyboard and when keyboard is dismissed by clicking anywhere else on the screen */
+        onEndEditing={() => console.warn('submitted/dismissed')}
+      />
+      <Ionicons name="ios-search" style={styles.searchIcon} />
     </View>
   );
 }
 
 function ListScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Hello from List</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text>Hello from List</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -28,26 +43,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  headerContainer: {
+  searchBarContainer: {
     flexDirection: 'row',
-  },
-  searchBar: {
     height: 35,
     width: width,
-    marginRight: 30,
-    borderColor: 'gray',
-    borderWidth: 1,
     backgroundColor: 'whitesmoke',
-    paddingHorizontal: 20,
-    color: 'darkgray',
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  textInput: {
+    flex: 1,
+    paddingHorizontal: 10,
+    fontSize: 16,
+  },
+  searchIcon: {
+    fontSize: 28,
+    color: 'gray',
+    alignSelf: 'center',
+    marginHorizontal: 15,
+    marginTop: 3,
   },
 });
 
 ListScreen.navigationOptions = {
-  headerTitle: <Header />,
+  headerTitle: <SearchBar />,
   headerStyle: {
-    height: 60,
-    backgroundColor: 'hotpink',
+    backgroundColor: '#51c1c9',
   },
 };
 
