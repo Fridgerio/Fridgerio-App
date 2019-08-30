@@ -16,7 +16,7 @@ function SearchBar() {
       <TextInput
         style={styles.textInput}
         placeholder={'Suche nach Produkt...'}
-        /* callback fn is executed both when user hits return on device keyboard and when keyboard is dismissed by clicking anywhere else on the screen */
+        /* callback fn is executed both when user hits return on device keyboard and when keyboard is dismissed - triggered by the TouchableWithoutFeedback wrapper - by clicking anywhere else on the screen */
         onEndEditing={() => console.warn('submitted/dismissed')}
       />
       <Ionicons name="ios-search" style={styles.searchIcon} />
