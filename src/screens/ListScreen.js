@@ -68,6 +68,8 @@ function Product() {
         style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
       />
       <Text>Random Food</Text>
+      <Text style={{ color: 'gray', paddingLeft: 20 }}>+4</Text>
+      <Text style={{ position: 'absolute', right: 15 }}>20. September</Text>
     </View>
   );
 }
@@ -83,6 +85,7 @@ function ProductEdit() {
         style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
       />
       <Text>Random Food</Text>
+      <Text style={{ position: 'absolute', right: 15 }}>02. Oktober</Text>
     </View>
   );
 }
@@ -95,8 +98,10 @@ function ProductDelete() {
         style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
       />
       <Text>Random Food</Text>
+      <Text style={{ color: 'gray', paddingLeft: 20 }}>+2</Text>
       <View style={styles.delete}>
         <Text style={{ color: 'white' }}>Delete</Text>
+        <Text style={{ position: 'absolute', right: 95 }}>11. Juli</Text>
       </View>
     </View>
   );
@@ -111,11 +116,13 @@ function ListScreen() {
           <CategoryFilter />
           <Ionicons name="ios-arrow-forward" size={28} color="lightgray" />
         </View>
-        <Product />
-        <ProductEdit />
-        <Product />
-        <ProductDelete />
-        <Product />
+        <View style={{ marginTop: 60 }}>
+          <Product />
+          <ProductEdit />
+          <Product />
+          <ProductDelete />
+          <Product />
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
