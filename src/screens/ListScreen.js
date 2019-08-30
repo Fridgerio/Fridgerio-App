@@ -87,6 +87,21 @@ function ProductEdit() {
   );
 }
 
+function ProductDelete() {
+  return (
+    <View style={styles.product}>
+      <MaterialCommunityIcons
+        name="food-croissant"
+        style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
+      />
+      <Text>Random Food</Text>
+      <View style={styles.delete}>
+        <Text style={{ color: 'white' }}>Delete</Text>
+      </View>
+    </View>
+  );
+}
+
 function ListScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -99,6 +114,7 @@ function ListScreen() {
         <Product />
         <ProductEdit />
         <Product />
+        <ProductDelete />
         <Product />
       </View>
     </TouchableWithoutFeedback>
@@ -164,6 +180,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'green',
     marginRight: 15,
+  },
+  delete: {
+    position: 'absolute',
+    right: 0,
+    height: 80,
+    width: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
   },
 });
 
