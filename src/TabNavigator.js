@@ -42,7 +42,7 @@ export default createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'hotpink',
+      activeTintColor: '#1C4E55',
       showLabel: false, // defaults to true
       showIcon: true, // defaults to true
       /* override the forceInset prop for <SafeAreaView> to set custom padding between icons (or label) and bottom screen border
@@ -52,6 +52,7 @@ export default createBottomTabNavigator(
         paddingTop: 10,
         paddingBottom: 25,
         height: 80,
+        backgroundColor: '#fff',
       },
       keyboardHidesTabBar: true, // hide the tab bar when keyboard opens
     },
