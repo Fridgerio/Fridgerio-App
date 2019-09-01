@@ -157,9 +157,15 @@ function ProductFormScreen() {
         editable={false}
         textAlignVertical="top"
       />
-
-      <Button title="Speichern" />
-      <Button title="Abbrechen" />
+      <FlatList
+        horizontal
+        data={[
+          { key: 'x', name: 'Abbrechen' },
+          { key: 'v', name: 'Speichern' },
+        ]}
+        keyExtractor={item => item.key}
+        renderItem={({ item }) => <Button title={item.name} />}
+      />
     </ScrollView>
   );
 }
