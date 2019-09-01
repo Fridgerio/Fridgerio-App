@@ -14,6 +14,14 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+const categories = [
+  { id: '1', name: 'Alle', icon: 'food' },
+  { id: '2', name: 'Obst&Gemüse', icon: 'food-apple' },
+  { id: '3', name: 'Milchprodukte', icon: 'food-croissant' },
+  { id: '4', name: 'Nudeln, Reis usw.', icon: 'food-fork-drink' },
+  { id: '5', name: 'Getränke', icon: 'food-variant' },
+];
+
 const labels = [
   { id: '1', color: 'red', chosen: false },
   { id: '2', color: 'hotpink', chosen: true },
@@ -45,6 +53,29 @@ const BBDatePicker = Platform.select({
   android: () => BBDatePickerAndroid,
 })();
 
+function CategoryPicker() {
+  return (
+    <React.Fragment>
+      <Text>Kategorie</Text>
+      <Picker
+        prompt="Kategorie"
+        selectedValue="0"
+        onValueChange={itemValue =>
+          console.warn(`Category ${itemValue} selected`)}
+      >
+        <Picker.Item label="Bitte wähle eine Kategorie" value="0" />
+        {categories.map(category => (
+          <Picker.Item
+            label={category.name}
+            value={category.id}
+            key={category.id}
+          />
+        ))}
+      </Picker>
+    </React.Fragment>
+  );
+}
+
 function AddLabels() {
   return (
     <React.Fragment>
@@ -72,14 +103,7 @@ function ProductFormScreen() {
       <Text>Name</Text>
       <TextInput placeholder="z.B. Tomate" editable />
 
-      <Text>Kategorie</Text>
-      <Picker prompt="Kategorie" selectedValue="None">
-        <Picker.Item label="Bitte wähle eine Kategorie" value="None" />
-        <Picker.Item label="Obst&Gemüse" value="TBD" />
-        <Picker.Item label="Milchprodukte" value="TBD" />
-        <Picker.Item label="Nudeln, Reis usw." value="TBD" />
-        <Picker.Item label="Getränke" value="TBD" />
-      </Picker>
+      <CategoryPicker />
 
       <Image
         style={{ width: 150, height: 150 }}
