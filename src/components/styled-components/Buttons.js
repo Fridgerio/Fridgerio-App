@@ -29,3 +29,14 @@ export const SaveButton = props => (
     <StyledSaveButtonText>{props.title}</StyledSaveButtonText>
   </StyledSaveButton>
 );
+
+// Cancel Button
+const StyledCancelButton = styled(DefaultButton)`
+  background-color: #ff0000;
+`;
+const StyledCancelButtonText = styled(DefaultButton)``;
+export const CancelButton = props => (
+  <StyledCancelButton {...props}>
+    <StyledCancelButtonText>{props.title}</StyledCancelButtonText>
+  </StyledCancelButton>
+);
