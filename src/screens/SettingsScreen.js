@@ -28,10 +28,7 @@ function SettingsScreen({ navigation }) {
         <RowLink
           title="Hilfe / FAQ"
           onPress={() =>
-            Linking.openURL(
-              'https://facebook.github.io/react-native/docs/linking'
-            )
-          }
+            Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
         />
       </Textbox>
       <Textbox>
