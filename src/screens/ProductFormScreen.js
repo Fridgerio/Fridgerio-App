@@ -1,16 +1,27 @@
 import React from 'react';
 import {
   ScrollView,
+  TouchableOpacity,
   Text,
   TextInput,
   Button,
   Image,
+  FlatList,
   Picker,
   DatePickerIOS,
   DatePickerAndroid,
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
+const labels = [
+  { id: '1', color: 'red', chosen: false },
+  { id: '2', color: 'hotpink', chosen: true },
+  { id: '3', color: 'orange', chosen: false },
+  { id: '4', color: 'yellow', chosen: false },
+  { id: '5', color: 'green', chosen: false },
+  { id: '6', color: 'blue', chosen: false },
+];
 
 function BBDatePickerIOS() {
   return (
@@ -33,6 +44,27 @@ const BBDatePicker = Platform.select({
   ios: () => BBDatePickerIOS,
   android: () => BBDatePickerAndroid,
 })();
+
+function AddLabels() {
+  return (
+    <React.Fragment>
+      <Text>Füge ein Label hinzu</Text>
+      <FlatList
+        horizontal
+        data={labels}
+        keyExtractor={label => label.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => console.warn('clicked')}>
+            <Ionicons
+              name={item.chosen ? 'md-checkbox' : 'md-square'}
+              style={{ color: item.color, fontSize: 32, paddingRight: 10 }}
+            />
+          </TouchableOpacity>
+        )}
+      />
+    </React.Fragment>
+  );
+}
 
 function ProductFormScreen() {
   return (
@@ -84,13 +116,7 @@ function ProductFormScreen() {
         <Picker.Item label="14" value={14} />
       </Picker>
 
-      <Text>Füge ein Label hinzu</Text>
-      <Ionicons name="md-square" size={32} color="red" />
-      <Ionicons name="md-checkbox" size={32} color="hotpink" />
-      <Ionicons name="md-square" size={32} color="orange" />
-      <Ionicons name="md-square" size={32} color="yellow" />
-      <Ionicons name="md-square" size={32} color="green" />
-      <Ionicons name="md-square" size={32} color="blue" />
+      <AddLabels />
 
       <Text>Note</Text>
       <TextInput
