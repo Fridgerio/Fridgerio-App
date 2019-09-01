@@ -12,7 +12,7 @@ import {
   DatePickerAndroid,
   Platform,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const categories = [
   { id: '1', name: 'Alle', icon: 'food' },
@@ -59,7 +59,7 @@ function CategoryPicker() {
       <Text>Kategorie</Text>
       <Picker
         prompt="Kategorie"
-        selectedValue="0"
+        selectedValue="2"
         onValueChange={itemValue =>
           console.warn(`Category ${itemValue} selected`)}
       >
@@ -101,14 +101,22 @@ function ProductFormScreen() {
   return (
     <ScrollView>
       <Text>Name</Text>
-      <TextInput placeholder="z.B. Tomate" editable />
+      <TextInput placeholder="z.B. Apfel" editable />
+
+      <MaterialCommunityIcons
+        name="food-apple"
+        style={{
+          color: '#7da10d',
+          fontSize: 150,
+          width: 150,
+          height: 150,
+          paddingRight: 15,
+          backgroundColor: '#1b4e55',
+          alignSelf: 'flex-end',
+        }}
+      />
 
       <CategoryPicker />
-
-      <Image
-        style={{ width: 150, height: 150 }}
-        source={{ uri: 'https://via.placeholder.com/150' }}
-      />
 
       <Text>Menge</Text>
       <Picker prompt="Menge" selectedValue={1}>
