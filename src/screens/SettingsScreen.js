@@ -1,25 +1,52 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { ScrollView, Linking } from 'react-native';
+import { Textbox } from '../components/styled-components/Boxes';
+import { RowLink } from '../components/styled-components/Links';
 
-function SettingsScreen() {
+function SettingsScreen({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Text>Hello from Settings</Text>
-    </View>
+    <ScrollView>
+      <Textbox>
+        <RowLink
+          title="Sprachen"
+          onPress={() => navigation.navigate('SettingsLanguageScreen')}
+        />
+        <RowLink
+          title="Design"
+          onPress={() => navigation.navigate('SettingsThemeScreen')}
+        />
+        <RowLink
+          title="Benachrichtigungen"
+          onPress={() => navigation.navigate('SettingsNotificationsScreen')}
+        />
+      </Textbox>
+      <Textbox>
+        <RowLink title="Bewerte die App" />
+        <RowLink title="Teile die App" />
+      </Textbox>
+      <Textbox>
+        <RowLink
+          title="Hilfe / FAQ"
+          onPress={() =>
+            Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
+        />
+      </Textbox>
+      <Textbox>
+        <RowLink
+          title="Impressum"
+          onPress={() => navigation.navigate('LegalNoticeScreen')}
+        />
+        <RowLink
+          title="Datenschutzerklärung"
+          onPress={() => navigation.navigate('PrivacyPolicyScreen')}
+        />
+      </Textbox>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-});
+export default SettingsScreen;
 
 SettingsScreen.navigationOptions = {
-  header: null,
+  title: 'Einstellungen',
 };
-
-export default SettingsScreen;
