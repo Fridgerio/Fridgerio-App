@@ -18,8 +18,8 @@ function Product() {
 
 function Expire() {
   return (
-    <View style={{ paddingHorizontal: 15 }}>
-      <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
+    <View style={styles.expireView}>
+      <Text style={styles.expireText}>
         Deine Produkte, die in der nächsten Zeit ablaufen:
       </Text>
     </View>
@@ -31,30 +31,16 @@ function Statistics() {
   const labels = ['abgelaufen', 'in 7 Tagen', 'insgesamt'];
   return (
     <React.Fragment>
-      <View
-        style={{
-          marginTop: 30,
-          paddingHorizontal: 20,
-          justifyContent: 'space-evenly',
-          flexDirection: 'row',
-        }}
-      >
+      <View style={styles.numbersContainer}>
         {numbers.map((number, index) => (
-          <Text key={index} style={{ fontSize: 24, fontWeight: 'bold' }}>
+          <Text key={index} style={styles.statNumbers}>
             {number}
           </Text>
         ))}
       </View>
-      <View
-        style={{
-          marginVertical: 10,
-          paddingHorizontal: 20,
-          justifyContent: 'space-evenly',
-          flexDirection: 'row',
-        }}
-      >
+      <View style={styles.labelsContainer}>
         {labels.map((label, index) => (
-          <Text key={index} style={{ fontSize: 14 }}>
+          <Text key={index} style={styles.statLabels}>
             {label}
           </Text>
         ))}
@@ -71,55 +57,15 @@ function HomeScreen() {
         <Product />
         <Product />
         <Product />
-        <Statistics style={{ marginTop: 120 }} />
+        <Statistics style={styles.statistics} />
       </View>
     </View>
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     padding: 20,
-//   },
-// });
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // borderColor: 'red',
-    // borderWidth: 1,
-  },
-  searchBarContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    height: 35,
-    backgroundColor: 'whitesmoke',
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  textInput: {
-    flex: 1,
-    paddingHorizontal: 10,
-    fontSize: 16,
-  },
-  searchIcon: {
-    fontSize: 28,
-    color: '#1b4e55',
-    alignSelf: 'center',
-    marginHorizontal: 15,
-    marginTop: 3,
-  },
-  categoryListContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-    marginHorizontal: 30,
-  },
-  categoryList: {
-    marginHorizontal: 22,
   },
   product: {
     flexDirection: 'row',
@@ -129,34 +75,34 @@ const styles = StyleSheet.create({
     borderBottomColor: 'lightgray',
     padding: 15,
   },
-  productEdit: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 80,
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgray',
+  expireView: {
+    paddingHorizontal: 15,
   },
-  edit: {
-    height: 80,
-    width: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'green',
-    marginRight: 15,
+  expireText: {
+    fontWeight: 'bold',
+    fontSize: 18,
   },
-  delete: {
-    position: 'absolute',
-    right: 0,
-    height: 80,
-    width: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'red',
+  statistics: {
+    marginTop: 120,
   },
-  sortingTabs: {
-    flexDirection: 'row',
+  numbersContainer: {
+    marginTop: 30,
+    paddingHorizontal: 20,
     justifyContent: 'space-evenly',
-    marginTop: 50,
+    flexDirection: 'row',
+  },
+  statNumbers: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  labelsContainer: {
+    marginVertical: 10,
+    paddingHorizontal: 20,
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+  },
+  statLabels: {
+    fontSize: 14,
   },
 });
 
