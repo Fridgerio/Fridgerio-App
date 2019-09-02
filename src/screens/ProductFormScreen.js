@@ -4,8 +4,6 @@ import {
   TouchableOpacity,
   Text,
   TextInput,
-  Button,
-  Image,
   FlatList,
   Picker,
   DatePickerIOS,
@@ -14,6 +12,8 @@ import {
 } from 'react-native';
 
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { PrimaryButton } from '../components/styled-components/Buttons';
+import { Textbox } from '../components/styled-components/Boxes';
 
 const categories = [
   { id: '1', name: 'Alle', icon: 'food' },
@@ -56,7 +56,7 @@ const BBDatePicker = Platform.select({
 
 function CategoryPicker() {
   return (
-    <React.Fragment>
+    <Textbox>
       <Text>Kategorie</Text>
       <Picker
         prompt="Kategorie"
@@ -73,13 +73,13 @@ function CategoryPicker() {
           />
         ))}
       </Picker>
-    </React.Fragment>
+    </Textbox>
   );
 }
 
 function AddLabels() {
   return (
-    <React.Fragment>
+    <Textbox>
       <Text>Füge ein Label hinzu</Text>
       <FlatList
         horizontal
@@ -94,7 +94,7 @@ function AddLabels() {
           </TouchableOpacity>
         )}
       />
-    </React.Fragment>
+    </Textbox>
   );
 }
 
@@ -109,9 +109,10 @@ function CreateNumberPicker(max) {
 function ProductFormScreen() {
   return (
     <ScrollView>
-      <Text>Name</Text>
-
-      <TextInput placeholder="z.B. Apfel" editable />
+      <Textbox>
+        <Text>Name</Text>
+        <TextInput placeholder="z.B. Apfel" editable />
+      </Textbox>
 
       <MaterialCommunityIcons
         name="food-apple"
@@ -128,38 +129,44 @@ function ProductFormScreen() {
 
       <CategoryPicker />
 
-      <Text>Menge</Text>
-      <Picker prompt="Menge" selectedValue={1}>
-        {CreateNumberPicker(5)}
-      </Picker>
+      <Textbox>
+        <Text>Menge</Text>
+        <Picker prompt="Menge" selectedValue={1}>
+          {CreateNumberPicker(5)}
+        </Picker>
+      </Textbox>
 
-      <Text>Mindesthaltbarkeitsdatum</Text>
-      <BBDatePicker />
+      <Textbox>
+        <Text>Mindesthaltbarkeitsdatum</Text>
+        <BBDatePicker />
+      </Textbox>
 
-      <Text>Benachrichtigung</Text>
-      <Picker prompt="Benachrichtigung" selectedValue={1}>
-
-        {CreateNumberPicker(14)}
-      </Picker>
+      <Textbox>
+        <Text>Benachrichtigung</Text>
+        <Picker prompt="Benachrichtigung" selectedValue={1}>
+          {CreateNumberPicker(14)}
+        </Picker>
+      </Textbox>
 
       <AddLabels />
 
-      <Text>Note</Text>
-      <TextInput
-        placeholder="Add custom note"
-        multiline
-        editable={false}
-        textAlignVertical="top"
-      />
+      <Textbox>
+        <Text>Note</Text>
+        <TextInput
+          placeholder="Add custom note"
+          multiline
+          editable={false}
+          textAlignVertical="top"
+        />
+      </Textbox>
 
       <FlatList
-        horizontal
         data={[
           { key: 'x', name: 'Abbrechen' },
           { key: 'v', name: 'Speichern' },
         ]}
         keyExtractor={item => item.key}
-        renderItem={({ item }) => <Button title={item.name} />}
+        renderItem={({ item }) => <PrimaryButton title={item.name} />}
       />
     </ScrollView>
   );
