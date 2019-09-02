@@ -40,7 +40,14 @@ function CameraScreen({ navigation }) {
     >
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          flex: 2,
+        }}
       />
       <BarcodeFrame source={require('../../assets/img/barcode-frame.png')} />
       {scanned && (
