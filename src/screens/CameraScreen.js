@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
-import { BarcodeFrame } from '../components/styled-components/Scanner';
+import { BarcodeFrame } from '../components/svg/BarcodeFrame';
 
 function CameraScreen({ navigation }) {
   /* State Hooks and functions to change these states */
@@ -49,7 +49,7 @@ function CameraScreen({ navigation }) {
           flex: 2,
         }}
       />
-      <BarcodeFrame source={require('../../assets/img/barcode-frame.png')} />
+      <BarcodeFrame />
       {scanned && (
         <PrimaryButton
           title={'Nochmals scannen'}
