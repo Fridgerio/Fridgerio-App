@@ -1,5 +1,11 @@
 import React from 'react';
-import { ScrollView, TouchableOpacity, Text, FlatList } from 'react-native';
+import {
+  ScrollView,
+  View,
+  TouchableOpacity,
+  Text,
+  FlatList,
+} from 'react-native';
 
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -19,6 +25,77 @@ const labels = [
   { id: '5', color: 'green', chosen: false },
   { id: '6', color: 'blue', chosen: false },
 ];
+
+const products = [
+  {
+    id: '1',
+    amount: 2,
+    date: '08/09/2019',
+    notificationTime: '3',
+    activeLabels: [3, 4],
+    note: '',
+  },
+  {
+    id: '2',
+    amount: 6,
+    date: '10/09/2019',
+    notificationTime: '3',
+    activeLabels: [1],
+    note: 'Granny Smith Äpfel aus Florida',
+  },
+];
+
+function ShowProducts() {
+  return (
+    <FlatList
+      data={products}
+      keyExtractor={item => item.id}
+      renderItem={({ item }) => {
+        const { amount, date, notificationTime, activeLabels, note } = item;
+        return (
+          <View
+            style={{
+              backgroundColor: 'whitesmoke',
+              padding: 10,
+              margin: 10,
+              borderRadius: 5,
+            }}
+          >
+            <FlatList
+              style={{ alignSelf: 'flex-end' }}
+              data={activeLabels}
+              keyExtractor={label => label}
+              renderItem={({ item }) => (
+                <TouchableOpacity>
+                  <Ionicons
+                    name="md-square"
+                    style={{
+                      color: labels[item].color,
+                      fontSize: 32,
+                      paddingRight: 10,
+                    }}
+                  />
+                </TouchableOpacity>
+              )}
+            />
+
+            <Text>Menge</Text>
+            <Text>{amount}</Text>
+
+            <Text>Mindesthaltbarkeitsdatum</Text>
+            <Text>{date}</Text>
+
+            <Text>Benachrichtigung</Text>
+            <Text>{notificationTime} Tage vor Ablauf</Text>
+
+            <Text>Note</Text>
+            <Text>{note}</Text>
+          </View>
+        );
+      }}
+    />
+  );
+}
 
 function ProductDetailScreen() {
   return (
@@ -42,34 +119,7 @@ function ProductDetailScreen() {
       <Text>Kategorie</Text>
       <Text>{categories[1].name}</Text>
 
-      <Text>Menge</Text>
-      <Text>6</Text>
-
-      <Text>Mindesthaltbarkeitsdatum</Text>
-      <Text>10/09/2019</Text>
-
-      <Text>Benachrichtigung</Text>
-      <Text>3 Tage vor Ablauf</Text>
-
-      <Text>Labels</Text>
-      <FlatList
-        horizontal
-        data={labels}
-        keyExtractor={label => label.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity>
-            {item.chosen && (
-              <Ionicons
-                name="md-square"
-                style={{ color: item.color, fontSize: 32, paddingRight: 10 }}
-              />
-            )}
-          </TouchableOpacity>
-        )}
-      />
-
-      <Text>Note</Text>
-      <Text>Granny Smith Äpfel aus Florida</Text>
+      {ShowProducts()}
     </ScrollView>
   );
 }
