@@ -83,7 +83,7 @@ function ShowProducts() {
             <FlatList
               style={{ alignSelf: 'flex-end' }}
               data={activeLabels}
-              keyExtractor={label => label}
+              keyExtractor={label => `${label}`}
               renderItem={({ item }) => (
                 <TouchableOpacity>
                   <Ionicons
