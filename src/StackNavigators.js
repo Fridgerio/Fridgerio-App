@@ -10,6 +10,7 @@ import LegalNoticeScreen from './screens/LegalNoticeScreen';
 import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
 import SettingsThemeScreen from './screens/SettingsThemeScreen';
 import CameraScreen from './screens/CameraScreen';
+import ProductDetailScreen from './screens/ProductDetailScreen';
 
 /*
 ----------
@@ -37,12 +38,15 @@ const defaultOptions = {
   },
 };
 
-const HomeStack = createStackNavigator(
-  { HomeScreen, CameraScreen },
+const HomeStack = createStackNavigator({ HomeScreen }, defaultOptions);
+const AddStack = createStackNavigator(
+  { CameraScreen, ProductFormScreen },
   defaultOptions
 );
-const AddStack = createStackNavigator({ ProductFormScreen }, defaultOptions);
-const ListStack = createStackNavigator({ ListScreen }, defaultOptions);
+const ListStack = createStackNavigator(
+  { ListScreen, ProductDetailScreen },
+  defaultOptions
+);
 const SettingsStack = createStackNavigator(
   {
     SettingsScreen,
