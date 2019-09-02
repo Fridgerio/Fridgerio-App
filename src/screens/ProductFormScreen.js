@@ -12,6 +12,7 @@ import {
   DatePickerAndroid,
   Platform,
 } from 'react-native';
+
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const categories = [
@@ -109,6 +110,7 @@ function ProductFormScreen() {
   return (
     <ScrollView>
       <Text>Name</Text>
+
       <TextInput placeholder="z.B. Apfel" editable />
 
       <MaterialCommunityIcons
@@ -136,6 +138,7 @@ function ProductFormScreen() {
 
       <Text>Benachrichtigung</Text>
       <Picker prompt="Benachrichtigung" selectedValue={1}>
+
         {CreateNumberPicker(14)}
       </Picker>
 
@@ -148,6 +151,7 @@ function ProductFormScreen() {
         editable={false}
         textAlignVertical="top"
       />
+
       <FlatList
         horizontal
         data={[
