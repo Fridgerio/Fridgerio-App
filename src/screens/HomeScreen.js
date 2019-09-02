@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+/* Product entries in the list */
 function Product() {
   return (
     <View style={styles.product}>
@@ -16,6 +17,7 @@ function Product() {
   );
 }
 
+/* Title for the three product entries (Your products that will expire next) */
 function Expire() {
   return (
     <View style={styles.expireView}>
@@ -26,6 +28,7 @@ function Expire() {
   );
 }
 
+/* Statistics */
 function Statistics() {
   const numbers = [4, 14, 26];
   const labels = ['abgelaufen', 'in 7 Tagen', 'insgesamt'];
@@ -49,6 +52,7 @@ function Statistics() {
   );
 }
 
+/* Total Home Screen */
 function HomeScreen() {
   return (
     <View style={styles.container}>
