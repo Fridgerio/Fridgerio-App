@@ -70,7 +70,7 @@ function CameraScreen({ navigation }) {
 
 /* Navigation options */
 CameraScreen.navigationOptions = {
-  title: 'CameraScreen',
+  title: 'Scanne einen Barcode',
 };
 
 export default CameraScreen;
