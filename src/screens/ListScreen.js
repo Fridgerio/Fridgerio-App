@@ -60,50 +60,62 @@ function CategoryFilter() {
   );
 }
 
-function Product() {
+function Product({ navigation }) {
   return (
-    <View style={styles.product}>
-      <MaterialCommunityIcons
-        name="food-apple"
-        style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
-      />
-      <Text>Random Food</Text>
-      <Text style={{ color: 'gray', paddingLeft: 20 }}>+4</Text>
-      <Text style={{ position: 'absolute', right: 15 }}>20. September</Text>
-    </View>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ProductDetailScreen')}
+    >
+      <View style={styles.product}>
+        <MaterialCommunityIcons
+          name="food-apple"
+          style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
+        />
+        <Text>Random Food</Text>
+        <Text style={{ color: 'gray', paddingLeft: 20 }}>+4</Text>
+        <Text style={{ position: 'absolute', right: 15 }}>20. September</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 
-function ProductEdit() {
+function ProductEdit({ navigation }) {
   return (
-    <View style={styles.productEdit}>
-      <View style={styles.edit}>
-        <Text style={{ color: 'white' }}>Edit</Text>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ProductDetailScreen')}
+    >
+      <View style={styles.productEdit}>
+        <View style={styles.edit}>
+          <Text style={{ color: 'white' }}>Edit</Text>
+        </View>
+        <MaterialCommunityIcons
+          name="food-fork-drink"
+          style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
+        />
+        <Text>Random Food</Text>
+        <Text style={{ position: 'absolute', right: 15 }}>02. Oktober</Text>
       </View>
-      <MaterialCommunityIcons
-        name="food-fork-drink"
-        style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
-      />
-      <Text>Random Food</Text>
-      <Text style={{ position: 'absolute', right: 15 }}>02. Oktober</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
-function ProductDelete() {
+function ProductDelete({ navigation }) {
   return (
-    <View style={styles.product}>
-      <MaterialCommunityIcons
-        name="food-croissant"
-        style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
-      />
-      <Text>Random Food</Text>
-      <Text style={{ color: 'gray', paddingLeft: 20 }}>+2</Text>
-      <View style={styles.delete}>
-        <Text style={{ color: 'white' }}>Delete</Text>
-        <Text style={{ position: 'absolute', right: 95 }}>11. Juli</Text>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ProductDetailScreen')}
+    >
+      <View style={styles.product}>
+        <MaterialCommunityIcons
+          name="food-croissant"
+          style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
+        />
+        <Text>Random Food</Text>
+        <Text style={{ color: 'gray', paddingLeft: 20 }}>+2</Text>
+        <View style={styles.delete}>
+          <Text style={{ color: 'white' }}>Delete</Text>
+          <Text style={{ position: 'absolute', right: 95 }}>11. Juli</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -116,7 +128,7 @@ function SortingTabs() {
   );
 }
 
-function ListScreen() {
+function ListScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -127,11 +139,11 @@ function ListScreen() {
         </View>
         <SortingTabs />
         <View style={{ marginTop: 10 }}>
-          <Product />
-          <ProductEdit />
-          <Product />
-          <ProductDelete />
-          <Product />
+          <Product navigation={navigation} />
+          <ProductEdit navigation={navigation} />
+          <Product navigation={navigation} />
+          <ProductDelete navigation={navigation} />
+          <Product navigation={navigation} />
         </View>
       </View>
     </TouchableWithoutFeedback>
