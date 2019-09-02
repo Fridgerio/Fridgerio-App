@@ -75,7 +75,22 @@ function ProductDetailScreen() {
 }
 
 ProductDetailScreen.navigationOptions = {
-  title: 'ProductDetailScreen',
+  title: 'Apfel',
+  headerRight: (
+    <FlatList
+      horizontal
+      data={['create', 'add', 'trash']}
+      keyExtractor={item => item}
+      renderItem={({ item }) => (
+        <TouchableOpacity>
+          <Ionicons
+            name={`md-${item}`}
+            style={{ color: 'white', fontSize: 22, paddingLeft: 10 }}
+          />
+        </TouchableOpacity>
+      )}
+    />
+  ),
 };
 
 export default ProductDetailScreen;
