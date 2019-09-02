@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
+import { PrimaryButton } from '../components/styled-components/Buttons';
+import { BarcodeFrame } from '../components/svg/BarcodeFrame';
 
 function CameraScreen({ navigation }) {
   /* State Hooks and functions to change these states */
@@ -30,39 +32,52 @@ function CameraScreen({ navigation }) {
   /* Render this if camera permission is granted */
   return (
     <View
-      style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+      }}
     >
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          flex: 2,
+        }}
       />
+      <BarcodeFrame />
       {scanned && (
-        <Button
+        <PrimaryButton
           title={'Nochmals scannen'}
+          style={{
+            width: '70%',
+            marginRight: 'auto',
+            marginLeft: 'auto',
+          }}
           onPress={() => toggleScanned(false)}
         />
       )}
       {/* Go to product input form if this button is tapped */}
-      <Button
+      <PrimaryButton
         title={'Manuell eingeben'}
+        style={{
+          width: '70%',
+          marginRight: 'auto',
+          marginLeft: 'auto',
+        }}
         onPress={() => navigation.navigate('ProductFormScreen')}
       />
     </View>
   );
 }
-/* Styles - unused */
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-});
 
 /* Navigation options */
 CameraScreen.navigationOptions = {
-  title: 'CameraScreen',
+  title: 'Scanne einen Barcode',
 };
 
 export default CameraScreen;

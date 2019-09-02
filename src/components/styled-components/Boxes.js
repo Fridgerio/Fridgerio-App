@@ -4,8 +4,10 @@ import styled from 'styled-components/native';
 // Textbox
 const StyledTextbox = styled.View`
   padding: 5px 15px;
-  margin: 5px 0;
+  margin: ${props => (props.card ? '10px' : '5px 0')};
   border-bottom-width: 1px;
-  border-bottom-color: #f0f0f0;
+  border-bottom-color: ${props => props.bottomLine || 'transparent'};
+  background-color: ${props => (props.card ? '#f0f0f0' : 'transparent')};
+  border-radius: ${props => (props.card ? 10 : 0)};
 `;
 export const Textbox = props => <StyledTextbox {...props} />;

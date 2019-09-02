@@ -7,4 +7,5 @@ export const Colors = {
   QuinaryColor: '#1E3700', // dark green
   LightColor: '#fff', // white
   DarkColor: '#000', // black
+  PrimaryUtilityColor: '#f0f0f0', // light grey
 };
