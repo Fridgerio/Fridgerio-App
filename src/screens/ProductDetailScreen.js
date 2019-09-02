@@ -45,6 +45,25 @@ const products = [
   },
 ];
 
+function ShowActionButtons(color = 'white') {
+  return (
+    <FlatList
+      horizontal
+      data={['create', 'add', 'trash']}
+      style={{ alignSelf: 'flex-end' }}
+      keyExtractor={item => item}
+      renderItem={({ item }) => (
+        <TouchableOpacity>
+          <Ionicons
+            name={`md-${item}`}
+            style={{ color: color, fontSize: 22, paddingLeft: 10 }}
+          />
+        </TouchableOpacity>
+      )}
+    />
+  );
+}
+
 function ShowProducts() {
   return (
     <FlatList
@@ -90,6 +109,8 @@ function ShowProducts() {
 
             <Text>Note</Text>
             <Text>{note}</Text>
+
+            {ShowActionButtons('black')}
           </View>
         );
       }}
@@ -126,21 +147,7 @@ function ProductDetailScreen() {
 
 ProductDetailScreen.navigationOptions = {
   title: 'Apfel',
-  headerRight: (
-    <FlatList
-      horizontal
-      data={['create', 'add', 'trash']}
-      keyExtractor={item => item}
-      renderItem={({ item }) => (
-        <TouchableOpacity>
-          <Ionicons
-            name={`md-${item}`}
-            style={{ color: 'white', fontSize: 22, paddingLeft: 10 }}
-          />
-        </TouchableOpacity>
-      )}
-    />
-  ),
+  headerRight: ShowActionButtons(),
 };
 
 export default ProductDetailScreen;
