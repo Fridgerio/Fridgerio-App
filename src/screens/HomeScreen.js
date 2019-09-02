@@ -19,10 +19,47 @@ function Product() {
 function Expire() {
   return (
     <View style={{ paddingHorizontal: 15 }}>
-      <Text style={{ fontWeight: 'bold' }}>
+      <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
         Deine Produkte, die in der nächsten Zeit ablaufen:
       </Text>
     </View>
+  );
+}
+
+function Statistics() {
+  const numbers = [4, 14, 26];
+  const labels = ['abgelaufen', 'in 7 Tagen', 'insgesamt'];
+  return (
+    <React.Fragment>
+      <View
+        style={{
+          marginTop: 30,
+          paddingHorizontal: 20,
+          justifyContent: 'space-evenly',
+          flexDirection: 'row',
+        }}
+      >
+        {numbers.map((number, index) => (
+          <Text key={index} style={{ fontSize: 24, fontWeight: 'bold' }}>
+            {number}
+          </Text>
+        ))}
+      </View>
+      <View
+        style={{
+          marginVertical: 10,
+          paddingHorizontal: 20,
+          justifyContent: 'space-evenly',
+          flexDirection: 'row',
+        }}
+      >
+        {labels.map((label, index) => (
+          <Text key={index} style={{ fontSize: 14 }}>
+            {label}
+          </Text>
+        ))}
+      </View>
+    </React.Fragment>
   );
 }
 
@@ -34,6 +71,7 @@ function HomeScreen() {
         <Product />
         <Product />
         <Product />
+        <Statistics style={{ marginTop: 120 }} />
       </View>
     </View>
   );
