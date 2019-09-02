@@ -107,6 +107,15 @@ function ProductDelete() {
   );
 }
 
+function SortingTabs() {
+  return (
+    <View style={styles.sortingTabs}>
+      <Text>A-Z</Text>
+      <Text>Datum</Text>
+    </View>
+  );
+}
+
 function ListScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -116,7 +125,8 @@ function ListScreen() {
           <CategoryFilter />
           <Ionicons name="ios-arrow-forward" size={28} color="lightgray" />
         </View>
-        <View style={{ marginTop: 60 }}>
+        <SortingTabs />
+        <View style={{ marginTop: 10 }}>
           <Product />
           <ProductEdit />
           <Product />
@@ -196,6 +206,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'red',
+  },
+  sortingTabs: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 50,
   },
 });
 
