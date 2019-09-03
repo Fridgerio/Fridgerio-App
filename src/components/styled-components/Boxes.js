@@ -11,3 +11,11 @@ const StyledTextbox = styled.View`
   border-radius: ${props => (props.card ? 10 : 0)};
 `;
 export const Textbox = props => <StyledTextbox {...props} />;
+
+// Textbox
+const StyledElementbox = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 30px;
+`;
+export const Elementbox = props => <StyledElementbox {...props} />;
