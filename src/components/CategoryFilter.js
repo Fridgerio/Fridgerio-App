@@ -1,6 +1,9 @@
 import React from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FlatList, TouchableOpacity, View } from 'react-native';
+import { CategoryIcon } from './styled-components/Icons';
+import { StyledIonicon } from '../components/styled-components/Icons';
+import { Colors } from '../components/styled-components/Variables';
+import { Elementbox } from '../components/styled-components/Boxes';
 
 const categories = [
   { name: 'food', id: '1' },
@@ -17,20 +20,30 @@ const categories = [
 
 function CategoryFilter() {
   return (
-    <FlatList
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      data={categories}
-      keyExtractor={category => category.id}
-      renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => console.warn('clicked')}>
-          <MaterialCommunityIcons
-            name={item.name}
-            style={{ color: '#1b4e55', fontSize: 28, paddingRight: 25 }}
-          />
-        </TouchableOpacity>
-      )}
-    />
+    <Elementbox>
+      <StyledIonicon
+        name="ios-arrow-back"
+        size={28}
+        color={Colors.PrimaryUtilityColor}
+      />
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={categories}
+        keyExtractor={category => category.id}
+        style={{ marginHorizontal: 22 }}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => console.warn('clicked')}>
+            <CategoryIcon name={item.name} />
+          </TouchableOpacity>
+        )}
+      />
+      <StyledIonicon
+        name="ios-arrow-forward"
+        size={28}
+        color={Colors.PrimaryUtilityColor}
+      />
+    </Elementbox>
   );
 }
 
