@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet } from 'react-native';
 
 // Input field
 const StyledInput = styled.TextInput`
@@ -21,5 +23,16 @@ export const Input = props => <StyledInput {...props} />;
 export const Search = props => (
   <StyledSearch {...props}>
     <StyledInput {...props} />
+    <Ionicons name="ios-search" style={styles.searchIcon} />
   </StyledSearch>
 );
+
+const styles = StyleSheet.create({
+  searchIcon: {
+    fontSize: 28,
+    color: '#1b4e55',
+    alignSelf: 'center',
+    marginHorizontal: 15,
+    marginTop: 3,
+  },
+});
