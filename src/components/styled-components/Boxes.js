@@ -13,7 +13,9 @@ const StyledTextbox = styled.View`
 export const Textbox = props => {
   const { card, bottomLine, children } = props;
   return (
-    <StyledTextbox card={card} bottomLine={bottomLine} children={children} />
+    <StyledTextbox card={card} bottomLine={bottomLine}>
+      {children}
+    </StyledTextbox>
   );
 };
 
@@ -24,5 +26,5 @@ const StyledElementbox = styled.View`
   margin: 20px 30px;
 `;
 export const Elementbox = props => (
-  <StyledElementbox children={props.children} />
+  <StyledElementbox>{props.children}</StyledElementbox>
 );

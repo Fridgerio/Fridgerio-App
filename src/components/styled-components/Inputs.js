@@ -18,15 +18,23 @@ const StyledSearch = styled.View`
   border-radius: 5px;
   margin-bottom: 10px;
 `;
-export const Input = props => (
-  <StyledInput
-    placeholder={props.placeholder}
-    onEndEditing={props.onEndEditing}
-  />
-);
-export const Search = props => (
-  <StyledSearch>
-    <Input placeholder={props.placeholder} onEndEditing={props.onEndEditing} />
-    <SearchIcon />
-  </StyledSearch>
-);
+export const Input = props => {
+  const { placeholder, onEndEditing, children } = props;
+  return (
+    <StyledInput placeholder={placeholder} onEndEditing={onEndEditing}>
+      {children}
+    </StyledInput>
+  );
+};
+
+export const Search = props => {
+  const { placeholder, onEndEditing, children } = props;
+  return (
+    <StyledSearch>
+      <Input placeholder={placeholder} onEndEditing={onEndEditing}>
+        {children}
+      </Input>
+      <SearchIcon />
+    </StyledSearch>
+  );
+};
