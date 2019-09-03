@@ -12,4 +12,4 @@ const StyledBarcodeFrame = styled.Image`
   height: ${barcodeFrameHeight};
   align-self: center;
 `;
-export const BarcodeFrame = props => <StyledBarcodeFrame {...props} />;
+export const BarcodeFrame = props => <StyledBarcodeFrame />;
