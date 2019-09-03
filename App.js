@@ -5,6 +5,7 @@ import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
 import { Ionicons } from '@expo/vector-icons';
 import TabNavigator from './src/TabNavigator';
+import ContextProvider from './src/context/Context';
 
 /**
 ----------
@@ -66,5 +67,9 @@ export default function App() {
     );
   }
 
-  return <AppContainer />;
+  return (
+    <ContextProvider>
+      <AppContainer />
+    </ContextProvider>
+  );
 }
