@@ -9,14 +9,14 @@ const StyledCategoryIcon = styled(MaterialCommunityIcons)`
   font-size: 28px;
   padding-right: 25px;
 `;
-export const CategoryIcon = props => <StyledCategoryIcon {...props} />;
+export const CategoryIcon = props => <StyledCategoryIcon name={props.name} />;
 
 // Ionicon icons
 const StyledIon = styled(Ionicons)`
   color: ${Colors.PrimaryUtilityColor};
   font-size: 28px;
 `;
-export const StyledIonicon = props => <StyledIon {...props} />;
+export const StyledIonicon = props => <StyledIon name={props.name} />;
 
 // Search icon
 const StyledSearchIcon = styled(Ionicons)`
@@ -25,6 +25,4 @@ const StyledSearchIcon = styled(Ionicons)`
   align-self: center;
   margin: 3px 15px 0 15px;
 `;
-export const SearchIcon = props => (
-  <StyledSearchIcon name="ios-search" {...props} />
-);
+export const SearchIcon = () => <StyledSearchIcon name="ios-search" />;
