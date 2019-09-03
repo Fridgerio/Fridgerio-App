@@ -5,7 +5,7 @@ import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 // Category icons
 const StyledCategoryIcon = styled(MaterialCommunityIcons)`
-  color: ${Colors.QuinaryColor};
+  color: ${Colors.TertiaryColor};
   font-size: 28px;
   padding-right: 25px;
 `;
