@@ -7,4 +7,19 @@ const StyledInput = styled.TextInput`
   padding: 0 10px;
   font-size: 16px;
 `;
+
+// Search bar
+const StyledSearch = styled.View`
+  flex: 1;
+  flex-direction: row;
+  height: 35px;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin-bottom: 10px;
+`;
 export const Input = props => <StyledInput {...props} />;
+export const Search = props => (
+  <StyledSearch {...props}>
+    <StyledInput {...props} />
+  </StyledSearch>
+);
