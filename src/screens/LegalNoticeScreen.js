@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 
 function LegalNoticeScreen() {
+  const [legal, setLegal] = useState(null);
+  useEffect(() => {
+    fetchLegal();
+  }, []);
+  const fetchLegal = async () => {
+    const url = `https://impressum-api.sklinkusch.now.sh`;
+    const response = await fetch(url);
+    const data = await response.json();
+    setLegal(data);
+  };
   return (
     <ScrollView>
       <Textbox>
