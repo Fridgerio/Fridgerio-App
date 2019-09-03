@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
 import SortingTabs from '../components/ListSort';
@@ -11,11 +10,7 @@ function ListScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
-        <View>
-          <Ionicons name="ios-arrow-back" size={28} color="lightgray" />
-          <CategoryFilter />
-          <Ionicons name="ios-arrow-forward" size={28} color="lightgray" />
-        </View>
+        <CategoryFilter />
         <SortingTabs />
         <View style={{ marginTop: 10 }}>
           <Product navigation={navigation} />
