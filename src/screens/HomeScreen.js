@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Context } from '../context/Context';
 
 /* Product entries in the list */
 function Product() {
+  // just for testing purposes atm
+  const { products } = useContext(Context);
+
   return (
     <View style={styles.product}>
       <MaterialCommunityIcons
         name="food-apple"
         style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
       />
-      <Text>Random Food</Text>
+      <Text>{products[0].name}</Text>
       <Text style={{ color: 'gray', paddingLeft: 20 }}>+4</Text>
       <Text style={{ position: 'absolute', right: 15 }}>20. September</Text>
     </View>
