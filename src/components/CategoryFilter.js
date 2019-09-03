@@ -21,11 +21,7 @@ const categories = [
 function CategoryFilter() {
   return (
     <Elementbox>
-      <StyledIonicon
-        name="ios-arrow-back"
-        size={28}
-        color={Colors.PrimaryUtilityColor}
-      />
+      <StyledIonicon name="ios-arrow-back" />
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -38,11 +34,7 @@ function CategoryFilter() {
           </TouchableOpacity>
         )}
       />
-      <StyledIonicon
-        name="ios-arrow-forward"
-        size={28}
-        color={Colors.PrimaryUtilityColor}
-      />
+      <StyledIonicon name="ios-arrow-forward" />
     </Elementbox>
   );
 }
