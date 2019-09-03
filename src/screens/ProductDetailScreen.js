@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Text,
-  FlatList,
-} from 'react-native';
+import { ScrollView, TouchableOpacity, Text, FlatList } from 'react-native';
 
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Textbox } from '../components/styled-components/Boxes';
 
 const categories = [
   { id: '1', name: 'Alle', icon: 'food' },
@@ -72,14 +67,7 @@ function ShowProducts() {
       renderItem={({ item }) => {
         const { amount, date, notificationTime, activeLabels, note } = item;
         return (
-          <View
-            style={{
-              backgroundColor: 'whitesmoke',
-              padding: 10,
-              margin: 10,
-              borderRadius: 5,
-            }}
-          >
+          <Textbox>
             <FlatList
               style={{ alignSelf: 'flex-end' }}
               data={activeLabels}
@@ -111,7 +99,7 @@ function ShowProducts() {
             <Text>{note}</Text>
 
             {ShowActionButtons('black')}
-          </View>
+          </Textbox>
         );
       }}
     />
@@ -121,8 +109,10 @@ function ShowProducts() {
 function ProductDetailScreen() {
   return (
     <ScrollView>
-      <Text>Name</Text>
-      <Text>Apfel</Text>
+      <Textbox>
+        <Text>Name</Text>
+        <Text>Apfel</Text>
+      </Textbox>
 
       <MaterialCommunityIcons
         name={categories[1].icon}
@@ -137,8 +127,10 @@ function ProductDetailScreen() {
         }}
       />
 
-      <Text>Kategorie</Text>
-      <Text>{categories[1].name}</Text>
+      <Textbox>
+        <Text>Kategorie</Text>
+        <Text>{categories[1].name}</Text>
+      </Textbox>
 
       {ShowProducts()}
     </ScrollView>
