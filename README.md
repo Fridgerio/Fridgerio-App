@@ -16,6 +16,10 @@ A mobile application that helps you keep track of your groceries, use them befor
 
 ![week 1](./screenshots/progress/week1.png)
 
+## License
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/de/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/de/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/de/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Germany License</a>.
+
 ## Contributors ✨
 
 <a href="https://github.com/M4r28"><img src="https://avatars3.githubusercontent.com/u/42832260?s=400&v=4" title="Marta" width="80" height="80"></a>&emsp;
