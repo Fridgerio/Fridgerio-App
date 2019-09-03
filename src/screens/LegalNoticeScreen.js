@@ -1,32 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 
 function LegalNoticeScreen() {
   const [legal, setLegal] = useState(null);
+  const [error, setError] = useState(null);
   useEffect(() => {
     fetchLegal();
   }, []);
   const fetchLegal = async () => {
-    const url = `https://impressum-api.sklinkusch.now.sh`;
-    const response = await fetch(url);
-    const data = await response.json();
-    setLegal(data);
+    try {
+      const url = `https://impressum-api.sklinkusch.now.sh/impressum`;
+      const response = await fetch(url);
+      const data = await response.json();
+      setLegal(data);
+    } catch (err) {
+      setError(err);
+    }
   };
   return (
     <ScrollView>
       <Textbox>
-        <Text>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-          ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-          sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-          et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-          takimata sanctus est Lorem ipsum dolor sit amet.
-        </Text>
+        {error && <Text>{error.message}</Text>}
+        {legal &&
+          legal.title.map((subtitle, index) => (
+            <View key={`title-${index}`}>
+              <View>
+                <Text>{subtitle}</Text>
+              </View>
+              {typeof legal.content[index] === 'string' ? (
+                <View>
+                  <Text>{legal.content[index]}</Text>
+                </View>
+              ) : (
+                legal.content[index].map((paragraph, subindex) => (
+                  <View>
+                    <Text key={`para-${index}-${subindex}`}>{paragraph}</Text>
+                  </View>
+                ))
+              )}
+            </View>
+          ))}
       </Textbox>
     </ScrollView>
   );
