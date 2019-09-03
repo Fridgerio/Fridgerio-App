@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Input } from './styled-components/Inputs';
 
 function SearchBar() {
   return (
     <View style={styles.searchBarContainer}>
-      <TextInput
-        style={styles.textInput}
+      <Input
         placeholder={'Suche nach Produkt...'}
         /* callback fn is executed both when user hits return on device keyboard and when keyboard is dismissed - triggered by the TouchableWithoutFeedback wrapper - by clicking anywhere else on the screen */
         onEndEditing={() => console.warn('submitted/dismissed')}
@@ -24,11 +24,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'whitesmoke',
     borderRadius: 5,
     marginBottom: 10,
-  },
-  textInput: {
-    flex: 1,
-    paddingHorizontal: 10,
-    fontSize: 16,
   },
   searchIcon: {
     fontSize: 28,
