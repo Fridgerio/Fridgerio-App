@@ -14,8 +14,11 @@ const StyledPrimaryButtonText = styled.Text`
   text-align: center;
   font-size: 18px;
 `;
-export const PrimaryButton = props => (
-  <StyledPrimaryButton {...props}>
-    <StyledPrimaryButtonText>{props.title}</StyledPrimaryButtonText>
-  </StyledPrimaryButton>
-);
+export const PrimaryButton = props => {
+  const { color, title, style, onPress } = props;
+  return (
+    <StyledPrimaryButton color={color} onPress={onPress} style={style}>
+      <StyledPrimaryButtonText>{title}</StyledPrimaryButtonText>
+    </StyledPrimaryButton>
+  );
+};
