@@ -15,7 +15,6 @@ export const CategoryIcon = props => <StyledCategoryIcon {...props} />;
 const StyledIon = styled(Ionicons)`
   color: ${Colors.PrimaryUtilityColor};
   font-size: 28px;
-  padding-right: 25px;
 `;
 export const StyledIonicon = props => <StyledIon {...props} />;
 
