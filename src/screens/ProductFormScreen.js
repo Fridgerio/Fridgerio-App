@@ -3,7 +3,6 @@ import {
   ScrollView,
   TouchableOpacity,
   Text,
-  TextInput,
   FlatList,
   Picker,
   DatePickerIOS,
@@ -14,6 +13,7 @@ import {
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Textbox } from '../components/styled-components/Boxes';
+import { Input } from '../components/styled-components/Inputs';
 
 const categories = [
   { id: '1', name: 'Alle', icon: 'food' },
@@ -109,10 +109,10 @@ function CreateNumberPicker(max) {
 function ProductFormScreen() {
   return (
     <ScrollView>
-      <Textbox>
-        <Text>Name</Text>
-        <TextInput placeholder="z.B. Apfel" editable />
-      </Textbox>
+      {/* <Textbox>
+        <Text>Name</Text> */}
+      <Input inputLabel="Name" placeholder="z.B. Apfel" editable />
+      {/* </Textbox> */}
 
       <MaterialCommunityIcons
         name="food-apple"
@@ -150,15 +150,15 @@ function ProductFormScreen() {
 
       <AddLabels />
 
-      <Textbox>
-        <Text>Note</Text>
-        <TextInput
-          placeholder="Add custom note"
-          multiline
-          editable={false}
-          textAlignVertical="top"
-        />
-      </Textbox>
+      {/* <Textbox> */}
+      <Input
+        inputLabel="Notiz"
+        placeholder="Add custom note"
+        multiline
+        editable
+        textAlignVertical="top"
+      />
+      {/* </Textbox> */}
 
       <FlatList
         data={[

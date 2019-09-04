@@ -9,6 +9,11 @@ const StyledInput = styled.TextInput`
   font-size: 16px;
 `;
 
+const InputLabel = styled.Text`
+  padding: 0 10px;
+  font-size: 16px;
+`;
+
 // Search bar
 const StyledSearch = styled.View`
   flex: 1;
@@ -18,6 +23,16 @@ const StyledSearch = styled.View`
   border-radius: 5px;
   margin-bottom: 10px;
 `;
+
+const StyledInputContainer = styled.View`
+  flex: 1;
+  flex-direction: column;
+  height: ${props => (props.multiline ? 120 : 70)}px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+`;
+
 export const Input = props => {
   const {
     placeholder,
@@ -26,17 +41,21 @@ export const Input = props => {
     multiline,
     editable,
     textAlignVertical,
+    inputLabel,
   } = props;
   return (
-    <StyledInput
-      placeholder={placeholder}
-      onEndEditing={onEndEditing}
-      multiline={multiline}
-      editable={editable}
-      textAlignVertical={textAlignVertical}
-    >
-      {children}
-    </StyledInput>
+    <StyledInputContainer multiline={multiline}>
+      <InputLabel>{inputLabel}</InputLabel>
+      <StyledInput
+        placeholder={placeholder}
+        onEndEditing={onEndEditing}
+        multiline={multiline}
+        editable={editable}
+        textAlignVertical={textAlignVertical}
+      >
+        {children}
+      </StyledInput>
+    </StyledInputContainer>
   );
 };
 
@@ -44,9 +63,9 @@ export const Search = props => {
   const { placeholder, onEndEditing, children } = props;
   return (
     <StyledSearch>
-      <Input placeholder={placeholder} onEndEditing={onEndEditing}>
+      <StyledInput placeholder={placeholder} onEndEditing={onEndEditing}>
         {children}
-      </Input>
+      </StyledInput>
       <SearchIcon />
     </StyledSearch>
   );
