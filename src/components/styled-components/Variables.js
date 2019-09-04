@@ -9,3 +9,12 @@ export const Colors = {
   DarkColor: '#000', // black
   PrimaryUtilityColor: '#f0f0f0', // light grey
 };
+
+// Font sizes
+export const FontSize = {
+  extraSmall: '12px',
+  small: '14px',
+  normal: '16px',
+  large: '18px',
+  extraLarge: '20px',
+};
