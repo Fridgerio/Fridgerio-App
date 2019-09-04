@@ -7,30 +7,38 @@ function PrivacyPolicyScreen() {
   /* a few states */
   const [privacy, setPrivacy] = useState(null); // fetched data
   const [error, setError] = useState(null); // error
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // fetching data
   /* lifecycle method, such as componentDidMount */
   useEffect(() => {
     fetchPrivacy();
   }, []);
-  /* method to fetch the legal notice information */
+  /* method to fetch the privacy policy information */
   const fetchPrivacy = async () => {
+    /* set loading status to true */
     setLoading(true);
     try {
+      /* fetch data */
       const url = `https://impressum-api.sklinkusch.now.sh/datenschutz`;
       const response = await fetch(url);
       const data = await response.json();
+      /* write it into the state */
       setPrivacy(data);
+      /* set loading status to false */
       setLoading(false);
     } catch (err) {
+      /* write error into the state */
       setError(err);
+      /* set loading status to false */
       setLoading(false);
     }
   };
+  /* load message if loading = true */
   const loadMessage = 'Lade Daten...';
   /* render the component */
   return (
     <ScrollView>
       <Textbox>
+        {/* show the load message if still loading */}
         {loading && <Text>{loadMessage}</Text>}
         {/* render the error message if an error occurs*/}
         {error && <Text>{error.message}</Text>}
@@ -38,7 +46,7 @@ function PrivacyPolicyScreen() {
         {privacy &&
           privacy.title.map((subtitle, index) => (
             <View key={`title-${index}`}>
-              {/* overall wrapper with a key */}
+              {/* view element as overall wrapper with a key */}
               {/* only to make the text a block element  */}
               <H2>{subtitle}</H2>
               {typeof privacy.content[index] === 'string' ? (
