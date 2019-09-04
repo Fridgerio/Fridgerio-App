@@ -15,7 +15,8 @@ export const H2 = props => <StyledH2>{props.children}</StyledH2>;
 // Block
 const StyledBlockText = styled.Text`
   text-align: justify;
+  margin: ${props => props.margin || '0'};
 `;
 export const BlockText = props => (
-  <StyledBlockText>{props.children}</StyledBlockText>
+  <StyledBlockText margin={props.margin}>{props.children}</StyledBlockText>
 );
