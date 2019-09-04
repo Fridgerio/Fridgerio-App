@@ -109,10 +109,7 @@ function CreateNumberPicker(max) {
 function ProductFormScreen() {
   return (
     <ScrollView>
-      {/* <Textbox>
-        <Text>Name</Text> */}
       <Input inputLabel="Name" placeholder="z.B. Apfel" editable />
-      {/* </Textbox> */}
 
       <MaterialCommunityIcons
         name="food-apple"
@@ -150,7 +147,6 @@ function ProductFormScreen() {
 
       <AddLabels />
 
-      {/* <Textbox> */}
       <Input
         inputLabel="Notiz"
         placeholder="Add custom note"
@@ -158,7 +154,6 @@ function ProductFormScreen() {
         editable
         textAlignVertical="top"
       />
-      {/* </Textbox> */}
 
       <FlatList
         data={[
