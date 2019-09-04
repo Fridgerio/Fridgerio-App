@@ -5,7 +5,7 @@ import Swipeable from 'react-native-swipeable';
 function SwipeableItem({ navigation }) {
   return (
     <Swipeable
-      leftActionActivationDistance={200}
+      leftActionActivationDistance={170}
       leftContent={
         <View style={styles.leftSwipeItem}>
           <Text style={{ color: 'white' }}>Edit</Text>
@@ -13,21 +13,28 @@ function SwipeableItem({ navigation }) {
       }
       // write comment about difference between onLeftActionActivate and onLeftActionRelease
       onLeftActionRelease={() => navigation.navigate('DummyScreen')}
+      rightActionActivationDistance={170}
+      rightContent={
+        <View style={styles.rightSwipeItem}>
+          <Text style={{ color: 'white' }}>Delete</Text>
+        </View>
+      }
+      onRightActionRelease={() => navigation.navigate('DummyScreen')}
     >
       <View style={styles.listItem}>
-        <Text>Example 3</Text>
+        <Text>Swipe me!</Text>
       </View>
     </Swipeable>
   );
 }
 
-export default function SwipeScreen() {
+export default function SwipeScreen({ navigation }) {
   return (
     <ScrollView>
-      <SwipeableItem />
-      <SwipeableItem />
-      <SwipeableItem />
-      <SwipeableItem />
+      <SwipeableItem navigation={navigation} />
+      <SwipeableItem navigation={navigation} />
+      <SwipeableItem navigation={navigation} />
+      <SwipeableItem navigation={navigation} />
     </ScrollView>
   );
 }
@@ -38,6 +45,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'darkseagreen',
+    marginVertical: 2,
   },
   leftSwipeItem: {
     flex: 1,
@@ -45,10 +53,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingRight: 20,
     backgroundColor: 'green',
+    marginVertical: 2,
   },
   rightSwipeItem: {
     flex: 1,
     justifyContent: 'center',
     paddingLeft: 20,
+    backgroundColor: 'red',
+    marginVertical: 2,
   },
 });
