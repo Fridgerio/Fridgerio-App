@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Elementbox } from './styled-components/Boxes';
+import { PrimaryButton } from './styled-components/Buttons';
 
 function SortingTabs() {
   return (
-    <View>
-      <Text>A-Z</Text>
-      <Text>Datum</Text>
-    </View>
+    <Elementbox>
+      <PrimaryButton color="transparent" title="A-Z" style={{ flex: 1 }} />
+      <PrimaryButton color="transparent" title="Datum" style={{ flex: 1 }} />
+    </Elementbox>
   );
 }
 
