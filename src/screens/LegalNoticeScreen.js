@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
+import { H2, BlockText } from '../components/styled-components/Text';
 
 function LegalNoticeScreen() {
   /* a few states */
@@ -32,22 +33,17 @@ function LegalNoticeScreen() {
           legal.title.map((subtitle, index) => (
             <View key={`title-${index}`}>
               {/* overall wrapper with a key */}
-              <View style={styles.titleWrapper}>
-                {/* only to make the text a block element  */}
-                <Text style={styles.title}>{subtitle}</Text>
-              </View>
+              {/* only to make the text a block element  */}
+              <H2>{subtitle}</H2>
               {typeof legal.content[index] === 'string' ? (
                 <View>
                   {/* only to make the text a block element */}
-                  <Text>{legal.content[index]}</Text>
+                  <BlockText>{legal.content[index]}</BlockText>
                 </View>
               ) : (
                 legal.content[index].map((paragraph, subindex) => (
-                  <View
-                    style={styles.paraWrapper}
-                    key={`para-${index}-${subindex}`}
-                  >
-                    <Text>{paragraph}</Text>
+                  <View key={`para-${index}-${subindex}`}>
+                    <BlockText>{paragraph}</BlockText>
                   </View>
                 ))
               )}
@@ -57,19 +53,6 @@ function LegalNoticeScreen() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  titleWrapper: {
-    marginTop: 15,
-  },
-  paraWrapper: {
-    marginVertical: 5,
-  },
-});
 
 LegalNoticeScreen.navigationOptions = {
   title: 'Impressum',
