@@ -9,7 +9,7 @@ function Product({ navigation }) {
     <TouchableOpacity
       onPress={() => navigation.navigate('ProductDetailScreen')}
     >
-      <Elementbox>
+      <Elementbox withBottomLine>
         <MaterialCommunityIcon
           name="food-apple"
           padding="0 15px 0 0"
