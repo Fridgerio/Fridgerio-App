@@ -34,7 +34,7 @@ function LegalNoticeScreen() {
             <View key={`title-${index}`}>
               {/* overall wrapper with a key */}
               {/* only to make the text a block element  */}
-              <Heading h2>{subtitle}</Heading>
+              <Heading title={subtitle} />
               {typeof legal.content[index] === 'string' ? (
                 <View>
                   {/* only to make the text a block element */}
