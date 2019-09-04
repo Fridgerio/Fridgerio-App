@@ -49,6 +49,7 @@ function LegalNoticeScreen() {
               )}
             </View>
           ))}
+        {legal && <BlockText margin="25px 0 0 0">{legal.source}</BlockText>}
       </Textbox>
     </ScrollView>
   );
