@@ -173,7 +173,7 @@ function ProductFormScreen() {
 }
 
 ProductFormScreen.navigationOptions = {
-  title: 'Add Product',
+  title: 'Neues Produkt',
   headerRight: (
     <Text>
       <Ionicons name="md-trash" size={22} color="white" />
