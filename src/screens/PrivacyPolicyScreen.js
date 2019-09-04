@@ -11,28 +11,27 @@ function PrivacyPolicyScreen() {
   /* lifecycle method, such as componentDidMount */
   useEffect(() => {
     fetchPrivacy();
-  }, [fetchPrivacy]);
+  }, []);
   /* method to fetch the legal notice information */
   const fetchPrivacy = async () => {
-    toggleLoading();
+    setLoading(true);
     try {
       const url = `https://impressum-api.sklinkusch.now.sh/datenschutz`;
       const response = await fetch(url);
       const data = await response.json();
       setPrivacy(data);
+      setLoading(false);
     } catch (err) {
       setError(err);
-    } finally {
-      toggleLoading();
+      setLoading(false);
     }
   };
-  const toggleLoading = () => {
-    setLoading(!loading);
-  };
+  const loadMessage = 'Lade Daten...';
   /* render the component */
   return (
     <ScrollView>
       <Textbox>
+        {loading && <Text>{loadMessage}</Text>}
         {/* render the error message if an error occurs*/}
         {error && <Text>{error.message}</Text>}
         {/* map over the titles */}
