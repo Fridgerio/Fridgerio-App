@@ -21,11 +21,18 @@ export const Textbox = props => {
 
 // Elementbox
 const StyledElementbox = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin: 20px 30px;
-  justify-content: space-around;
+  flex-direction: ${props => props.direction || 'row'};
+  align-items: ${props => props.alignItems || 'center'};
+  justify-content: ${props => props.justifyContent || 'space-around'};
+  margin: ${props => props.justifyContent || '15px 0'};
 `;
 export const Elementbox = props => (
-  <StyledElementbox>{props.children}</StyledElementbox>
+  <StyledElementbox
+    direction={props.direction}
+    alignItems={props.alignItems}
+    justifyContent={props.justifyContent}
+    margin={props.margin}
+  >
+    {props.children}
+  </StyledElementbox>
 );
