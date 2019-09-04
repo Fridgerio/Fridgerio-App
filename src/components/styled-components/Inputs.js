@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { SearchIcon } from './Icons';
+import { Colors } from './Variables';
 
 const normal = '16px';
 
@@ -8,7 +9,9 @@ const normal = '16px';
 const StyledInput = styled.TextInput(props => `
 flex: ${props.flex || '1'};
 padding: ${props.padding || '0 10px'};
-font-size: ${props.size || normal}
+font-size: ${props.size || normal};
+background-color: ${props.background || Colors.PrimaryUtilityColor};
+border-radius: ${props.radius || '7px'};
 `);
 
 const InputLabel = styled.Text(props => `
@@ -65,6 +68,8 @@ export const Input = props => {
         flex={flex}
         size={size}
         padding={padding}
+        radius={radius}
+        background={background}
       >
         {children}
       </StyledInput>
@@ -77,7 +82,7 @@ const StyledSearch = styled.View(props => `
 flex: ${props.flex || '1'};
 flex-direction: ${props.direction || 'row'};
 height: ${props.height || '35px'};
-background-color: ${props.background || 'transparent'};
+background-color: ${props.background || Colors.PrimaryUtilityColor};
 border-radius: ${props.radius || '5px'};
   margin: ${props.margin || '0 0 10px 0'};
 `);
