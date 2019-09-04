@@ -7,12 +7,14 @@ function PrivacyPolicyScreen() {
   /* a few states */
   const [privacy, setPrivacy] = useState(null); // fetched data
   const [error, setError] = useState(null); // error
+  const [loading, setLoading] = useState(false);
   /* lifecycle method, such as componentDidMount */
   useEffect(() => {
     fetchPrivacy();
-  }, []);
+  }, [fetchPrivacy]);
   /* method to fetch the legal notice information */
   const fetchPrivacy = async () => {
+    toggleLoading();
     try {
       const url = `https://impressum-api.sklinkusch.now.sh/datenschutz`;
       const response = await fetch(url);
@@ -20,7 +22,12 @@ function PrivacyPolicyScreen() {
       setPrivacy(data);
     } catch (err) {
       setError(err);
+    } finally {
+      toggleLoading();
     }
+  };
+  const toggleLoading = () => {
+    setLoading(!loading);
   };
   /* render the component */
   return (
