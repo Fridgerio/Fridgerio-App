@@ -1,14 +1,7 @@
 import React, { useContext } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  Dimensions,
-} from 'react-native';
+import { View, StyleSheet, Text, Button } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Context } from '../context/Context';
-import Swipeable from 'react-native-swipeable';
 
 /* Product entries in the list */
 function Product() {
@@ -63,37 +56,8 @@ function Statistics() {
   );
 }
 
-const leftContent = <Text>Pull to activate</Text>;
-
-const rightButton = [
-  <TouchableHighlight onPress={() => console.warn('swiped')}>
-    <Text style={{ height: '100%', backgroundColor: 'red' }}>Button 1</Text>
-  </TouchableHighlight>,
-];
-
-const awesomeAction = () => {
-  const width = Dimensions.get('window').width;
-
-  console.warn(width);
-};
-
-function MyListItem() {
-  return (
-    <Swipeable
-      leftContent={leftContent}
-      rightButtons={rightButton}
-      onRightActionRelease={awesomeAction}
-      rightActionActivationDistance={250}
-      rightButtonWidth={240}
-      style={{ marginTop: 50, borderWidth: 1, borderColor: 'red', height: 50 }}
-    >
-      <Text style={{ marginHorizontal: 30 }}>My swipeable content</Text>
-    </Swipeable>
-  );
-}
-
 /* Total Home Screen */
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={{ marginTop: 10 }}>
@@ -102,8 +66,11 @@ function HomeScreen() {
         <Product />
         <Product />
         <Statistics style={styles.statistics} />
-        <MyListItem />
       </View>
+      <Button
+        onPress={() => navigation.navigate('SwipeScreen')}
+        title="Swipeables"
+      />
     </View>
   );
 }

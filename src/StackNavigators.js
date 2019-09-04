@@ -11,6 +11,7 @@ import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
 import SettingsThemeScreen from './screens/SettingsThemeScreen';
 import CameraScreen from './screens/CameraScreen';
 import ProductDetailScreen from './screens/ProductDetailScreen';
+import SwipeScreen from './screens/SwipeScreen';
 
 /*
 ----------
@@ -38,7 +39,10 @@ const defaultOptions = {
   },
 };
 
-const HomeStack = createStackNavigator({ HomeScreen }, defaultOptions);
+const HomeStack = createStackNavigator(
+  { HomeScreen, SwipeScreen },
+  defaultOptions
+);
 const AddStack = createStackNavigator(
   { CameraScreen, ProductFormScreen },
   defaultOptions
