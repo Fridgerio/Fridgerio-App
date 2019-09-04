@@ -32,6 +32,7 @@ const labels = [
   { id: '6', color: 'blue', chosen: false },
 ];
 
+// BBDatePicker returns the date picker compatible with the OS
 function BBDatePickerIOS() {
   return (
     <DatePickerIOS
@@ -54,6 +55,7 @@ const BBDatePicker = Platform.select({
   android: () => BBDatePickerAndroid,
 })();
 
+// Returns picker with category names
 function CategoryPicker() {
   return (
     <Textbox>
@@ -77,6 +79,7 @@ function CategoryPicker() {
   );
 }
 
+// Returns a list of colored labels
 function AddLabels() {
   return (
     <Textbox>
@@ -98,6 +101,7 @@ function AddLabels() {
   );
 }
 
+// Accepts a maximum number and returns a picker with ascending numbers from 1 to maximum
 function CreateNumberPicker(max) {
   const numberPicker = [];
   for (let i = 1; i <= max; i++) {
@@ -111,6 +115,7 @@ function ProductFormScreen() {
     <ScrollView>
       <Input inputLabel="Name" placeholder="z.B. Apfel" editable />
 
+      {/* Large category icon */}
       <MaterialCommunityIcons
         name="food-apple"
         style={{
