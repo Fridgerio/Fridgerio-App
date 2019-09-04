@@ -19,9 +19,22 @@ const StyledSearch = styled.View`
   margin-bottom: 10px;
 `;
 export const Input = props => {
-  const { placeholder, onEndEditing, children } = props;
+  const {
+    placeholder,
+    onEndEditing,
+    children,
+    multiline,
+    editable,
+    textAlignVertical,
+  } = props;
   return (
-    <StyledInput placeholder={placeholder} onEndEditing={onEndEditing}>
+    <StyledInput
+      placeholder={placeholder}
+      onEndEditing={onEndEditing}
+      multiline={multiline}
+      editable={editable}
+      textAlignVertical={textAlignVertical}
+    >
       {children}
     </StyledInput>
   );
