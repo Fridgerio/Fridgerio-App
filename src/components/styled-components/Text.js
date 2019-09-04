@@ -3,13 +3,6 @@ import styled from 'styled-components/native';
 import { Colors, FontSize } from './Variables';
 
 // Headings
-const h1 = 'font-size: 22px;';
-const h2 = 'font-size: 20px;';
-const h3 = 'font-size: 19px;';
-const h4 = 'font-size: 18px;';
-const h5 = 'font-size: 17px;';
-const h6 = 'font-size: 16px;';
-
 const StyledHeading = styled.Text`
   color: ${props => props.color || Colors.TertiaryColor};
   font-size: ${props => props.size || FontSize.large};
