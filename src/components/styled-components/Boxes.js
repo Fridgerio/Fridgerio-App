@@ -19,11 +19,12 @@ export const Textbox = props => {
   );
 };
 
-// Textbox
+// Elementbox
 const StyledElementbox = styled.View`
   flex-direction: row;
   align-items: center;
   margin: 20px 30px;
+  justify-content: space-around;
 `;
 export const Elementbox = props => (
   <StyledElementbox>{props.children}</StyledElementbox>
