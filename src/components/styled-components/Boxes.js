@@ -29,13 +29,3 @@ const StyledElementbox = styled.View`
 export const Elementbox = props => (
   <StyledElementbox>{props.children}</StyledElementbox>
 );
-
-// List item container
-const StyledListItemContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 15px;
-`;
-export const ListItemContainer = props => (
-  <StyledListItemContainer>{props.children}</StyledListItemContainer>
-);
