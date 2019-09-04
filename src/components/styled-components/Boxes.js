@@ -24,7 +24,8 @@ const StyledElementbox = styled.View`
   flex-direction: ${props => props.direction || 'row'};
   align-items: ${props => props.alignItems || 'center'};
   justify-content: ${props => props.justifyContent || 'space-around'};
-  margin: ${props => props.justifyContent || '15px 0'};
+  margin: ${props => props.margin || '15px 0'};
+  padding: ${props => props.padding || '15px'};
 `;
 export const Elementbox = props => (
   <StyledElementbox
@@ -32,6 +33,7 @@ export const Elementbox = props => (
     alignItems={props.alignItems}
     justifyContent={props.justifyContent}
     margin={props.margin}
+    padding={props.padding}
   >
     {props.children}
   </StyledElementbox>
