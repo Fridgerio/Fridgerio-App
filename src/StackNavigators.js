@@ -40,7 +40,7 @@ const defaultOptions = {
 };
 
 const HomeStack = createStackNavigator(
-  { HomeScreen, SwipeScreen },
+  { HomeScreen, SwipeScreen, DummyScreen },
   defaultOptions
 );
 const AddStack = createStackNavigator(
