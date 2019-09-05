@@ -17,6 +17,34 @@ function CameraScreen({ navigation }) {
     };
     askPermission();
   }, []);
+  const generateName = (brand, name, quantity) => {
+    let pbrand;
+    if (brand === name) {
+      pbrand = '';
+    } else {
+      pbrand = brand;
+    }
+    let identifier = 0;
+    identifier += pbrand === '' || pbrand === undefined ? 0 : 4;
+    identifier += name === '' || name === undefined ? 0 : 2;
+    identifier += quantity === '' || quantity === undefined ? 0 : 1;
+    switch (identifier) {
+      case 1:
+        return quantity;
+      case 2:
+        return name;
+      case 3:
+        return `${name} ${quantity}`;
+      case 4:
+        return pbrand;
+      case 5:
+        return `${pbrand} ${quantity}`;
+      case 6:
+        return `${pbrand} ${name}`;
+      default:
+        return `${pbrand} ${name} ${quantity}`;
+    }
+  };
   const fetchProduct = async code => {
     try {
       const url = `https://products.sklinkusch.now.sh/?${code}`;
@@ -24,12 +52,13 @@ function CameraScreen({ navigation }) {
       const data = await response.json();
       const {
         status,
-        product: { product_name, quantity },
+        product: { brand, product_name, quantity },
       } = await data;
       if (status === 1) {
-        alert(`Bar code ${code} erkannt, entspricht ${product_name} ${quantity}`);
+        const productName = generateName(brand, product_name, quantity);
+        alert(`Bar code ${code} erkannt, entspricht ${productName}`);
       } else {
-        alert(`Bar code ${code} is not in the database`);
+        navigation.navigate('ProductFormScreen');
       }
     } catch (error) {
       alert(`${error.message}`);
