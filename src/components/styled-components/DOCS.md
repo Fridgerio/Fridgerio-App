@@ -33,3 +33,8 @@
 - text-align: textAlign
 - text-shadow: tShadow
 - width: width
+
+- withBorder
+- withBottomLine
+- withBoxShadow
+- withTextShadow
