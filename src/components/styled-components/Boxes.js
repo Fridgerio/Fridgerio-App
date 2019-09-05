@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import { Colors } from './Variables';
 
 // Textbox
 const StyledTextbox = styled.View`
@@ -19,12 +20,27 @@ export const Textbox = props => {
   );
 };
 
-// Textbox
+// Elementbox
 const StyledElementbox = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin: 20px 30px;
+  flex-direction: ${props => props.direction || 'row'};
+  align-items: ${props => props.alignItems || 'center'};
+  justify-content: ${props => props.justifyContent || 'space-around'};
+  margin: ${props => props.margin || '0'};
+  padding: ${props => props.padding || '15px'};
+  ${props =>
+    props.withBottomLine
+      ? `border-bottom-width: 1px; border-style: solid; border-bottom-color: ${Colors.PrimaryUtilityColor};`
+      : null};
 `;
 export const Elementbox = props => (
-  <StyledElementbox>{props.children}</StyledElementbox>
+  <StyledElementbox
+    direction={props.direction}
+    alignItems={props.alignItems}
+    justifyContent={props.justifyContent}
+    margin={props.margin}
+    padding={props.padding}
+    withBottomLine={props.withBottomLine}
+  >
+    {props.children}
+  </StyledElementbox>
 );

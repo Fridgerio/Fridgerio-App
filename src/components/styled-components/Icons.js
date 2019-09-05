@@ -18,6 +18,25 @@ const StyledIon = styled(Ionicons)`
 `;
 export const StyledIonicon = props => <StyledIon name={props.name} />;
 
+// MaterialCommunityIcons icons
+const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)`
+  color: ${props => props.color || Colors.TertiaryColor};
+  font-size: ${props => props.size || '28px'};
+  padding: ${props => props.padding || '0'};
+  margin: ${props => props.margin || '0'};
+  flex: ${props => props.flex || 'none'};
+`;
+export const MaterialCommunityIcon = props => (
+  <StyledMaterialCommunityIcons
+    name={props.name}
+    color={props.color}
+    size={props.size}
+    padding={props.padding}
+    margin={props.margin}
+    flex={props.flex}
+  />
+);
+
 // Search icon
 const StyledSearchIcon = styled(Ionicons)`
   color: ${Colors.TertiaryColor};

@@ -1,21 +1,23 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcon } from './styled-components/Icons';
+import { Elementbox } from './styled-components/Boxes';
+import { StyledText } from './styled-components/Text';
 
 function Product({ navigation }) {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('ProductDetailScreen')}
     >
-      <View>
-        <MaterialCommunityIcons
+      <Elementbox withBottomLine>
+        <MaterialCommunityIcon
           name="food-apple"
-          style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
+          padding="0 15px 0 0"
+          flex="1"
         />
-        <Text>Random Food</Text>
-        <Text style={{ color: 'gray', paddingLeft: 20 }}>+4</Text>
-        <Text style={{ position: 'absolute', right: 15 }}>20. September</Text>
-      </View>
+        <StyledText flex="4">RandomFood</StyledText>
+        <StyledText flex="2">20.09.2019</StyledText>
+      </Elementbox>
     </TouchableOpacity>
   );
 }

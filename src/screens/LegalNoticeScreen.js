@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
-import { H2, BlockText } from '../components/styled-components/Text';
+import { Heading, BlockText } from '../components/styled-components/Text';
 
 function LegalNoticeScreen() {
   /* a few states */
@@ -34,7 +34,7 @@ function LegalNoticeScreen() {
             <View key={`title-${index}`}>
               {/* overall wrapper with a key */}
               {/* only to make the text a block element  */}
-              <H2>{subtitle}</H2>
+              <Heading title={subtitle} />
               {typeof legal.content[index] === 'string' ? (
                 <View>
                   {/* only to make the text a block element */}
@@ -49,6 +49,7 @@ function LegalNoticeScreen() {
               )}
             </View>
           ))}
+        {legal && <BlockText margin="25px 0 0 0">{legal.source}</BlockText>}
       </Textbox>
     </ScrollView>
   );
