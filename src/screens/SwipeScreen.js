@@ -37,12 +37,9 @@ export default function SwipeScreen({ navigation }) {
     'frozen pizza',
   ]);
   return (
-    <ScrollView>
-      <SwipeableItem navigation={navigation} />
-      <SwipeableItem navigation={navigation} />
-      <SwipeableItem navigation={navigation} />
-      <SwipeableItem navigation={navigation} />
-    </ScrollView>
+    <View>
+      <Text style={styles.heading}>Pull to reset</Text>
+    </View>
   );
 }
 
@@ -53,6 +50,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'darkseagreen',
     marginVertical: 2,
+  },
+  heading: {
+    textAlign: 'center',
+    fontWeight: '700',
+    marginVertical: 40,
   },
   leftSwipeItem: {
     flex: 1,
