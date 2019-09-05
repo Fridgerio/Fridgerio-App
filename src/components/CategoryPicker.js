@@ -2,7 +2,10 @@ import React from 'react';
 import { Picker, Modal, View } from 'react-native';
 
 import { Input } from '../components/styled-components/Inputs';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import {
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
 
 const categories = [
   { id: '1', name: 'Alle', icon: 'food' },
@@ -14,10 +17,22 @@ const categories = [
 
 // Returns picker with category names
 export default class CategoryPicker extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+    };
+  }
+
   render() {
     return (
       <React.Fragment>
-        <TouchableHighlight onPress={() => console.warn('Click')}>
+        <TouchableHighlight
+          onPress={() => {
+            console.log(this.state.visible);
+            return this.setState(prev => ({ visible: !prev.visible }));
+          }}
+        >
           <Input
             inputLabel="Kategorie"
             placeholder="Bitte wähle eine Kategorie"
@@ -25,7 +40,12 @@ export default class CategoryPicker extends React.Component {
             defaultValue={categories[1].name}
           />
         </TouchableHighlight>
-        <Modal visible transparent>
+        <Modal
+          visible={this.state.visible}
+          transparent
+          onRequestClose={() =>
+            this.setState(prev => ({ visible: !prev.visible }))}
+        >
           <View
             style={{
               position: 'absolute',
@@ -39,8 +59,10 @@ export default class CategoryPicker extends React.Component {
             <Picker
               prompt="Kategorie"
               selectedValue={categories[1].id}
-              onValueChange={itemValue =>
-                console.warn(`Category ${itemValue} selected`)}
+              onValueChange={itemValue => {
+                console.warn(`Category ${itemValue} selected`);
+                return this.setState({ visible: false });
+              }}
             >
               <Picker.Item label="Bitte wähle eine Kategorie" value="0" />
               {categories.map(category => (
