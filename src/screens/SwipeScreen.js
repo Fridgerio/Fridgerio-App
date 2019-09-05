@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, FlatList } from 'react-native';
 import Swipeable from 'react-native-swipeable';
 
-function SwipeableItem({ navigation }) {
+function SwipeableItem({ navigation, product, onDelete }) {
   return (
     <Swipeable
       leftActionActivationDistance={170}
@@ -19,10 +19,10 @@ function SwipeableItem({ navigation }) {
           <Text style={{ color: 'white' }}>Delete</Text>
         </View>
       }
-      onRightActionRelease={() => navigation.navigate('DummyScreen')}
+      onRightActionRelease={() => onDelete(product)}
     >
       <View style={styles.listItem}>
-        <Text>Swipe me!</Text>
+        <Text>{product}</Text>
       </View>
     </Swipeable>
   );
@@ -36,14 +36,48 @@ export default function SwipeScreen({ navigation }) {
     'green tea',
     'frozen pizza',
   ]);
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleDelete = productName => {
+    const updatedProducts = products.filter(product => product !== productName);
+    setProducts(updatedProducts);
+  };
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    setProducts(['banana', 'eggs', 'chocolate', 'green tea', 'frozen pizza']);
+    setIsRefreshing(false);
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.heading}>Pull to reset</Text>
+      <FlatList
+        data={products}
+        keyExtractor={item => item}
+        renderItem={({ item }) => (
+          <SwipeableItem
+            product={item}
+            navigation={navigation}
+            onDelete={handleDelete}
+          />
+        )}
+        onRefresh={handleRefresh}
+        refreshing={isRefreshing}
+        ListEmptyComponent={() => (
+          <Text style={styles.listEmpty}>No products in your list</Text>
+        )}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
   listItem: {
     height: 75,
     alignItems: 'center',
@@ -70,5 +104,8 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     backgroundColor: 'red',
     marginVertical: 2,
+  },
+  listEmpty: {
+    textAlign: 'center',
   },
 });
