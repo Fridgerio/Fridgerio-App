@@ -17,17 +17,20 @@ function CameraScreen({ navigation }) {
     };
     askPermission();
   }, []);
+  /* method to build a product name from the API data */
   const generateName = (brand, name, quantity) => {
     let pbrand;
+    /* only take the brand if it is different from the name */
     if (brand === name) {
       pbrand = '';
     } else {
       pbrand = brand;
     }
-    let identifier = 0;
+    let identifier = 0; // identifier tells which data is present
     identifier += pbrand === '' || pbrand === undefined ? 0 : 4;
     identifier += name === '' || name === undefined ? 0 : 2;
     identifier += quantity === '' || quantity === undefined ? 0 : 1;
+    /* switch statement generates the optimal productName */
     switch (identifier) {
       case 1:
         return quantity;
@@ -45,37 +48,47 @@ function CameraScreen({ navigation }) {
         return `${pbrand} ${name} ${quantity}`;
     }
   };
+  /* method to fetch the API data */
   const fetchProduct = async code => {
     try {
       const url = `https://products.sklinkusch.now.sh/?${code}`;
       const response = await fetch(url);
       const data = await response.json();
+      /* destructuring important data */
       const {
         status,
         product: { brand, product_name, quantity, categories },
       } = await data;
       if (status === 1) {
+        /* if the product is found in the database */
+        /* (1) generate a product name */
         const productName = generateName(brand, product_name, quantity);
+        /* (2) make an alert with the product name */
         alert(`Produkt erkannt: ${productName}`);
+        /* (3) navigate to ProductFormScreen and pass the data */
         navigation.navigate('ProductFormScreen', {
           name: productName,
           categories: categories,
         });
       } else {
+        /* if product is not in the database */
+        /* (1) make an alert */
         alert('Produkt nicht in der Datenbank.');
+        /* (2) navigate to the empty form screen */
         navigation.navigate('ProductFormScreen');
       }
     } catch (error) {
+      /* show error message in an alert if there is an error */
       alert(`${error.message}`);
     }
   };
-  /* Alert with barcode type and number */
   const handleBarCodeScanned = ({ type, data }) => {
+    /* if it is ean13 or ean8 */
     if (type === 32 || type === 64) {
-      fetchProduct(data);
-      toggleScanned(true);
+      fetchProduct(data); // fetch the data from the products API
+      toggleScanned(true); // set scanned to true, to avoid multiple scanning
     } else {
-      toggleScanned(false);
+      toggleScanned(false); // scanned remains false for qr codes etc.
     }
   };
   if (hasCameraPermission === null) {
