@@ -17,11 +17,25 @@ function CameraScreen({ navigation }) {
     };
     askPermission();
   }, []);
+  const fetchProduct = async code => {
+    const url = `https://products.sklinkusch.now.sh/?${code}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const {
+      status,
+      product: { product_name, quantity },
+    } = await data;
+    if (status === 1) {
+      alert(`Bar code ${code} recognized, corresponding to ${product_name} ${quantity}`);
+    } else {
+      alert(`Bar code ${code} is not in the database`);
+    }
+  };
   /* Alert with barcode type and number */
   const handleBarCodeScanned = ({ type, data }) => {
     if (type === 32 || type === 64) {
       toggleScanned(true);
-      alert(`Bar code with type ${type} and data ${data} has been scanned.`);
+      fetchProduct(data);
     } else {
       toggleScanned(false);
     }
