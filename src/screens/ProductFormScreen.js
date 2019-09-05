@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   ScrollView,
-  TouchableOpacity,
   Text,
   FlatList,
   Picker,
@@ -11,19 +10,11 @@ import {
 } from 'react-native';
 
 import CategoryPicker from '../components/CategoryPicker';
+import AddLabels from '../components/AddLabels';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Textbox } from '../components/styled-components/Boxes';
 import { Input } from '../components/styled-components/Inputs';
-
-const labels = [
-  { id: '1', color: 'red', chosen: false },
-  { id: '2', color: 'hotpink', chosen: true },
-  { id: '3', color: 'orange', chosen: false },
-  { id: '4', color: 'yellow', chosen: false },
-  { id: '5', color: 'green', chosen: false },
-  { id: '6', color: 'blue', chosen: false },
-];
 
 // BBDatePicker returns the date picker compatible with the OS
 function BBDatePickerIOS() {
@@ -47,28 +38,6 @@ const BBDatePicker = Platform.select({
   ios: () => BBDatePickerIOS,
   android: () => BBDatePickerAndroid,
 })();
-
-// Returns a list of colored labels
-function AddLabels() {
-  return (
-    <Textbox>
-      <Text>Füge ein Label hinzu</Text>
-      <FlatList
-        horizontal
-        data={labels}
-        keyExtractor={label => label.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => console.warn('clicked')}>
-            <Ionicons
-              name={item.chosen ? 'md-checkbox' : 'md-square'}
-              style={{ color: item.color, fontSize: 32, paddingRight: 10 }}
-            />
-          </TouchableOpacity>
-        )}
-      />
-    </Textbox>
-  );
-}
 
 // Accepts a maximum number and returns a picker with ascending numbers from 1 to maximum
 function CreateNumberPicker(max) {
