@@ -42,7 +42,14 @@ export default class NumberPicker extends React.Component {
               backgroundColor: 'whitesmoke',
             }}
           >
-            <Picker prompt={title} selectedValue={1}>
+            <Picker
+              prompt={title}
+              selectedValue={1}
+              onValueChange={itemValue => {
+                console.warn(`${itemValue} selected`);
+                return this.setState({ visible: false });
+              }}
+            >
               {this.CreateNumberPicker(maxNum)}
             </Picker>
           </View>
