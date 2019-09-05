@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import Swipeable from 'react-native-swipeable';
 
@@ -29,6 +29,13 @@ function SwipeableItem({ navigation }) {
 }
 
 export default function SwipeScreen({ navigation }) {
+  const [products, setProducts] = useState([
+    'banana',
+    'eggs',
+    'chocolate',
+    'green tea',
+    'frozen pizza',
+  ]);
   return (
     <ScrollView>
       <SwipeableItem navigation={navigation} />
