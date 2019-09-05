@@ -52,12 +52,17 @@ function CameraScreen({ navigation }) {
       const data = await response.json();
       const {
         status,
-        product: { brand, product_name, quantity },
+        product: { brand, product_name, quantity, categories },
       } = await data;
       if (status === 1) {
         const productName = generateName(brand, product_name, quantity);
-        alert(`Bar code ${code} erkannt, entspricht ${productName}`);
+        alert(`Produkt erkannt: ${productName}`);
+        navigation.navigate('ProductFormScreen', {
+          name: productName,
+          categories: categories,
+        });
       } else {
+        alert('Produkt nicht in der Datenbank.');
         navigation.navigate('ProductFormScreen');
       }
     } catch (error) {
