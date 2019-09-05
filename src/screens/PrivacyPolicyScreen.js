@@ -3,6 +3,10 @@ import { ScrollView, Text } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 
 function PrivacyPolicyScreen() {
+  /* a few states */
+  const [legal, setLegal] = useState(null); // fetched data
+  const [error, setError] = useState(null); // error
+  const [loading, setLoading] = useState(false); // loading status
   return (
     <ScrollView>
       <Textbox>
