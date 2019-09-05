@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Picker } from 'react-native';
+import { Text, Picker, TouchableHighlight } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 
 export default class NumberPicker extends React.Component {
@@ -15,12 +15,16 @@ export default class NumberPicker extends React.Component {
   render() {
     const { title, maxNum } = this.props;
     return (
-      <Textbox>
-        <Text>{title}</Text>
+      <React.Fragment>
+        <TouchableHighlight>
+          <Textbox>
+            <Text>{title}</Text>
+          </Textbox>
+        </TouchableHighlight>
         <Picker prompt={title} selectedValue={1}>
           {this.CreateNumberPicker(maxNum)}
         </Picker>
-      </Textbox>
+      </React.Fragment>
     );
   }
 }
