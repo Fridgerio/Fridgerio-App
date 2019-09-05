@@ -20,6 +20,7 @@ function PrivacyPolicyScreen() {
       const response = await fetch(url);
       const data = await response.json();
       setPrivacy(data);
+      setError(null);
     } catch (err) {
       setError(err);
     }
