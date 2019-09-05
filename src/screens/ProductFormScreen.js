@@ -42,8 +42,6 @@ const BBDatePicker = Platform.select({
 function ProductFormScreen() {
   return (
     <ScrollView>
-      <Input inputLabel="Name" placeholder="z.B. Apfel" editable />
-
       {/* Large category icon */}
       <MaterialCommunityIcons
         name="food-apple"
@@ -55,8 +53,11 @@ function ProductFormScreen() {
           paddingRight: 15,
           backgroundColor: '#1b4e55',
           alignSelf: 'flex-end',
+          margin: 10,
         }}
       />
+
+      <Input inputLabel="Name" placeholder="z.B. Apfel" editable />
 
       <CategoryPicker />
 
