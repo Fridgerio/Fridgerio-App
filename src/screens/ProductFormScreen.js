@@ -58,11 +58,16 @@ const BBDatePicker = Platform.select({
 // Returns picker with category names
 function CategoryPicker() {
   return (
-    <Textbox>
-      <Text>Kategorie</Text>
+    <React.Fragment>
+      <Input
+        inputLabel="Kategorie"
+        placeholder="Bitte wähle eine Kategorie"
+        editable={false}
+        defaultValue={categories[1].name}
+      />
       <Picker
         prompt="Kategorie"
-        selectedValue="2"
+        selectedValue={categories[1].id}
         onValueChange={itemValue =>
           console.warn(`Category ${itemValue} selected`)}
       >
@@ -75,7 +80,7 @@ function CategoryPicker() {
           />
         ))}
       </Picker>
-    </Textbox>
+    </React.Fragment>
   );
 }
 
