@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Picker, TouchableHighlight } from 'react-native';
+import { Text, Picker, TouchableHighlight, View, Modal } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 
 export default class NumberPicker extends React.Component {
@@ -21,18 +21,32 @@ export default class NumberPicker extends React.Component {
     return (
       <React.Fragment>
         <TouchableHighlight
-          onPress={() => {
-            console.log(this.state.visible);
-            return this.setState(prev => ({ visible: !prev.visible }));
-          }}
+          onPress={() => this.setState(prev => ({ visible: !prev.visible }))}
         >
           <Textbox>
             <Text>{title}</Text>
           </Textbox>
         </TouchableHighlight>
-        <Picker prompt={title} selectedValue={1}>
-          {this.CreateNumberPicker(maxNum)}
-        </Picker>
+        <Modal
+          visible={this.state.visible}
+          transparent
+          onRequestClose={() => this.setState({ visible: false })}
+        >
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              left: 0,
+              height: 200,
+              backgroundColor: 'whitesmoke',
+            }}
+          >
+            <Picker prompt={title} selectedValue={1}>
+              {this.CreateNumberPicker(maxNum)}
+            </Picker>
+          </View>
+        </Modal>
       </React.Fragment>
     );
   }
