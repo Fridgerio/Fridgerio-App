@@ -10,18 +10,11 @@ import {
   Platform,
 } from 'react-native';
 
+import CategoryPicker from '../components/CategoryPicker';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Textbox } from '../components/styled-components/Boxes';
 import { Input } from '../components/styled-components/Inputs';
-
-const categories = [
-  { id: '1', name: 'Alle', icon: 'food' },
-  { id: '2', name: 'Obst&Gemüse', icon: 'food-apple' },
-  { id: '3', name: 'Milchprodukte', icon: 'food-croissant' },
-  { id: '4', name: 'Nudeln, Reis usw.', icon: 'food-fork-drink' },
-  { id: '5', name: 'Getränke', icon: 'food-variant' },
-];
 
 const labels = [
   { id: '1', color: 'red', chosen: false },
@@ -54,35 +47,6 @@ const BBDatePicker = Platform.select({
   ios: () => BBDatePickerIOS,
   android: () => BBDatePickerAndroid,
 })();
-
-// Returns picker with category names
-function CategoryPicker() {
-  return (
-    <React.Fragment>
-      <Input
-        inputLabel="Kategorie"
-        placeholder="Bitte wähle eine Kategorie"
-        editable={false}
-        defaultValue={categories[1].name}
-      />
-      <Picker
-        prompt="Kategorie"
-        selectedValue={categories[1].id}
-        onValueChange={itemValue =>
-          console.warn(`Category ${itemValue} selected`)}
-      >
-        <Picker.Item label="Bitte wähle eine Kategorie" value="0" />
-        {categories.map(category => (
-          <Picker.Item
-            label={category.name}
-            value={category.id}
-            key={category.id}
-          />
-        ))}
-      </Picker>
-    </React.Fragment>
-  );
-}
 
 // Returns a list of colored labels
 function AddLabels() {
