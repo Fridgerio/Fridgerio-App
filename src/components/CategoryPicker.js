@@ -12,43 +12,45 @@ const categories = [
 ];
 
 // Returns picker with category names
-export default function CategoryPicker() {
-  return (
-    <React.Fragment>
-      <Input
-        inputLabel="Kategorie"
-        placeholder="Bitte wähle eine Kategorie"
-        editable={false}
-        defaultValue={categories[1].name}
-      />
-      <Modal visible transparent>
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            left: 0,
-            height: 200,
-            backgroundColor: 'whitesmoke',
-          }}
-        >
-          <Picker
-            prompt="Kategorie"
-            selectedValue={categories[1].id}
-            onValueChange={itemValue =>
-              console.warn(`Category ${itemValue} selected`)}
+export default class CategoryPicker extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <Input
+          inputLabel="Kategorie"
+          placeholder="Bitte wähle eine Kategorie"
+          editable={false}
+          defaultValue={categories[1].name}
+        />
+        <Modal visible transparent>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              left: 0,
+              height: 200,
+              backgroundColor: 'whitesmoke',
+            }}
           >
-            <Picker.Item label="Bitte wähle eine Kategorie" value="0" />
-            {categories.map(category => (
-              <Picker.Item
-                label={category.name}
-                value={category.id}
-                key={category.id}
-              />
-            ))}
-          </Picker>
-        </View>
-      </Modal>
-    </React.Fragment>
-  );
+            <Picker
+              prompt="Kategorie"
+              selectedValue={categories[1].id}
+              onValueChange={itemValue =>
+                console.warn(`Category ${itemValue} selected`)}
+            >
+              <Picker.Item label="Bitte wähle eine Kategorie" value="0" />
+              {categories.map(category => (
+                <Picker.Item
+                  label={category.name}
+                  value={category.id}
+                  key={category.id}
+                />
+              ))}
+            </Picker>
+          </View>
+        </Modal>
+      </React.Fragment>
+    );
+  }
 }
