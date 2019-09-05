@@ -19,8 +19,12 @@ function CameraScreen({ navigation }) {
   }, []);
   /* Alert with barcode type and number */
   const handleBarCodeScanned = ({ type, data }) => {
-    toggleScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned.`);
+    if (type === 32 || type === 64) {
+      toggleScanned(true);
+      alert(`Bar code with type ${type} and data ${data} has been scanned.`);
+    } else {
+      toggleScanned(false);
+    }
   };
   if (hasCameraPermission === null) {
     /* Render this if camera permission has not been checked */
@@ -39,6 +43,10 @@ function CameraScreen({ navigation }) {
       }}
     >
       <BarCodeScanner
+        barCodeTypes={[
+          BarCodeScanner.Constants.BarCodeType.ean8,
+          BarCodeScanner.Constants.BarCodeType.ean13,
+        ]}
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={{
           position: 'absolute',
