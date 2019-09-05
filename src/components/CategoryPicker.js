@@ -2,10 +2,7 @@ import React from 'react';
 import { Picker, Modal, View } from 'react-native';
 
 import { Input } from '../components/styled-components/Inputs';
-import {
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const categories = [
   { id: '1', name: 'Alle', icon: 'food' },
@@ -43,8 +40,7 @@ export default class CategoryPicker extends React.Component {
         <Modal
           visible={this.state.visible}
           transparent
-          onRequestClose={() =>
-            this.setState(prev => ({ visible: !prev.visible }))}
+          onRequestClose={() => this.setState({ visible: false })}
         >
           <View
             style={{
