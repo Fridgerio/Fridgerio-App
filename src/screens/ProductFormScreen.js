@@ -3,7 +3,6 @@ import {
   ScrollView,
   Text,
   FlatList,
-  Picker,
   DatePickerIOS,
   DatePickerAndroid,
   Platform,
@@ -11,6 +10,7 @@ import {
 
 import CategoryPicker from '../components/CategoryPicker';
 import AddLabels from '../components/AddLabels';
+import NumberPicker from '../components/NumberPicker';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Textbox } from '../components/styled-components/Boxes';
@@ -39,15 +39,6 @@ const BBDatePicker = Platform.select({
   android: () => BBDatePickerAndroid,
 })();
 
-// Accepts a maximum number and returns a picker with ascending numbers from 1 to maximum
-function CreateNumberPicker(max) {
-  const numberPicker = [];
-  for (let i = 1; i <= max; i++) {
-    numberPicker.push(<Picker.Item label={`${i}`} value={i} key={i} />);
-  }
-  return numberPicker;
-}
-
 function ProductFormScreen() {
   return (
     <ScrollView>
@@ -69,24 +60,14 @@ function ProductFormScreen() {
 
       <CategoryPicker />
 
-      <Textbox>
-        <Text>Menge</Text>
-        <Picker prompt="Menge" selectedValue={1}>
-          {CreateNumberPicker(5)}
-        </Picker>
-      </Textbox>
+      <NumberPicker title="Menge" maxNum={10} />
 
       <Textbox>
         <Text>Mindesthaltbarkeitsdatum</Text>
         <BBDatePicker />
       </Textbox>
 
-      <Textbox>
-        <Text>Benachrichtigung</Text>
-        <Picker prompt="Benachrichtigung" selectedValue={1}>
-          {CreateNumberPicker(14)}
-        </Picker>
-      </Textbox>
+      <NumberPicker title="Benachrichtigung" maxNum={14} />
 
       <AddLabels />
 
