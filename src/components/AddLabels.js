@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, FlatList } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
-import { Textbox } from '../components/styled-components/Boxes';
+import { Textbox, Elementbox } from '../components/styled-components/Boxes';
 
 const labels = [
   { id: '1', color: 'red', chosen: false },
@@ -16,21 +16,25 @@ const labels = [
 // Returns a list of colored labels
 export default function AddLabels() {
   return (
-    <Textbox>
-      <Text>Füge ein Label hinzu</Text>
-      <FlatList
-        horizontal
-        data={labels}
-        keyExtractor={label => label.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => console.warn('clicked')}>
-            <Ionicons
-              name={item.chosen ? 'md-checkbox' : 'md-square'}
-              style={{ color: item.color, fontSize: 32, paddingRight: 10 }}
-            />
-          </TouchableOpacity>
-        )}
-      />
-    </Textbox>
+    <React.Fragment>
+      <Textbox>
+        <Text>Füge ein Label hinzu</Text>
+      </Textbox>
+      <Elementbox>
+        <FlatList
+          horizontal
+          data={labels}
+          keyExtractor={label => label.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => console.warn('clicked')}>
+              <Ionicons
+                name={item.chosen ? 'md-checkbox' : 'md-square'}
+                style={{ color: item.color, fontSize: 32, paddingRight: 10 }}
+              />
+            </TouchableOpacity>
+          )}
+        />
+      </Elementbox>
+    </React.Fragment>
   );
 }
