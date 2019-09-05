@@ -1,5 +1,10 @@
 # Props for styled-components
 
+![Fridgerio](https://img.shields.io/badge/Fridgerio-green.svg)
+![styled-components](https://img.shields.io/badge/styled with-styled–components-hotpink.svg)
+
+In order to standardize the allocation of props in styled components, the following rules should be observed:
+
 - align-items: alignItems
 - align-self: alignSelf
 - background-color: background
