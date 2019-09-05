@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  ScrollView,
-  TouchableOpacity,
-  Text,
-  FlatList,
-  Picker,
-  DatePickerIOS,
-  DatePickerAndroid,
-  Platform,
-} from 'react-native';
+import { Picker, Modal, View } from 'react-native';
 
 import { Input } from '../components/styled-components/Inputs';
 
@@ -30,21 +21,34 @@ export default function CategoryPicker() {
         editable={false}
         defaultValue={categories[1].name}
       />
-      <Picker
-        prompt="Kategorie"
-        selectedValue={categories[1].id}
-        onValueChange={itemValue =>
-          console.warn(`Category ${itemValue} selected`)}
-      >
-        <Picker.Item label="Bitte wähle eine Kategorie" value="0" />
-        {categories.map(category => (
-          <Picker.Item
-            label={category.name}
-            value={category.id}
-            key={category.id}
-          />
-        ))}
-      </Picker>
+      <Modal visible transparent>
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            left: 0,
+            height: 200,
+            backgroundColor: 'whitesmoke',
+          }}
+        >
+          <Picker
+            prompt="Kategorie"
+            selectedValue={categories[1].id}
+            onValueChange={itemValue =>
+              console.warn(`Category ${itemValue} selected`)}
+          >
+            <Picker.Item label="Bitte wähle eine Kategorie" value="0" />
+            {categories.map(category => (
+              <Picker.Item
+                label={category.name}
+                value={category.id}
+                key={category.id}
+              />
+            ))}
+          </Picker>
+        </View>
+      </Modal>
     </React.Fragment>
   );
 }
