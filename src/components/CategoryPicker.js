@@ -2,6 +2,7 @@ import React from 'react';
 import { Picker, Modal, View } from 'react-native';
 
 import { Input } from '../components/styled-components/Inputs';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const categories = [
   { id: '1', name: 'Alle', icon: 'food' },
@@ -16,12 +17,14 @@ export default class CategoryPicker extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Input
-          inputLabel="Kategorie"
-          placeholder="Bitte wähle eine Kategorie"
-          editable={false}
-          defaultValue={categories[1].name}
-        />
+        <TouchableHighlight onPress={() => console.warn('Click')}>
+          <Input
+            inputLabel="Kategorie"
+            placeholder="Bitte wähle eine Kategorie"
+            editable={false}
+            defaultValue={categories[1].name}
+          />
+        </TouchableHighlight>
         <Modal visible transparent>
           <View
             style={{
