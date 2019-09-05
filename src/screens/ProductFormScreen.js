@@ -1,43 +1,13 @@
 import React from 'react';
-import {
-  ScrollView,
-  Text,
-  FlatList,
-  DatePickerIOS,
-  DatePickerAndroid,
-  Platform,
-} from 'react-native';
+import { ScrollView, Text, FlatList } from 'react-native';
 
 import CategoryPicker from '../components/CategoryPicker';
 import AddLabels from '../components/AddLabels';
 import NumberPicker from '../components/NumberPicker';
+import BestBeforeDatePicker from '../components/BestBeforeDatePicker';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
-import { Textbox } from '../components/styled-components/Boxes';
 import { Input } from '../components/styled-components/Inputs';
-
-// BBDatePicker returns the date picker compatible with the OS
-function BBDatePickerIOS() {
-  return (
-    <DatePickerIOS
-      initialDate={new Date()}
-      minimumDate={new Date()}
-      mode="date"
-    />
-  );
-}
-
-function BBDatePickerAndroid() {
-  // DatePickerAndroid.open({
-  //   date: new Date(),
-  // });
-  return <Text>Not available yet</Text>;
-}
-
-const BBDatePicker = Platform.select({
-  ios: () => BBDatePickerIOS,
-  android: () => BBDatePickerAndroid,
-})();
 
 function ProductFormScreen() {
   return (
@@ -63,10 +33,7 @@ function ProductFormScreen() {
 
       <NumberPicker title="Menge" maxNum={10} />
 
-      <Textbox>
-        <Text>Mindesthaltbarkeitsdatum</Text>
-        <BBDatePicker />
-      </Textbox>
+      <BestBeforeDatePicker />
 
       <NumberPicker title="Benachrichtigung" maxNum={14} />
 
