@@ -34,6 +34,7 @@ border-radius: ${props.radius || '5px'};
 export const Input = props => {
   const {
     placeholder,
+    defaultValue,
     onEndEditing,
     children,
     multiline,
@@ -61,6 +62,7 @@ export const Input = props => {
       <InputLabel>{inputLabel}</InputLabel>
       <StyledInput
         placeholder={placeholder}
+        defaultValue={defaultValue}
         onEndEditing={onEndEditing}
         multiline={multiline}
         editable={editable}
