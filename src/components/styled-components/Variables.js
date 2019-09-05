@@ -18,3 +18,15 @@ export const FontSize = {
   large: '18px',
   extraLarge: '20px',
 };
+
+// Paddings
+export const Padding = {
+  PrimaryPadding: '15px',
+  SecondaryPadding: '5px',
+};
+
+// Margins
+export const Margin = {
+  PrimaryMargin: '15px',
+  SecondaryMargin: '5px',
+};
