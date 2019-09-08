@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, FlatList } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, FlatList } from 'react-native';
 import Swipeable from 'react-native-swipeable';
 
 function SwipeableItem({ navigation, product, onDelete }) {
+  /* dynamically calculate width for different mobile screen sizes; variable is used to set the ActionActivationDistance prop; current value will trigger action when swiping horizontally 45% of the screen width */
+  const width = Dimensions.get('window').width * 0.45;
+
   return (
     <Swipeable
-      leftActionActivationDistance={170}
+      leftActionActivationDistance={width}
+      // element revealed by swipe gesture
       leftContent={
         <View style={styles.leftSwipeItem}>
           <Text style={{ color: 'white' }}>Edit</Text>
         </View>
       }
-      // write comment about difference between onLeftActionActivate and onLeftActionRelease
+      /* use onLeftActionActivate if the action should not be triggered automatically by lifting the thumb */
       onLeftActionRelease={() => navigation.navigate('DummyScreen')}
-      rightActionActivationDistance={170}
+      rightActionActivationDistance={width}
+      // element revealed by swipe gesture
       rightContent={
         <View style={styles.rightSwipeItem}>
           <Text style={{ color: 'white' }}>Delete</Text>
@@ -29,6 +34,7 @@ function SwipeableItem({ navigation, product, onDelete }) {
 }
 
 export default function SwipeScreen({ navigation }) {
+  // dummy data
   const [products, setProducts] = useState([
     'banana',
     'eggs',
@@ -36,14 +42,16 @@ export default function SwipeScreen({ navigation }) {
     'green tea',
     'frozen pizza',
   ]);
-
+  // toggle value for refreshing prop to enable pull-to-refresh feature
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  // delete product from list
   const handleDelete = productName => {
     const updatedProducts = products.filter(product => product !== productName);
     setProducts(updatedProducts);
   };
 
+  /* reset screen with initial, complete item list; this is just for testing purposes */
   const handleRefresh = () => {
     setIsRefreshing(true);
     setProducts(['banana', 'eggs', 'chocolate', 'green tea', 'frozen pizza']);
@@ -63,8 +71,10 @@ export default function SwipeScreen({ navigation }) {
             onDelete={handleDelete}
           />
         )}
+        // pull-to-refresh
         onRefresh={handleRefresh}
         refreshing={isRefreshing}
+        // element to be rendered when list is empty
         ListEmptyComponent={() => (
           <Text style={styles.listEmpty}>No products in your list</Text>
         )}
@@ -77,7 +87,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   listItem: {
     height: 75,
     alignItems: 'center',
