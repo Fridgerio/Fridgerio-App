@@ -16,7 +16,7 @@ export default createBottomTabNavigator(
     Settings: SettingsStack,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Add',
     defaultNavigationOptions: ({ navigation }) => ({
       // eslint-disable-next-line react/display-name, react/prop-types
       tabBarIcon: ({ tintColor }) => {
