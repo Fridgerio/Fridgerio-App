@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, AsyncStorage } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { Heading, BlockText } from '../components/styled-components/Text';
 
@@ -10,8 +10,21 @@ function PrivacyPolicyScreen() {
   const [loading, setLoading] = useState(false); // loading status
   /* lifecycle method, such as componentDidMount */
   useEffect(() => {
+    const timestamp = fetchTime();
     fetchPrivacy();
   }, []);
+  /* method to evaluate timestamp information */
+  const fetchTime = async () => {
+    const oldTimestamp = AsyncStorage.getItem('timestamp');
+    const timeUrl = 'https://impressum-api.sklinkusch.now.sh/timestamp';
+    const timeResponse = await fetch(timeUrl);
+    const timeData = await timeResponse.json();
+    const { timestamp: newTimestamp } = await timeData;
+    if (newTimestamp > oldTimestamp) {
+      return newTimestamp;
+    }
+    return 0;
+  };
   /* method to fetch the privacy policy information */
   const fetchPrivacy = async () => {
     setLoading(true);
