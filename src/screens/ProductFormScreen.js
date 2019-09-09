@@ -8,10 +8,19 @@ import BestBeforeDatePicker from '../components/BestBeforeDatePicker';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Input } from '../components/styled-components/Inputs';
+import { Textbox } from '../components/styled-components/Boxes';
+import styled from 'styled-components';
 
+const MaInput = styled(Input)`
+  background-color: hotpink;
+`;
 function ProductFormScreen() {
   return (
     <ScrollView>
+      <Textbox>
+        <Text>Hi</Text>
+        <MaInput placeholder="I'm here" />
+      </Textbox>
       {/* Large category icon */}
       <MaterialCommunityIcons
         name="food-apple"

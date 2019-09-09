@@ -13,6 +13,7 @@ const StyledTextbox = styled.View`
 `;
 export const Textbox = props => {
   const { card, bottomLine, children } = props;
+
   return (
     <StyledTextbox card={card} bottomLine={bottomLine}>
       {children}
