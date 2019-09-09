@@ -9,6 +9,7 @@ function CameraScreen({ navigation }) {
   /* State Hooks and functions to change these states */
   const [hasCameraPermission, toggleCameraPermission] = useState(null);
   const [scanned, toggleScanned] = useState(false);
+  const [showModal, toggleModal] = useState(false);
   /* Lifecycle method to check camera permission first */
   useEffect(() => {
     const askPermission = async () => {
