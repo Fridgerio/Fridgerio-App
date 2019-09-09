@@ -1,59 +1,44 @@
 import React from 'react';
-import { Text, Picker, TouchableHighlight, View, Modal } from 'react-native';
+import { Text } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
+import RNPickerSelect from 'react-native-picker-select';
 
 export default class NumberPicker extends React.Component {
-  state = {
-    visible: false,
-  };
-
-  // Accepts a maximum number and returns a picker with ascending numbers from 1 to maximum
-  CreateNumberPicker(maxNum) {
-    const numPicker = [];
-    for (let i = 1; i <= maxNum; i++) {
-      numPicker.push(<Picker.Item label={`${i}`} value={i} key={i} />);
-    }
-    return numPicker;
+  constructor(props) {
+    super(props);
+    this.state = {
+      numbers: [{ value: 1, label: '1' }],
+      maxNum: props.maxNum,
+      title: props.title,
+    };
   }
 
+  componentDidMount() {
+    this.CreateNumberPicker();
+  }
+
+  // Accepts a maximum number and returns a picker with ascending numbers from 1 to maximum
+  CreateNumberPicker = () => {
+    const numbers = [];
+    for (let i = 1; i <= this.state.maxNum; i++) {
+      numbers.push({ label: `${i}`, value: i });
+    }
+    this.setState({ numbers: numbers });
+    return numbers;
+  };
+
   render() {
-    const { title, maxNum } = this.props;
+    const { title, numbers } = this.state;
     return (
       <React.Fragment>
-        <TouchableHighlight
-          onPress={() => this.setState(prev => ({ visible: !prev.visible }))}
-        >
-          <Textbox>
-            <Text>{title}</Text>
-          </Textbox>
-        </TouchableHighlight>
-        <Modal
-          visible={this.state.visible}
-          transparent
-          onRequestClose={() => this.setState({ visible: false })}
-        >
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-              left: 0,
-              height: 200,
-              backgroundColor: 'whitesmoke',
-            }}
-          >
-            <Picker
-              prompt={title}
-              selectedValue={1}
-              onValueChange={itemValue => {
-                console.warn(`${itemValue} selected`);
-                return this.setState({ visible: false });
-              }}
-            >
-              {this.CreateNumberPicker(maxNum)}
-            </Picker>
-          </View>
-        </Modal>
+        <Textbox>
+          <Text>{title}</Text>
+        </Textbox>
+        <RNPickerSelect
+          onValueChange={value => console.warn(value)}
+          items={numbers}
+          placeholder={{ label: 'Bitte wähle eine Zahl', value: null }}
+        />
       </React.Fragment>
     );
   }
