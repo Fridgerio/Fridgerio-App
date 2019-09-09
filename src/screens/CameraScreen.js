@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Modal } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
@@ -10,6 +10,7 @@ function CameraScreen({ navigation }) {
   const [hasCameraPermission, toggleCameraPermission] = useState(null);
   const [scanned, toggleScanned] = useState(false);
   const [showModal, toggleModal] = useState(false);
+  const [product, setProduct] = useState(null);
   /* Lifecycle method to check camera permission first */
   useEffect(() => {
     const askPermission = async () => {
@@ -64,13 +65,10 @@ function CameraScreen({ navigation }) {
         /* if the product is found in the database */
         /* (1) generate a product name */
         const productName = generateName(brand, product_name, quantity);
-        /* (2) make an alert with the product name */
-        alert(`Produkt erkannt: ${productName}`);
-        /* (3) navigate to ProductFormScreen and pass the data */
-        navigation.navigate('ProductFormScreen', {
-          name: productName,
-          categories: categories,
-        });
+        /* (2) set the product in the state */
+        setProduct({ productName, categories });
+        /* (3) show the modal */
+        toggleModal(true);
       } else {
         /* if product is not in the database */
         /* (1) make an alert */
@@ -82,6 +80,15 @@ function CameraScreen({ navigation }) {
       /* show error message in an alert if there is an error */
       alert(`${error.message}`);
     }
+  };
+  const redirectRight = () => {
+    toggleModal(false);
+    const { name, categories } = product;
+    navigation.navigate('ProductFormScreen', { name, categories });
+  };
+  const redirectFalse = () => {
+    toggleModal(false);
+    navigation.navigate('ProductFormScreen');
   };
   const handleBarCodeScanned = ({ type, data }) => {
     /* if it is ean13 or ean8 */
@@ -145,6 +152,25 @@ function CameraScreen({ navigation }) {
         }}
         onPress={() => navigation.navigate('ProductFormScreen')}
       />
+      <Modal animationType={'slide'} visible={showModal}>
+        <View style={{ marginVertical: 120, marginHorizontal: 25 }}>
+          <View>
+            {product && (
+              <Text
+                style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 36 }}
+              >
+                Produkt erkannt: {product.productName}
+              </Text>
+            )}
+            <PrimaryButton onPress={redirectRight} title={'Weiter'} />
+            <PrimaryButton
+              onPress={redirectFalse}
+              title={'Manuell eingeben'}
+              color={'red'}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
