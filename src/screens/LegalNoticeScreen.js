@@ -10,6 +10,7 @@ function LegalNoticeScreen() {
   const [loading, setLoading] = useState(false); // loading status;
   /* lifecycle method, such as componentDidMount */
   useEffect(() => {
+    const timestamp = fetchTime();
     fetchLegal();
   }, []);
   /* method to fetch the timestamp */
