@@ -11,11 +11,11 @@ function PrivacyPolicyScreen() {
   /* lifecycle method, such as componentDidMount */
   useEffect(() => {
     const timestamp = fetchTime();
-    fetchPrivacy();
+    fetchPrivacy(timestamp);
   }, []);
   /* method to evaluate timestamp information */
   const fetchTime = async () => {
-    const oldTimestamp = AsyncStorage.getItem('timestamp');
+    const oldTimestamp = AsyncStorage.getItem('timestamp') || 0;
     const timeUrl = 'https://impressum-api.sklinkusch.now.sh/timestamp';
     const timeResponse = await fetch(timeUrl);
     const timeData = await timeResponse.json();
@@ -26,16 +26,25 @@ function PrivacyPolicyScreen() {
     return 0;
   };
   /* method to fetch the privacy policy information */
-  const fetchPrivacy = async () => {
+  const fetchPrivacy = async timestamp => {
     setLoading(true);
-    try {
-      const url = `https://impressum-api.sklinkusch.now.sh/datenschutz`;
-      const response = await fetch(url);
-      const data = await response.json();
-      setPrivacy(data);
-      setError(null);
-    } catch (err) {
-      setError(err);
+    if (timestamp === 0) {
+      const oldPrivacyRaw = await AsyncStorage.getItem('privacy');
+      const oldPrivacy = await JSON.parse(oldPrivacyRaw);
+      setPrivacy(oldPrivacy);
+    } else {
+      try {
+        const url = `https://impressum-api.sklinkusch.now.sh/datenschutz`;
+        const response = await fetch(url);
+        const data = await response.json();
+        setPrivacy(data);
+        const dataRaw = JSON.stringify(data);
+        AsyncStorage.setItem('privacy', dataRaw);
+        setError(null);
+        AsyncStorage.setItem('timestamp', JSON.stringify(timestamp));
+      } catch (err) {
+        setError(err);
+      }
     }
     setLoading(false);
   };
