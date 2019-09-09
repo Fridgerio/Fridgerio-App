@@ -15,11 +15,15 @@ function PrivacyPolicyScreen() {
   }, []);
   /* method to evaluate timestamp information */
   const fetchTime = async () => {
-    const oldTimestamp = AsyncStorage.getItem('timestamp') || 0;
+    /* get old timestamp from AsyncStorage */
+    const oldTimestampRaw = AsyncStorage.getItem('timestamp') || '0';
+    const oldTimestamp = JSON.parse(oldTimestampRaw);
+    /* fetch new timestamp from the web */
     const timeUrl = 'https://impressum-api.sklinkusch.now.sh/timestamp';
     const timeResponse = await fetch(timeUrl);
     const timeData = await timeResponse.json();
     const { timestamp: newTimestamp } = await timeData;
+    /* return the new timestamp if newer, otherwise 0 */
     if (newTimestamp > oldTimestamp) {
       return newTimestamp;
     }
@@ -29,18 +33,22 @@ function PrivacyPolicyScreen() {
   const fetchPrivacy = async timestamp => {
     setLoading(true);
     if (timestamp === 0) {
+      /* load privacy data from AsyncStorage if no newer available */
       const oldPrivacyRaw = await AsyncStorage.getItem('privacy');
       const oldPrivacy = await JSON.parse(oldPrivacyRaw);
       setPrivacy(oldPrivacy);
     } else {
+      /* fetch privacy data from the web */
       try {
         const url = `https://impressum-api.sklinkusch.now.sh/datenschutz`;
         const response = await fetch(url);
         const data = await response.json();
         setPrivacy(data);
+        /* store it in AsyncStorage */
         const dataRaw = JSON.stringify(data);
         AsyncStorage.setItem('privacy', dataRaw);
         setError(null);
+        /* store the new timestamp */
         AsyncStorage.setItem('timestamp', JSON.stringify(timestamp));
       } catch (err) {
         setError(err);
