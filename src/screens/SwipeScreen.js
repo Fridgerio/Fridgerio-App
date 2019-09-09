@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Swipeable from 'react-native-swipeable';
+import SnackBar from 'react-native-snackbar-component';
 
 function SwipeableItem({ navigation, product, onDelete }) {
   /* dynamically calculate width for different mobile screen sizes; variable is used to set the ActionActivationDistance prop; current value will trigger action when swiping horizontally 45% of the screen width */
@@ -58,10 +59,18 @@ export default function SwipeScreen({ navigation }) {
   // toggle value for refreshing prop to enable pull-to-refresh feature
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
+
   // delete product from list
   const handleDelete = productName => {
     const updatedProducts = products.filter(product => product !== productName);
     setProducts(updatedProducts);
+    handleSnackBar();
+  };
+
+  const handleSnackBar = () => {
+    setIsSnackBarVisible(true);
+    setTimeout(() => setIsSnackBarVisible(false), 1600);
   };
 
   /* reset screen with initial, complete item list; this is just for testing purposes */
@@ -91,6 +100,21 @@ export default function SwipeScreen({ navigation }) {
         ListEmptyComponent={() => (
           <Text style={styles.listEmpty}>No products in your list</Text>
         )}
+      />
+      <SnackBar
+        visible={isSnackBarVisible}
+        textMessage="Produkt gelöscht!"
+        // Function to be called when the right button (Rückgängig) is pressed
+        actionHandler={() => {
+          console.warn('snackbar button clicked!');
+        }}
+        actionText="Rückgängig"
+        backgroundColor={'#50C1C9'}
+        accentColor={'#1C4E55'}
+        // The color of main message text, default is	#FFFFFF
+        messageColor={'#fff'}
+        // to figure out
+        distanceCallback={distance => 60}
       />
     </View>
   );
