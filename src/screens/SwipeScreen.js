@@ -33,7 +33,11 @@ function SwipeableItem({ navigation, product, onDelete }) {
       }
       onRightActionRelease={() => onDelete(product)}
     >
-      <TouchableOpacity onPress={() => navigation.navigate('DummyScreen')}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('DummyScreen')}
+        // prop to control opacity value
+        activeOpacity={0.7}
+      >
         <View style={styles.listItem}>
           <Text>{product}</Text>
         </View>
