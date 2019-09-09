@@ -11,36 +11,46 @@ function LegalNoticeScreen() {
   /* lifecycle method, such as componentDidMount */
   useEffect(() => {
     const timestamp = fetchTime();
-    fetchLegal();
+    fetchLegal(timestamp);
   }, []);
   /* method to fetch the timestamp */
   const fetchTime = async () => {
     /* get old timestamp from AsyncStorage */
-    const oldTimestampRaw = AsyncStorage.getItem('timestamp') || '0';
-    const oldTimestamp = JSON.parse(oldTimestampRaw);
+    const oldTimestamp = AsyncStorage.getItem('ltimestamp') || '0';
+    // const oldTimestamp = JSON.parse(oldTimestampRaw);
     /* get new timestamp from the web */
     const timeUrl = 'https://impressum-api.sklinkusch.now.sh/timestamp';
     const timeResponse = await fetch(timeUrl);
     const timeData = await timeResponse.json();
     const { timestamp: newTimestamp } = await timeData;
     /* compare timestamps */
-    if (newTimestamp > oldTimestamp) {
+    if (newTimestamp >= oldTimestamp) {
       return newTimestamp;
     }
     return 0;
   };
   /* method to fetch the legal notice information */
-  const fetchLegal = async () => {
+  const fetchLegal = async timestamp => {
     setLoading(true);
-    try {
-      const url = `https://impressum-api.sklinkusch.now.sh/impressum`;
-      const response = await fetch(url);
-      const data = await response.json();
-      setLegal(data);
-    } catch (err) {
-      setError(err);
+    if (timestamp === 0) {
+      const oldLegalRaw = await AsyncStorage.getItem('legal');
+      const oldLegal = await JSON.parse(oldLegalRaw);
+      console.warn(timestamp);
+      setLegal(oldLegal);
+    } else {
+      try {
+        const url = `https://impressum-api.sklinkusch.now.sh/impressum`;
+        const response = await fetch(url);
+        const data = await response.json();
+        setLegal(data);
+        const dataRaw = JSON.stringify(data);
+        AsyncStorage.setItem('legal', dataRaw);
+        AsyncStorage.setItem('ltimestamp', JSON.stringify(timestamp));
+      } catch (err) {
+        setError(err);
+      }
+      setLoading(false);
     }
-    setLoading(false);
   };
   const loadMessage = 'Lade Daten...';
   /* render the component */
