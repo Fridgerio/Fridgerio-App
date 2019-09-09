@@ -7,12 +7,14 @@ function LegalNoticeScreen() {
   /* a few states */
   const [legal, setLegal] = useState(null); // fetched data
   const [error, setError] = useState(null); // error
+  const [loading, setLoading] = useState(false); // loading status;
   /* lifecycle method, such as componentDidMount */
   useEffect(() => {
     fetchLegal();
   }, []);
   /* method to fetch the legal notice information */
   const fetchLegal = async () => {
+    setLoading(true);
     try {
       const url = `https://impressum-api.sklinkusch.now.sh/impressum`;
       const response = await fetch(url);
@@ -21,11 +23,15 @@ function LegalNoticeScreen() {
     } catch (err) {
       setError(err);
     }
+    setLoading(false);
   };
+  const loadMessage = 'Lade Daten...';
   /* render the component */
   return (
     <ScrollView>
       <Textbox>
+        {/* render the loadMessage if the data is loading */}
+        {loading && <Text>{loadMessage}</Text>}
         {/* render the error message if an error occurs*/}
         {error && <Text>{error.message}</Text>}
         {/* map over the titles */}
