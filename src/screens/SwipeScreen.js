@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Dimensions, View, Text, StyleSheet, FlatList } from 'react-native';
+import {
+  Dimensions,
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import Swipeable from 'react-native-swipeable';
 
 function SwipeableItem({ navigation, product, onDelete }) {
@@ -26,9 +33,11 @@ function SwipeableItem({ navigation, product, onDelete }) {
       }
       onRightActionRelease={() => onDelete(product)}
     >
-      <View style={styles.listItem}>
-        <Text>{product}</Text>
-      </View>
+      <TouchableOpacity onPress={() => navigation.navigate('DummyScreen')}>
+        <View style={styles.listItem}>
+          <Text>{product}</Text>
+        </View>
+      </TouchableOpacity>
     </Swipeable>
   );
 }
