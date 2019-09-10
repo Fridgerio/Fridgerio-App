@@ -1,25 +1,74 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 import { MaterialCommunityIcon } from './styled-components/Icons';
 import { Elementbox } from './styled-components/Boxes';
 import { StyledText } from './styled-components/Text';
+import Swipeable from 'react-native-swipeable';
 
-function Product({ navigation }) {
+function Product({ navigation, name, expiryDate }) {
+  /* dynamically calculate width for different mobile screen sizes; variable is used to set the ActionActivationDistance prop; current value will trigger action when swiping horizontally 45% of the screen width */
+  const width = Dimensions.get('window').width * 0.45;
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('ProductDetailScreen')}
+    <Swipeable
+      leftActionActivationDistance={width}
+      // element revealed by swipe gesture
+      leftContent={
+        <View style={styles.leftSwipeItem}>
+          <Text style={{ color: 'white' }}>Edit</Text>
+        </View>
+      }
+      /* use onLeftActionActivate if the action should not be triggered automatically by lifting the thumb */
+      onLeftActionRelease={() => navigation.navigate('ProductDetailScreen')}
+      rightActionActivationDistance={width}
+      // element revealed by swipe gesture
+      rightContent={
+        <View style={styles.rightSwipeItem}>
+          <Text style={{ color: 'white' }}>Delete</Text>
+        </View>
+      }
+      onRightActionRelease={() => console.warn('delete')}
     >
-      <Elementbox withBottomLine>
-        <MaterialCommunityIcon
-          name="food-apple"
-          padding="0 15px 0 0"
-          flex="1"
-        />
-        <StyledText flex="4">RandomFood</StyledText>
-        <StyledText flex="2">20.09.2019</StyledText>
-      </Elementbox>
-    </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ProductDetailScreen')}
+        // prop to control opacity value
+        activeOpacity={0.7}
+      >
+        <Elementbox withBottomLine>
+          <MaterialCommunityIcon
+            name="food-apple"
+            padding="0 15px 0 0"
+            flex="1"
+          />
+          <StyledText flex="4">{name}</StyledText>
+          <StyledText flex="2">{expiryDate}</StyledText>
+        </Elementbox>
+      </TouchableOpacity>
+    </Swipeable>
   );
 }
 
 export default Product;
+
+const styles = StyleSheet.create({
+  leftSwipeItem: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 20,
+    backgroundColor: 'green',
+    marginVertical: 2,
+  },
+  rightSwipeItem: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingLeft: 20,
+    backgroundColor: 'red',
+    marginVertical: 2,
+  },
+});
