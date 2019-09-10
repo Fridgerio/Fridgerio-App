@@ -34,12 +34,7 @@ function Expire() {
 /* Statistics */
 function Statistics({ products }) {
   const getExpired = id => {
-    let normDate;
-    if ((id = 0)) {
-      normDate = Date.now();
-    } else {
-      normDate = new Date(Date.now() + id * 24 * 60 * 60 * 1000);
-    }
+    const normDate = new Date(Date.now() + id * 24 * 60 * 60 * 1000);
     const number = products.reduce((num, current) => {
       const expDate = Number((new Date(current.date).getTime() / 1000).toFixed(0));
       return expDate < normDate ? num + 1 : num;
