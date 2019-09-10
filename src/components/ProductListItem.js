@@ -11,7 +11,7 @@ import { Elementbox } from './styled-components/Boxes';
 import { StyledText } from './styled-components/Text';
 import Swipeable from 'react-native-swipeable';
 
-function Product({ navigation, name, expiryDate }) {
+function Product({ navigation, product }) {
   /* dynamically calculate width for different mobile screen sizes; variable is used to set the ActionActivationDistance prop; current value will trigger action when swiping horizontally 45% of the screen width */
   const width = Dimensions.get('window').width * 0.45;
   return (
@@ -45,8 +45,8 @@ function Product({ navigation, name, expiryDate }) {
             padding="0 15px 0 0"
             flex="1"
           />
-          <StyledText flex="4">{name}</StyledText>
-          <StyledText flex="2">{expiryDate}</StyledText>
+          <StyledText flex="4">{product.name}</StyledText>
+          <StyledText flex="2">{product.expiryDate}</StyledText>
         </Elementbox>
       </TouchableOpacity>
     </Swipeable>

@@ -1,7 +1,7 @@
 // dummy data
 export const data = [
   {
-    id: 1,
+    id: '1',
     name: 'Product 1',
     amount: 13,
     labels: ['red', 'gree'],
@@ -13,7 +13,7 @@ export const data = [
     isExpired: false,
   },
   {
-    id: 2,
+    id: '2',
     name: 'Product 2',
     amount: 1,
     labels: ['blue'],
@@ -25,7 +25,7 @@ export const data = [
     isExpired: false,
   },
   {
-    id: 3,
+    id: '3',
     name: 'Product 3',
     amount: 6,
     labels: [],
@@ -37,7 +37,7 @@ export const data = [
     isExpired: false,
   },
   {
-    id: 4,
+    id: '4',
     name: 'Product 4',
     amount: 1,
     labels: ['green'],
@@ -49,7 +49,7 @@ export const data = [
     isExpired: true,
   },
   {
-    id: 5,
+    id: '5',
     name: 'Product 5',
     amount: 3,
     labels: ['red', 'blue'],
