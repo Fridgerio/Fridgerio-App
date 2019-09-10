@@ -38,6 +38,7 @@ export default class DateTimePickerTester extends React.Component {
         </TouchableOpacity>
         <DateTimePicker
           titleIOS="Wähle das Datum"
+          date={date}
           isVisible={visible}
           onConfirm={this.handleDatePicked}
           onCancel={this.hideDateTimePicker}
