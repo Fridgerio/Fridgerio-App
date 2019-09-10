@@ -24,7 +24,7 @@ function Product({ navigation, product, onDelete }) {
         </View>
       }
       /* use onLeftActionActivate if the action should not be triggered automatically by lifting the thumb */
-      onLeftActionRelease={() => navigation.navigate('ProductDetailScreen')}
+      onLeftActionRelease={() => navigation.navigate('ProductFormScreen')}
       rightActionActivationDistance={width}
       // element revealed by swipe gesture
       rightContent={
@@ -35,7 +35,7 @@ function Product({ navigation, product, onDelete }) {
       onRightActionRelease={() => onDelete(product.id)}
     >
       <TouchableOpacity
-        onPress={() => navigation.navigate('ProductDetailScreen')}
+        onPress={() => navigation.navigate('ProductFormScreen')}
         // prop to control opacity value
         activeOpacity={0.7}
       >
