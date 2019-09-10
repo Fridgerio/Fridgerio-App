@@ -8,6 +8,7 @@ export default class DateTimePickerTester extends React.Component {
     super(props);
     this.state = {
       visible: false,
+      date: new Date(),
     };
   }
 
@@ -20,6 +21,7 @@ export default class DateTimePickerTester extends React.Component {
   };
 
   handleDatePicked = date => {
+    this.setState({ date: date });
     console.warn('A date has been picked: ', date);
     this.hideDateTimePicker();
   };
