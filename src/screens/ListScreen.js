@@ -14,7 +14,14 @@ import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 
 function ListScreen({ navigation }) {
-  const { products } = useContext(Context);
+  const { products, setProducts } = useContext(Context);
+
+  // delete product from list
+  const handleDelete = productId => {
+    const updatedProducts = products.filter(product => product.id !== productId);
+    setProducts(updatedProducts);
+    // handleSnackBar();
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -29,7 +36,7 @@ function ListScreen({ navigation }) {
               <Product
                 product={item}
                 navigation={navigation}
-                // onDelete={handleDelete}
+                onDelete={handleDelete}
               />
             )}
             // element to be rendered when list is empty

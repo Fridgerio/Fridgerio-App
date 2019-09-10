@@ -30,5 +30,9 @@ export default function ContextProvider({ children }) {
       setError(true);
     }
   };
-  return <Context.Provider value={{ products }}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={{ products, setProducts }}>
+      {children}
+    </Context.Provider>
+  );
 }
