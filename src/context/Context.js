@@ -36,9 +36,7 @@ export default function ContextProvider({ children }) {
   // delete product from list
   const handleDelete = productId => {
     const deletedProduct = products.find(product => product.id === productId);
-    const updatedProducts = products.filter(
-      product => product.id !== productId
-    );
+    const updatedProducts = products.filter(product => product.id !== productId);
 
     setProducts(updatedProducts);
     setLastDeletedProduct(deletedProduct);
@@ -48,7 +46,7 @@ export default function ContextProvider({ children }) {
   // toggle snackbar
   const handleSnackBar = () => {
     setIsSnackBarVisible(true);
-    setTimeout(() => setIsSnackBarVisible(false), 5000);
+    setTimeout(() => setIsSnackBarVisible(false), 3000);
   };
 
   const addLastDeletedProduct = () => {
