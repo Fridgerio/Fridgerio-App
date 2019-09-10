@@ -22,8 +22,24 @@ export default function ContextProvider({ children }) {
     setError(false);
     setIsLoading(true);
     db.transaction(tr =>
-      tr.executeSql('SELECT * FROM QUOTES', [], (tx, res) =>
+      tr.executeSql('SELECT * FROM products', [], (tx, res) =>
         setProducts(res.rows._array)));
+  };
+  const saveData = (
+    name,
+    amount,
+    category,
+    label,
+    bbdate,
+    notification,
+    note
+  ) => {
+    db.transaction(tr =>
+      tr.executeSql(
+        'INSERT INTO products (name, amount, category, label, bbdate, notification, note) VALUES (?,?)',
+        [name, amount, category, label, bbdate, notification, note],
+        (tx, res) => (data[data.length - 1].id = res.insertId)
+      ));
   };
   return <Context.Provider value={{ products }}>{children}</Context.Provider>;
 }
