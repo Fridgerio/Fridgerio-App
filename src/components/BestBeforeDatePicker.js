@@ -27,15 +27,17 @@ export default class DateTimePickerTester extends React.Component {
   };
 
   render() {
+    const { date, visible } = this.state;
     return (
       <React.Fragment>
         <TouchableOpacity onPress={this.showDateTimePicker}>
           <Textbox>
             <Text>Mindesthaltbarkeitsdatum</Text>
+            <Text>{date.toLocaleDateString('de-DE')}</Text>
           </Textbox>
         </TouchableOpacity>
         <DateTimePicker
-          isVisible={this.state.visible}
+          isVisible={visible}
           onConfirm={this.handleDatePicked}
           onCancel={this.hideDateTimePicker}
         />
