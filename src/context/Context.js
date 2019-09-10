@@ -50,9 +50,14 @@ export default function ContextProvider({ children }) {
   };
 
   const addLastDeletedProduct = () => {
-    /* last deleted product is currently added to the end of the array; inside this function we need to first sort the array by the date property of the elements before using the setProducts method */
-    const upDatedProducts = products.concat(lastDeletedProduct);
-    setProducts(upDatedProducts);
+    /* TODO: last deleted product is currently added to the end of the array;
+    inside this function we need to first sort the array before using the setProducts method */
+    if (lastDeletedProduct) {
+      const upDatedProducts = products.concat(lastDeletedProduct);
+      /*  set value of 'lastDeletedProduct' to null to prevent the same item being added again multiple times to the list by clicking 'undo' multiple times on the snackbar */
+      setLastDeletedProduct(null);
+      setProducts(upDatedProducts);
+    }
   };
 
   return (
