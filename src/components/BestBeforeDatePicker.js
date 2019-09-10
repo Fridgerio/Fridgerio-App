@@ -1,37 +1,49 @@
 import React from 'react';
-import { Text, DatePickerIOS, DatePickerAndroid, Platform } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
-// BBDatePicker returns the date picker compatible with the OS
-function BBDatePickerIOS() {
-  return (
-    <DatePickerIOS
-      initialDate={new Date()}
-      minimumDate={new Date()}
-      mode="date"
-    />
-  );
-}
+export default class DateTimePickerTester extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+      date: new Date(),
+    };
+  }
 
-function BBDatePickerAndroid() {
-  // DatePickerAndroid.open({
-  //   date: new Date(),
-  // });
-  return <Text>Not available yet</Text>;
-}
+  showDateTimePicker = () => {
+    this.setState({ visible: true });
+  };
 
-export default function BestBeforeDatePicker() {
-  const OSPicker = Platform.select({
-    ios: () => BBDatePickerIOS,
-    android: () => BBDatePickerAndroid,
-  })();
+  hideDateTimePicker = () => {
+    this.setState({ visible: false });
+  };
 
-  return (
-    <React.Fragment>
-      <Textbox>
-        <Text>Mindesthaltbarkeitsdatum</Text>
-      </Textbox>
-      <OSPicker />
-    </React.Fragment>
-  );
+  handleDatePicked = date => {
+    this.setState({ date: date });
+    console.warn('A date has been picked: ', date);
+    this.hideDateTimePicker();
+  };
+
+  render() {
+    const { date, visible } = this.state;
+    return (
+      <React.Fragment>
+        <TouchableOpacity onPress={this.showDateTimePicker}>
+          <Textbox>
+            <Text>Mindesthaltbarkeitsdatum</Text>
+            <Text>{date.toLocaleDateString('de-DE')}</Text>
+          </Textbox>
+        </TouchableOpacity>
+        <DateTimePicker
+          titleIOS="Wähle das Datum"
+          date={date}
+          isVisible={visible}
+          onConfirm={this.handleDatePicked}
+          onCancel={this.hideDateTimePicker}
+        />
+      </React.Fragment>
+    );
+  }
 }
