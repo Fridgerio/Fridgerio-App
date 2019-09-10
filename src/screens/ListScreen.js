@@ -28,23 +28,21 @@ function ListScreen({ navigation }) {
       <View style={styles.container}>
         <CategoryFilter />
         <SortingTabs />
-        <View>
-          <FlatList
-            data={products}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <Product
-                product={item}
-                navigation={navigation}
-                onDelete={handleDelete}
-              />
-            )}
-            // element to be rendered when list is empty
-            ListEmptyComponent={() => (
-              <Text style={styles.listEmpty}>No products in your list</Text>
-            )}
-          />
-        </View>
+        <FlatList
+          data={products}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <Product
+              product={item}
+              navigation={navigation}
+              onDelete={handleDelete}
+            />
+          )}
+          // element to be rendered when list is empty
+          ListEmptyComponent={() => (
+            <Text style={styles.listEmpty}>No products in your list</Text>
+          )}
+        />
         <SnackBar
           visible={isSnackBarVisible}
           textMessage="Produkt gelöscht!"

@@ -1,25 +1,8 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { View, StyleSheet, Text, FlatList } from 'react-native';
+import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
-
-/* Product entries in the list */
-function Product() {
-  // just for testing purposes atm
-  const { products } = useContext(Context);
-
-  return (
-    <View style={styles.product}>
-      <MaterialCommunityIcons
-        name="food-apple"
-        style={{ color: '#1b4e55', fontSize: 28, paddingRight: 15 }}
-      />
-      <Text>{products[0].name}</Text>
-      <Text style={{ color: 'gray', paddingLeft: 20 }}>+4</Text>
-      <Text style={{ position: 'absolute', right: 15 }}>20. September</Text>
-    </View>
-  );
-}
+import SnackBar from 'react-native-snackbar-component';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
@@ -57,16 +40,48 @@ function Statistics() {
 }
 
 /* Total Home Screen */
-function HomeScreen() {
+function HomeScreen({ navigation }) {
+  const {
+    products,
+    handleDelete,
+    isSnackBarVisible,
+    addLastDeletedProduct,
+  } = useContext(Context);
+
   return (
     <View style={styles.container}>
-      <View style={{ marginTop: 10 }}>
-        <Expire />
-        <Product />
-        <Product />
-        <Product />
-        <Statistics style={styles.statistics} />
+      <Expire />
+      <View>
+        <FlatList
+          data={products.slice(0, 3)}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <Product
+              product={item}
+              navigation={navigation}
+              onDelete={handleDelete}
+            />
+          )}
+          // element to be rendered when list is empty
+          ListEmptyComponent={() => (
+            <Text style={styles.listEmpty}>No products in your list</Text>
+          )}
+        />
       </View>
+      <Statistics style={styles.statistics} />
+      <SnackBar
+        visible={isSnackBarVisible}
+        textMessage="Produkt gelöscht!"
+        // Function to be called when the right button (Rückgängig) is pressed
+        actionHandler={() => addLastDeletedProduct()}
+        actionText="Rückgängig"
+        backgroundColor={'#50C1C9'}
+        accentColor={'#1C4E55'}
+        // The color of main message text, default is	#FFFFFF
+        messageColor={'#fff'}
+        // to figure out
+        distanceCallback={distance => 60}
+      />
     </View>
   );
 }
@@ -74,14 +89,7 @@ function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  product: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 80,
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgray',
-    padding: 15,
+    marginTop: 10,
   },
   expireView: {
     paddingHorizontal: 15,
@@ -111,6 +119,9 @@ const styles = StyleSheet.create({
   },
   statLabels: {
     fontSize: 14,
+  },
+  listEmpty: {
+    textAlign: 'center',
   },
 });
 
