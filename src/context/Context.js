@@ -51,9 +51,17 @@ export default function ContextProvider({ children }) {
   ) => {
     db.transaction(tr =>
       tr.executeSql(
-        'UPDATE products SET name = name, amount = amount, category = category, label = label, bbdate = bbdate, notification = notification, note = note WHERE id = id',
-        [id, name, amount, category, label, bbdate, notification, note]
+        'UPDATE products SET name = ?, amount = ?, category = ?, label = ?, bbdate = ?, notification = ?, note = ? WHERE id = ?',
+        [name, amount, category, label, bbdate, notification, note, id]
       ));
+  };
+  const updateNameInDB = (oldname, newname) => {
+    db.transaction(tr =>
+      tr.executeSql('UPDATE SET name = ? WHERE name = ?', [newname, oldname]));
+  };
+  const updateCatInDB = (name, newcat) => {
+    db.transaction(tr =>
+      tr.executeSql('UPDATE SET category = ? WHERE name = ?', [newcat, name]));
   };
   const deleteDataFromDB = id => {
     db.transaction(tr =>
@@ -108,9 +116,36 @@ export default function ContextProvider({ children }) {
     data[index] = { name, amount, category, label, bbdate, notification, note };
     setProducts(data);
   };
+  const updateName = (oldname, newname) => {
+    const data = products;
+    updateNameInDB(oldname, newname);
+    data.forEach(product => {
+      if (product.name === oldname) {
+        product.name = newname;
+      }
+    });
+    setProducts(data);
+  };
+  const updateCat = (name, category) => {
+    const data = products;
+    updateCatInDB(name, category);
+    data.forEach(product => {
+      if (product.name === name) {
+        product.category = category;
+      }
+    });
+    setProducts(data);
+  };
   return (
     <Context.Provider
-      value={{ products, addProduct, deleteProduct, updateProduct }}
+      value={{
+        products,
+        addProduct,
+        deleteProduct,
+        updateProduct,
+        updateName,
+        updateCat,
+      }}
     >
       {children}
     </Context.Provider>
