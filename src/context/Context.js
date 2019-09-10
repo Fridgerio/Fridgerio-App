@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SQLite } from 'expo-sqlite';
-import { data } from './data';
+// import { data } from './data';
 
 export const Context = React.createContext(null);
 const db = SQLite.openDatabase('products.db');
@@ -36,7 +36,7 @@ export default function ContextProvider({ children }) {
       tr.executeSql(
         'INSERT INTO products (name, amount, category, label, bbdate, notification, note) VALUES (?,?)',
         [name, amount, category, label, bbdate, notification, note],
-        (tx, res) => (data[data.length - 1].id = res.insertId)
+        (tx, res) => (products[products.length - 1].id = res.insertId)
       ));
   };
   const updateDataInDB = (
