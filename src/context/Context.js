@@ -6,7 +6,7 @@ export const Context = React.createContext(null);
 const db = SQLite.openDatabase('products.db');
 
 export default function ContextProvider({ children }) {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(data);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -14,10 +14,7 @@ export default function ContextProvider({ children }) {
 
   useEffect(() => {
     db.transaction(tr =>
-      tr.executeSql(
-        'CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'
-      )
-    );
+      tr.executeSql('CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'));
     getDataFromDB();
   }, []);
 
@@ -26,9 +23,7 @@ export default function ContextProvider({ children }) {
     setIsLoading(true);
     db.transaction(tr =>
       tr.executeSql('SELECT * FROM products', [], (tx, res) =>
-        setProducts(res.rows._array)
-      )
-    );
+        setProducts(res.rows._array)));
   };
 
   const saveDataToDB = (
@@ -53,8 +48,7 @@ export default function ContextProvider({ children }) {
           customNote,
         ],
         (tx, res) => (products[products.length - 1].id = res.insertId)
-      )
-    );
+      ));
   };
   const updateDataInDB = (
     id,
@@ -79,29 +73,25 @@ export default function ContextProvider({ children }) {
           customNote,
           id,
         ]
-      )
-    );
+      ));
   };
   const updateProductNameInDB = (oldproductName, newproductName) => {
     db.transaction(tr =>
       tr.executeSql('UPDATE SET productName = ? WHERE productName = ?', [
         newproductName,
         oldproductName,
-      ])
-    );
+      ]));
   };
   const updateProductCategoryInDB = (productName, newcat) => {
     db.transaction(tr =>
       tr.executeSql('UPDATE SET productCategory = ? WHERE productName = ?', [
         newcat,
         productName,
-      ])
-    );
+      ]));
   };
   const deleteDataFromDB = id => {
     db.transaction(tr =>
-      tr.executeSql('DELETE FROM products WHERE id = ?', [id])
-    );
+      tr.executeSql('DELETE FROM products WHERE id = ?', [id]));
   };
   const addProduct = (
     productName,
@@ -154,9 +144,7 @@ export default function ContextProvider({ children }) {
     deleteDataFromDB(productId);
 
     const deletedProduct = products.find(product => product.id === productId);
-    const updatedProducts = products.filter(
-      product => product.id !== productId
-    );
+    const updatedProducts = products.filter(product => product.id !== productId);
 
     setProducts(updatedProducts);
     setLastDeletedProduct(deletedProduct);
