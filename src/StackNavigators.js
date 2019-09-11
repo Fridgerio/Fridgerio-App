@@ -44,7 +44,7 @@ const AddStack = createStackNavigator(
   defaultOptions
 );
 const ListStack = createStackNavigator(
-  { ListScreen, ProductDetailScreen },
+  { ListScreen, ProductDetailScreen, ProductFormScreen },
   defaultOptions
 );
 const SettingsStack = createStackNavigator(
