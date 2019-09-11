@@ -12,7 +12,7 @@ export default function ContextProvider({ children }) {
 
   useEffect(() => {
     db.transaction(tr =>
-      tr.executeSql('CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, name TEXT(40), amount TINYINT, category TEXT(100), label TEXT(75), bbdate DATE, notification TINYINT, note TEXT)'));
+      tr.executeSql('CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'));
     getDataFromDB();
   }, []);
 
@@ -24,65 +24,112 @@ export default function ContextProvider({ children }) {
         setProducts(res.rows._array)));
   };
   const saveDataToDB = (
-    name,
+    productName,
     amount,
-    category,
-    label,
-    bbdate,
-    notification,
-    note
+    productCategory,
+    labels,
+    bestBeforeDate,
+    pushNotificationDate,
+    customNote
   ) => {
     db.transaction(tr =>
       tr.executeSql(
-        'INSERT INTO products (name, amount, category, label, bbdate, notification, note) VALUES (?,?)',
-        [name, amount, category, label, bbdate, notification, note],
+        'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote) VALUES (?,?)',
+        [
+          productName,
+          amount,
+          productCategory,
+          labels,
+          bestBeforeDate,
+          pushNotificationDate,
+          customNote,
+        ],
         (tx, res) => (products[products.length - 1].id = res.insertId)
       ));
   };
   const updateDataInDB = (
     id,
-    name,
+    productName,
     amount,
-    category,
-    label,
-    bbdate,
-    notification,
-    note
+    productCategory,
+    labels,
+    bestBeforeDate,
+    pushNotificationDate,
+    customNote
   ) => {
     db.transaction(tr =>
       tr.executeSql(
-        'UPDATE products SET name = ?, amount = ?, category = ?, label = ?, bbdate = ?, notification = ?, note = ? WHERE id = ?',
-        [name, amount, category, label, bbdate, notification, note, id]
+        'UPDATE products SET productName = ?, amount = ?, productCategory = ?, labels = ?, bestBeforeDate = ?, pushNotificationDate = ?, customNote = ? WHERE id = ?',
+        [
+          productName,
+          amount,
+          productCategory,
+          labels,
+          bestBeforeDate,
+          pushNotificationDate,
+          customNote,
+          id,
+        ]
       ));
   };
-  const updateNameInDB = (oldname, newname) => {
+  const updateproductNameInDB = (oldproductName, newproductName) => {
     db.transaction(tr =>
-      tr.executeSql('UPDATE SET name = ? WHERE name = ?', [newname, oldname]));
+      tr.executeSql('UPDATE SET productName = ? WHERE productName = ?', [
+        newproductName,
+        oldproductName,
+      ]));
   };
-  const updateCatInDB = (name, newcat) => {
+  const updateCatInDB = (productName, newcat) => {
     db.transaction(tr =>
-      tr.executeSql('UPDATE SET category = ? WHERE name = ?', [newcat, name]));
+      tr.executeSql('UPDATE SET productCategory = ? WHERE productName = ?', [
+        newcat,
+        productName,
+      ]));
   };
   const deleteDataFromDB = id => {
     db.transaction(tr =>
       tr.executeSql('DELETE FROM products WHERE id = ?', [id]));
   };
   const addProduct = (
-    name,
+    productName,
     amount,
-    category,
-    label,
-    bbdate,
-    notification,
-    note
+    productCategory,
+    labels,
+    bestBeforeDate,
+    pushNotificationDate,
+    customNote
   ) => {
     let data = products;
-    if (name && amount && category && label && bbdate && notification && note) {
+    if (
+      productName &&
+      amount &&
+      productCategory &&
+      labels &&
+      bestBeforeDate &&
+      pushNotificationDate &&
+      customNote
+    ) {
       data = [
         ...products,
-        { name, amount, category, label, bbdate, notification, note },
+        {
+          productName,
+          amount,
+          productCategory,
+          labels,
+          bestBeforeDate,
+          pushNotificationDate,
+          customNote,
+        },
       ];
-      saveDataToDB(name, amount, category, label, bbdate, notification, note);
+      saveDataToDB(
+        productName,
+        amount,
+        productCategory,
+        labels,
+        bestBeforeDate,
+        pushNotificationDate,
+        customNote
+      );
     }
     setProducts(data);
   };
@@ -94,44 +141,52 @@ export default function ContextProvider({ children }) {
   };
   const updateProduct = (
     index,
-    name,
+    productName,
     amount,
-    category,
-    label,
-    bbdate,
-    notification,
-    note
+    productCategory,
+    labels,
+    bestBeforeDate,
+    pushNotificationDate,
+    customNote
   ) => {
     const data = products;
     updateDataInDB(
       data[index].id,
-      name,
+      productName,
       amount,
-      category,
-      label,
-      bbdate,
-      notification,
-      note
+      productCategory,
+      labels,
+      bestBeforeDate,
+      pushNotificationDate,
+      customNote
     );
-    data[index] = { name, amount, category, label, bbdate, notification, note };
+    data[index] = {
+      productName,
+      amount,
+      productCategory,
+      labels,
+      bestBeforeDate,
+      pushNotificationDate,
+      customNote,
+    };
     setProducts(data);
   };
-  const updateName = (oldname, newname) => {
+  const updateproductName = (oldproductName, newproductName) => {
     const data = products;
-    updateNameInDB(oldname, newname);
+    updateproductNameInDB(oldproductName, newproductName);
     data.forEach(product => {
-      if (product.name === oldname) {
-        product.name = newname;
+      if (product.productName === oldproductName) {
+        product.productName = newproductName;
       }
     });
     setProducts(data);
   };
-  const updateCat = (name, category) => {
+  const updateCat = (productName, productCategory) => {
     const data = products;
-    updateCatInDB(name, category);
+    updateCatInDB(productName, productCategory);
     data.forEach(product => {
-      if (product.name === name) {
-        product.category = category;
+      if (product.productName === productName) {
+        product.productCategory = productCategory;
       }
     });
     setProducts(data);
@@ -143,7 +198,7 @@ export default function ContextProvider({ children }) {
         addProduct,
         deleteProduct,
         updateProduct,
-        updateName,
+        updateproductName,
         updateCat,
       }}
     >
