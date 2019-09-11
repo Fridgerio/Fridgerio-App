@@ -82,7 +82,7 @@ function HomeScreen({ navigation }) {
           )}
         />
       </View>
-      <Statistics style={styles.statistics} />
+      <Statistics style={styles.statistics} products={products} />
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"

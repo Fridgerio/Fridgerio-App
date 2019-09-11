@@ -6,7 +6,7 @@ export const Context = React.createContext(null);
 const db = SQLite.openDatabase('products.db');
 
 export default function ContextProvider({ children }) {
-  const [products, setProducts] = useState(data);
+  const [products, setProducts] = useState([]);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -26,6 +26,16 @@ export default function ContextProvider({ children }) {
         setProducts(res.rows._array)));
   };
 
+  const todayDate = () => {
+    const myDate = Date.now();
+    const month = (myDate.getMonth() + 1).toFixed(0);
+    const day = myDate.getDate().toFixed(0);
+    const year = myDate.getFullYear().toFixed(0);
+    if (month.length < 2) month = `0${month}`;
+    if (day.length < 2) day = `0${day}`;
+    return [year, month, day].join('-');
+  };
+
   const saveDataToDB = (
     productName,
     amount,
@@ -33,8 +43,10 @@ export default function ContextProvider({ children }) {
     labels,
     bestBeforeDate,
     pushNotificationDate,
-    customNote
+    customNote,
+    barcode
   ) => {
+    const dateAdded = todayDate();
     db.transaction(tr =>
       tr.executeSql(
         'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote) VALUES (?,?)',
@@ -46,6 +58,8 @@ export default function ContextProvider({ children }) {
           bestBeforeDate,
           pushNotificationDate,
           customNote,
+          barcode,
+          dateAdded,
         ],
         (tx, res) => (products[products.length - 1].id = res.insertId)
       ));
