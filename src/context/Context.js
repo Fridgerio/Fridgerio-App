@@ -16,32 +16,32 @@ export default function ContextProvider({ children }) {
   useEffect(() => {
     db.transaction(tr =>
       tr.executeSql('CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'));
-    dummyData.forEach(product => {
-      const {
-        name: productName,
-        amount,
-        category,
-        labels,
-        expiryDate,
-        notificationDate,
-        notes,
-      } = product;
-      db.transaction(tr =>
-        tr.executeSql(
-          'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote) VALUES (?,?,?,?,?,?,?,?,?)',
-          [
-            productName,
-            amount,
-            productCategory,
-            labels,
-            bestBeforeDate,
-            pushNotificationDate,
-            customNote,
-            barcode,
-            dateAdded,
-          ]
-        ));
-    });
+    // dummyData.forEach(product => {
+    const {
+      name: productName,
+      amount,
+      category,
+      labels,
+      expiryDate,
+      notificationDate,
+      notes,
+    } = dummyData[0];
+    db.transaction(tr =>
+      tr.executeSql(
+        'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote, barcode, dateAdded) VALUES (?,?,?,?,?,?,?,?,?)',
+        [
+          productName,
+          amount,
+          category,
+          labels,
+          expiryDate,
+          notificationDate,
+          notes,
+          (10000000000000 * Math.random()).toFixed(0),
+          todayDate(),
+        ]
+      ));
+    // });
     getDataFromDB();
   }, []);
   /* Database methods */
@@ -51,7 +51,8 @@ export default function ContextProvider({ children }) {
     setIsLoading(true);
     db.transaction(tr =>
       tr.executeSql('SELECT * FROM products', [], (tx, res) =>
-        setProducts(res.rows._array)));
+        // setProducts(res.rows._array)));
+        console.warn(res.rows._array)));
   };
 
   /* evaluate the date of today */
@@ -73,7 +74,8 @@ export default function ContextProvider({ children }) {
     bestBeforeDate,
     pushNotificationDate,
     customNote,
-    barcode
+    barcode,
+    products
   ) => {
     const dateAdded = todayDate();
     db.transaction(tr =>
