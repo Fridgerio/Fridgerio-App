@@ -8,13 +8,17 @@ const db = SQLite.openDatabase('products.db');
 export default function ContextProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
+  const [lastDeletedIndex, setLastDeletedIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
 
   useEffect(() => {
     db.transaction(tr =>
-      tr.executeSql('CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'));
+      tr.executeSql(
+        'CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'
+      )
+    );
     getDataFromDB();
   }, []);
   /* Database methods */
@@ -24,7 +28,9 @@ export default function ContextProvider({ children }) {
     setIsLoading(true);
     db.transaction(tr =>
       tr.executeSql('SELECT * FROM products', [], (tx, res) =>
-        setProducts(res.rows._array)));
+        setProducts(res.rows._array)
+      )
+    );
   };
 
   /* evaluate the date of today */
@@ -64,12 +70,12 @@ export default function ContextProvider({ children }) {
           dateAdded,
         ],
         (tx, res) => (products[products.length - 1].id = res.insertId)
-      ));
+      )
+    );
   };
   /* re-adding an item to the database (undo delete) */
   const undoDeleteInDB = () => {
     const {
-      id,
       productName,
       amount,
       productCategory,
@@ -80,9 +86,8 @@ export default function ContextProvider({ children }) {
     } = lastDeletedProduct;
     db.transaction(tr =>
       tr.executeSql(
-        'INSERT INTO products (id, productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote) VALUES (?,?)',
+        'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote) VALUES (?,?)',
         [
-          id,
           productName,
           amount,
           productCategory,
@@ -93,7 +98,8 @@ export default function ContextProvider({ children }) {
           barcode,
           dateAdded,
         ]
-      ));
+      )
+    );
   };
   /* update an item in the database */
   const updateDataInDB = (
@@ -119,7 +125,8 @@ export default function ContextProvider({ children }) {
           customNote,
           id,
         ]
-      ));
+      )
+    );
   };
 
   /* update the product name for all products with the same name */
@@ -128,7 +135,8 @@ export default function ContextProvider({ children }) {
       tr.executeSql('UPDATE SET productName = ? WHERE productName = ?', [
         newproductName,
         oldproductName,
-      ]));
+      ])
+    );
   };
 
   /* update the category for all products with the same name */
@@ -137,12 +145,14 @@ export default function ContextProvider({ children }) {
       tr.executeSql('UPDATE SET productCategory = ? WHERE productName = ?', [
         newcat,
         productName,
-      ]));
+      ])
+    );
   };
   /* delete an item from the database */
   const deleteDataFromDB = id => {
     db.transaction(tr =>
-      tr.executeSql('DELETE FROM products WHERE id = ?', [id]));
+      tr.executeSql('DELETE FROM products WHERE id = ?', [id])
+    );
   };
 
   /* wrapper functions */
@@ -196,8 +206,16 @@ export default function ContextProvider({ children }) {
     deleteDataFromDB(productId);
     /* store the deleted item */
     const deletedProduct = products.find(product => product.id === productId);
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].id === productId) {
+        setLastDeletedIndex(i);
+        break;
+      }
+    }
     /* store the remaining products */
-    const updatedProducts = products.filter(product => product.id !== productId);
+    const updatedProducts = products.filter(
+      product => product.id !== productId
+    );
     /* write updated products to the state */
     setProducts(updatedProducts);
     /* write deleted product to the state */
@@ -275,13 +293,14 @@ export default function ContextProvider({ children }) {
   };
 
   const addLastDeletedProduct = () => {
-    /* TODO: last deleted product is currently added to the end of the array;
-    inside this function we need to first sort the array before using the setProducts method */
     if (lastDeletedProduct) {
-      const upDatedProducts = products.concat(lastDeletedProduct);
-      /*  set value of 'lastDeletedProduct' to null to prevent the same item being added again multiple times to the list by clicking 'undo' multiple times on the snackbar */
+      const upDatedProducts = products.splice(
+        lastDeletedIndex,
+        0,
+        lastDeletedProduct
+      );
+      undoDeleteInDB();
       setLastDeletedProduct(null);
-      // TODO: update database
       setProducts(upDatedProducts);
     }
   };
