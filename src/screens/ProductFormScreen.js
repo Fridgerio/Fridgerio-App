@@ -12,7 +12,7 @@ import { Input } from '../components/styled-components/Inputs';
 function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
   const [name, setName] = useState(product ? product.name : null);
-  const [categories, setCategories] = useState(product ? product.categories : null);
+  const [categories, setCategories] = useState(product ? product.categories : []);
   console.log(product);
   return (
     <ScrollView>
@@ -38,7 +38,7 @@ function ProductFormScreen({ navigation }) {
         editable
       />
 
-      <CategoryPicker />
+      <CategoryPicker category={categories[0]} />
 
       <NumberPicker title="Menge" maxNum={10} />
 
