@@ -31,7 +31,12 @@ function ProductFormScreen({ navigation }) {
         }}
       />
 
-      <Input inputLabel="Name" placeholder="z.B. Apfel" editable />
+      <Input
+        inputLabel="Name"
+        placeholder="z.B. Apfel"
+        defaultValue={name}
+        editable
+      />
 
       <CategoryPicker />
 
