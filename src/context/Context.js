@@ -7,12 +7,17 @@ const db = SQLite.openDatabase('products.db');
 
 export default function ContextProvider({ children }) {
   const [products, setProducts] = useState([]);
+  const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
 
   useEffect(() => {
     db.transaction(tr =>
-      tr.executeSql('CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'));
+      tr.executeSql(
+        'CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'
+      )
+    );
     getDataFromDB();
   }, []);
 
@@ -21,8 +26,11 @@ export default function ContextProvider({ children }) {
     setIsLoading(true);
     db.transaction(tr =>
       tr.executeSql('SELECT * FROM products', [], (tx, res) =>
-        setProducts(res.rows._array)));
+        setProducts(res.rows._array)
+      )
+    );
   };
+
   const saveDataToDB = (
     productName,
     amount,
@@ -45,7 +53,8 @@ export default function ContextProvider({ children }) {
           customNote,
         ],
         (tx, res) => (products[products.length - 1].id = res.insertId)
-      ));
+      )
+    );
   };
   const updateDataInDB = (
     id,
@@ -70,25 +79,29 @@ export default function ContextProvider({ children }) {
           customNote,
           id,
         ]
-      ));
+      )
+    );
   };
-  const updateproductNameInDB = (oldproductName, newproductName) => {
+  const updateProductNameInDB = (oldproductName, newproductName) => {
     db.transaction(tr =>
       tr.executeSql('UPDATE SET productName = ? WHERE productName = ?', [
         newproductName,
         oldproductName,
-      ]));
+      ])
+    );
   };
-  const updateCatInDB = (productName, newcat) => {
+  const updateProductCategoryInDB = (productName, newcat) => {
     db.transaction(tr =>
       tr.executeSql('UPDATE SET productCategory = ? WHERE productName = ?', [
         newcat,
         productName,
-      ]));
+      ])
+    );
   };
   const deleteDataFromDB = id => {
     db.transaction(tr =>
-      tr.executeSql('DELETE FROM products WHERE id = ?', [id]));
+      tr.executeSql('DELETE FROM products WHERE id = ?', [id])
+    );
   };
   const addProduct = (
     productName,
@@ -101,6 +114,7 @@ export default function ContextProvider({ children }) {
   ) => {
     let data = products;
     if (
+      // TODO: refactor condition to allow falsy values
       productName &&
       amount &&
       productCategory &&
@@ -121,6 +135,7 @@ export default function ContextProvider({ children }) {
           customNote,
         },
       ];
+
       saveDataToDB(
         productName,
         amount,
@@ -131,14 +146,23 @@ export default function ContextProvider({ children }) {
         customNote
       );
     }
+
     setProducts(data);
   };
-  const deleteProduct = index => {
-    const data = products;
-    deleteDataFromDB(data[index].id);
-    data.splice(index, 1);
-    setProducts(data);
+
+  const deleteProduct = productId => {
+    deleteDataFromDB(productId);
+
+    const deletedProduct = products.find(product => product.id === productId);
+    const updatedProducts = products.filter(
+      product => product.id !== productId
+    );
+
+    setProducts(updatedProducts);
+    setLastDeletedProduct(deletedProduct);
+    handleSnackBar();
   };
+
   const updateProduct = (
     index,
     productName,
@@ -171,9 +195,10 @@ export default function ContextProvider({ children }) {
     };
     setProducts(data);
   };
-  const updateproductName = (oldproductName, newproductName) => {
+
+  const updateProductName = (oldproductName, newproductName) => {
     const data = products;
-    updateproductNameInDB(oldproductName, newproductName);
+    updateProductNameInDB(oldproductName, newproductName);
     data.forEach(product => {
       if (product.productName === oldproductName) {
         product.productName = newproductName;
@@ -181,9 +206,10 @@ export default function ContextProvider({ children }) {
     });
     setProducts(data);
   };
-  const updateCat = (productName, productCategory) => {
+
+  const updateProductCategory = (productName, productCategory) => {
     const data = products;
-    updateCatInDB(productName, productCategory);
+    updateProductCategoryInDB(productName, productCategory);
     data.forEach(product => {
       if (product.productName === productName) {
         product.productCategory = productCategory;
@@ -191,6 +217,25 @@ export default function ContextProvider({ children }) {
     });
     setProducts(data);
   };
+
+  // toggle snackbar
+  const handleSnackBar = () => {
+    setIsSnackBarVisible(true);
+    setTimeout(() => setIsSnackBarVisible(false), 3000);
+  };
+
+  const addLastDeletedProduct = () => {
+    /* TODO: last deleted product is currently added to the end of the array;
+    inside this function we need to first sort the array before using the setProducts method */
+    if (lastDeletedProduct) {
+      const upDatedProducts = products.concat(lastDeletedProduct);
+      /*  set value of 'lastDeletedProduct' to null to prevent the same item being added again multiple times to the list by clicking 'undo' multiple times on the snackbar */
+      setLastDeletedProduct(null);
+      // TODO: update database
+      setProducts(upDatedProducts);
+    }
+  };
+
   return (
     <Context.Provider
       value={{
@@ -198,8 +243,11 @@ export default function ContextProvider({ children }) {
         addProduct,
         deleteProduct,
         updateProduct,
-        updateproductName,
-        updateCat,
+        updateProductName,
+        updateProductCategory,
+        isSnackBarVisible,
+        handleSnackBar,
+        addLastDeletedProduct,
       }}
     >
       {children}
