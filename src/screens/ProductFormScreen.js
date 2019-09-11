@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, FlatList } from 'react-native';
 
 import CategoryPicker from '../components/CategoryPicker';
@@ -9,7 +9,11 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Input } from '../components/styled-components/Inputs';
 
-function ProductFormScreen() {
+function ProductFormScreen({ navigation }) {
+  const product = navigation.state.params;
+  const [name, setName] = useState(product ? product.name : null);
+  const [categories, setCategories] = useState(product ? product.categories : null);
+  console.log(product);
   return (
     <ScrollView>
       {/* Large category icon */}
