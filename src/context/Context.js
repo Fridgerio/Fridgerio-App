@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { SQLite } from 'expo-sqlite';
-// import { data } from './data';
+import { data: dummyData } from './data';
 
 export const Context = React.createContext(null);
 const db = SQLite.openDatabase('products.db');
 
 export default function ContextProvider({ children }) {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(dummyData);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
   const [lastDeletedIndex, setLastDeletedIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,6 +19,11 @@ export default function ContextProvider({ children }) {
         'CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'
       )
     );
+    /* insert dummyData in database */
+    dummyData.forEach(product => {
+      const {name: productName, amount, category, labels, notes, expiryDate, notificationDate, addedDate } = product;
+      saveDataToDB(productName, amount, category, JSON.stringify(labels), expiryDate, notificationDate, notes, (1000000000000*Math.random()).toFixed(0));
+    });
     getDataFromDB();
   }, []);
   /* Database methods */
