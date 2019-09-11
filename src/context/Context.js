@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SQLite } from 'expo-sqlite';
-import { data: dummyData } from './data';
+// import { data as dummyData } from './data';
 
 export const Context = React.createContext(null);
 const db = SQLite.openDatabase('products.db');
 
 export default function ContextProvider({ children }) {
-  const [products, setProducts] = useState(dummyData);
+  const [products, setProducts] = useState([]);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
   const [lastDeletedIndex, setLastDeletedIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,15 +15,7 @@ export default function ContextProvider({ children }) {
 
   useEffect(() => {
     db.transaction(tr =>
-      tr.executeSql(
-        'CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'
-      )
-    );
-    /* insert dummyData in database */
-    dummyData.forEach(product => {
-      const {name: productName, amount, category, labels, notes, expiryDate, notificationDate, addedDate } = product;
-      saveDataToDB(productName, amount, category, JSON.stringify(labels), expiryDate, notificationDate, notes, (1000000000000*Math.random()).toFixed(0));
-    });
+      tr.executeSql('CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'));
     getDataFromDB();
   }, []);
   /* Database methods */
@@ -33,14 +25,12 @@ export default function ContextProvider({ children }) {
     setIsLoading(true);
     db.transaction(tr =>
       tr.executeSql('SELECT * FROM products', [], (tx, res) =>
-        setProducts(res.rows._array)
-      )
-    );
+        setProducts(res.rows._array)));
   };
 
   /* evaluate the date of today */
   const todayDate = () => {
-    const myDate = Date.now();
+    const myDate = new Date();
     let month = (myDate.getMonth() + 1).toFixed(0);
     let day = myDate.getDate().toFixed(0);
     const year = myDate.getFullYear().toFixed(0);
@@ -75,8 +65,7 @@ export default function ContextProvider({ children }) {
           dateAdded,
         ],
         (tx, res) => (products[products.length - 1].id = res.insertId)
-      )
-    );
+      ));
   };
   /* re-adding an item to the database (undo delete) */
   const undoDeleteInDB = () => {
@@ -103,8 +92,7 @@ export default function ContextProvider({ children }) {
           barcode,
           dateAdded,
         ]
-      )
-    );
+      ));
   };
   /* update an item in the database */
   const updateDataInDB = (
@@ -130,8 +118,7 @@ export default function ContextProvider({ children }) {
           customNote,
           id,
         ]
-      )
-    );
+      ));
   };
 
   /* update the product name for all products with the same name */
@@ -140,8 +127,7 @@ export default function ContextProvider({ children }) {
       tr.executeSql('UPDATE SET productName = ? WHERE productName = ?', [
         newproductName,
         oldproductName,
-      ])
-    );
+      ]));
   };
 
   /* update the category for all products with the same name */
@@ -150,14 +136,12 @@ export default function ContextProvider({ children }) {
       tr.executeSql('UPDATE SET productCategory = ? WHERE productName = ?', [
         newcat,
         productName,
-      ])
-    );
+      ]));
   };
   /* delete an item from the database */
   const deleteDataFromDB = id => {
     db.transaction(tr =>
-      tr.executeSql('DELETE FROM products WHERE id = ?', [id])
-    );
+      tr.executeSql('DELETE FROM products WHERE id = ?', [id]));
   };
 
   /* wrapper functions */
@@ -218,9 +202,7 @@ export default function ContextProvider({ children }) {
       }
     }
     /* store the remaining products */
-    const updatedProducts = products.filter(
-      product => product.id !== productId
-    );
+    const updatedProducts = products.filter(product => product.id !== productId);
     /* write updated products to the state */
     setProducts(updatedProducts);
     /* write deleted product to the state */
