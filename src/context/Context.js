@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { SQLite } from 'expo-sqlite';
-// import { data as dummyData } from './data';
+import { data as dummyData } from './data';
 
 export const Context = React.createContext(null);
 const db = SQLite.openDatabase('products.db');
@@ -16,6 +16,32 @@ export default function ContextProvider({ children }) {
   useEffect(() => {
     db.transaction(tr =>
       tr.executeSql('CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'));
+    dummyData.forEach(product => {
+      const {
+        name: productName,
+        amount,
+        category,
+        labels,
+        expiryDate,
+        notificationDate,
+        notes,
+      } = product;
+      db.transaction(tr =>
+        tr.executeSql(
+          'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote) VALUES (?,?,?,?,?,?,?,?,?)',
+          [
+            productName,
+            amount,
+            productCategory,
+            labels,
+            bestBeforeDate,
+            pushNotificationDate,
+            customNote,
+            barcode,
+            dateAdded,
+          ]
+        ));
+    });
     getDataFromDB();
   }, []);
   /* Database methods */
@@ -52,7 +78,7 @@ export default function ContextProvider({ children }) {
     const dateAdded = todayDate();
     db.transaction(tr =>
       tr.executeSql(
-        'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote) VALUES (?,?)',
+        'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote) VALUES (?,?,?,?,?,?,?,?,?)',
         [
           productName,
           amount,
