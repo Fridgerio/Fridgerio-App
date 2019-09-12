@@ -16,14 +16,29 @@ export default function ContextProvider({ children }) {
   useEffect(() => {
     db.transaction(tx => {
       tx.executeSql(
-        'create table if not exists products (id integer primary key not null, name text, amount tinyint, category text);',
+        'create table if not exists products (id integer primary key not null, name text, amount tinyint, category text, label text, bbdate date, notification date, note text);',
         [],
         () =>
-          saveDataToDB(
-            dummyData[0].name,
-            dummyData[0].amount,
-            dummyData[0].category
-          ),
+          dummyData.forEach(item => {
+            const {
+              name,
+              amount,
+              category,
+              labels,
+              expiryDate,
+              notificationDate,
+              notes,
+            } = item;
+            saveDataToDB(
+              name,
+              amount,
+              category,
+              labels,
+              expiryDate,
+              notificationDate,
+              notes
+            );
+          }),
         err => console.warn(err)
       );
     });
@@ -88,12 +103,21 @@ export default function ContextProvider({ children }) {
   //       err => console.warn(err)
   //     ));
 
-  const saveDataToDB = (name, amount, category) => {
+  const saveDataToDB = (
+    name,
+    amount,
+    category,
+    label,
+    expire,
+    notification,
+    notes
+  ) => {
+    const labelString = label.join(',');
     db.transaction(
       tx => {
         tx.executeSql(
-          'insert into products (name, amount, category) values (?,?,?)',
-          [name, amount, category],
+          'insert into products (name, amount, category, label, bbdate, notification, note) values (?,?,?,?,?,?,?)',
+          [name, amount, category, labelString, expire, notification, notes],
           () => console.warn('insert'),
           err => console.warn(err)
         );
