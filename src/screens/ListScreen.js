@@ -17,7 +17,7 @@ import SnackBar from 'react-native-snackbar-component';
 function ListScreen({ navigation }) {
   const {
     products,
-    handleDelete,
+    deleteProduct,
     isSnackBarVisible,
     addLastDeletedProduct,
   } = useContext(Context);
@@ -35,7 +35,7 @@ function ListScreen({ navigation }) {
             <Product
               product={item}
               navigation={navigation}
-              onDelete={handleDelete}
+              onDelete={deleteProduct}
             />
           )}
           // element to be rendered when list is empty
