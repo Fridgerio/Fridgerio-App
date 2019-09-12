@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, FlatList } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
+import { TextInput } from 'react-native-gesture-handler';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
@@ -62,7 +63,7 @@ function Statistics({ products }) {
 function HomeScreen({ navigation }) {
   const {
     products,
-    handleDelete,
+    deleteProduct,
     isSnackBarVisible,
     addLastDeletedProduct,
   } = useContext(Context);
@@ -78,7 +79,7 @@ function HomeScreen({ navigation }) {
             <Product
               product={item}
               navigation={navigation}
-              onDelete={handleDelete}
+              onDelete={deleteProduct}
             />
           )}
           // element to be rendered when list is empty
