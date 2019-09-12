@@ -14,35 +14,36 @@ export default function ContextProvider({ children }) {
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
 
   useEffect(() => {
-    db.transaction(tr =>
-      tr.executeSql('CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY NOT NULL, productName TEXT(40), amount TINYINT, productCategory TEXT(100), labels TEXT(75), bestBeforeDate DATE, pushNotificationDate DATE, customNote TEXT), barcode TEXT(13), dateAdded DATE'));
-    // dummyData.forEach(product => {
-    const {
-      name: productName,
-      amount,
-      category,
-      labels,
-      expiryDate,
-      notificationDate,
-      notes,
-    } = dummyData[0];
-    db.transaction(tr =>
-      tr.executeSql(
-        'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote, barcode, dateAdded) VALUES (?,?,?,?,?,?,?,?,?)',
-        [
-          productName,
-          amount,
-          category,
-          labels,
-          expiryDate,
-          notificationDate,
-          notes,
-          (10000000000000 * Math.random()).toFixed(0),
-          todayDate(),
-        ]
-      ));
-    // });
-    getDataFromDB();
+    db.transaction(tx => {
+      tx.executeSql(
+        'create table if not exists products (id integer primary key not null, name text, amount tinyint, category text);',
+        [],
+        () =>
+          saveDataToDB(
+            dummyData[0].name,
+            dummyData[0].amount,
+            dummyData[0].category
+          ),
+        err => console.warn(err)
+      );
+    });
+    // db.transaction(
+    //   tr =>
+    //     tr.executeSql('create table if not exists products (id integer primary key not null, done int, value text);'),
+    //   () => console.warn('done'),
+    //   err => console.warn(err)
+    // );
+    // const {
+    //   name,
+    // amount,
+    // category,
+    // labels,
+    // expiryDate,
+    // notificationDate,
+    // notes,
+    // } = dummyData[0];
+    // saveDataToDB(name);
+    // getDataFromDB();
   }, []);
   /* Database methods */
   /* load entries from database to the state */
@@ -66,34 +67,42 @@ export default function ContextProvider({ children }) {
     return [year, month, day].join('-');
   };
   /* save a new item to the database */
-  const saveDataToDB = (
-    productName,
-    amount,
-    productCategory,
-    labels,
-    bestBeforeDate,
-    pushNotificationDate,
-    customNote,
-    barcode,
-    products
-  ) => {
-    const dateAdded = todayDate();
-    db.transaction(tr =>
-      tr.executeSql(
-        'INSERT INTO products (productName, amount, productCategory, labels, bestBeforeDate, pushNotificationDate, customNote) VALUES (?,?,?,?,?,?,?,?,?)',
-        [
-          productName,
-          amount,
-          productCategory,
-          labels,
-          bestBeforeDate,
-          pushNotificationDate,
-          customNote,
-          barcode,
-          dateAdded,
-        ],
-        (tx, res) => (products[products.length - 1].id = res.insertId)
-      ));
+  // const saveDataToDB = productName => {
+  //   // const dateAdded = todayDate();
+  //   db.transaction(tr =>
+  //     tr.executeSql(
+  //       'INSERT INTO products productName VALUES (?)',
+  //       [
+  //         'My Product',
+  //         // amount,
+  //         // productCategory,
+  //         // labels,
+  //         // bestBeforeDate,
+  //         // pushNotificationDate,
+  //         // customNote,
+  //         // barcode,
+  //         // dateAdded,
+  //       ],
+  //       () => getDataFromDB(),
+  //       err => console.warn(err),
+  //       err => console.warn(err)
+  //     ));
+
+  const saveDataToDB = (name, amount, category) => {
+    db.transaction(
+      tx => {
+        tx.executeSql(
+          'insert into products (name, amount, category) values (?,?,?)',
+          [name, amount, category],
+          () => console.warn('insert'),
+          err => console.warn(err)
+        );
+        tx.executeSql('select * from products', [], (_, { rows }) =>
+          console.warn(rows));
+      },
+      null,
+      getDataFromDB
+    );
   };
   /* re-adding an item to the database (undo delete) */
   const undoDeleteInDB = () => {
@@ -324,6 +333,7 @@ export default function ContextProvider({ children }) {
     <Context.Provider
       value={{
         products,
+        saveDataToDB,
         addProduct,
         deleteProduct,
         updateProduct,
