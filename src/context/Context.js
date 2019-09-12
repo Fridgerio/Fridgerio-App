@@ -167,6 +167,16 @@ export default function ContextProvider({ children }) {
     db.transaction(tr =>
       tr.executeSql('DELETE FROM products WHERE id = ?', [id]));
   };
+  /* delete the whole table */
+  const deleteAll = () => {
+    db.transaction(tr =>
+      tr.executeSql(
+        'drop table products',
+        [],
+        () => console.warn('DB deleted'),
+        err => console.warn(err)
+      ));
+  };
 
   /* wrapper functions */
   /* add a product to the state and also to the database */
@@ -329,6 +339,7 @@ export default function ContextProvider({ children }) {
         isSnackBarVisible,
         handleSnackBar,
         addLastDeletedProduct,
+        deleteAll,
       }}
     >
       {children}
