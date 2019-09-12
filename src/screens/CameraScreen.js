@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal } from 'react-native';
+import { View, Text, Modal, Platform } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
@@ -100,7 +100,15 @@ function CameraScreen({ navigation }) {
     toggleModal(false);
     navigation.navigate('ProductFormScreen');
   };
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = Platform.select({
+    ios: ({ data }) => handleBarCodeIOS(data),
+    android: ({ type, data }) => handleBarCodeAndroid(type, data),
+  });
+  const handleBarCodeIOS = data => {
+    fetchProduct(data); // fetch the data from the products API
+    toggleScanned(true); // set scanned to true, to avoid multiple scanning
+  };
+  const handleBarCodeAndroid = (type, data) => {
     /* if it is ean13 or ean8 */
     if (type === 32 || type === 64) {
       fetchProduct(data); // fetch the data from the products API
