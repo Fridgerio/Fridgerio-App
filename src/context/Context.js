@@ -42,23 +42,6 @@ export default function ContextProvider({ children }) {
         err => console.warn(err)
       );
     });
-    // db.transaction(
-    //   tr =>
-    //     tr.executeSql('create table if not exists products (id integer primary key not null, done int, value text);'),
-    //   () => console.warn('done'),
-    //   err => console.warn(err)
-    // );
-    // const {
-    //   name,
-    // amount,
-    // category,
-    // labels,
-    // expiryDate,
-    // notificationDate,
-    // notes,
-    // } = dummyData[0];
-    // saveDataToDB(name);
-    // getDataFromDB();
   }, []);
   /* Database methods */
   /* load entries from database to the state */
@@ -67,8 +50,8 @@ export default function ContextProvider({ children }) {
     setIsLoading(true);
     db.transaction(tr =>
       tr.executeSql('SELECT * FROM products', [], (tx, res) =>
-        // setProducts(res.rows._array)));
-        console.warn(res.rows._array)));
+        setProducts(res.rows._array)));
+    // console.warn(res.rows._array)));
   };
 
   /* evaluate the date of today */
@@ -82,26 +65,6 @@ export default function ContextProvider({ children }) {
     return [year, month, day].join('-');
   };
   /* save a new item to the database */
-  // const saveDataToDB = productName => {
-  //   // const dateAdded = todayDate();
-  //   db.transaction(tr =>
-  //     tr.executeSql(
-  //       'INSERT INTO products productName VALUES (?)',
-  //       [
-  //         'My Product',
-  //         // amount,
-  //         // productCategory,
-  //         // labels,
-  //         // bestBeforeDate,
-  //         // pushNotificationDate,
-  //         // customNote,
-  //         // barcode,
-  //         // dateAdded,
-  //       ],
-  //       () => getDataFromDB(),
-  //       err => console.warn(err),
-  //       err => console.warn(err)
-  //     ));
 
   const saveDataToDB = (
     name,
