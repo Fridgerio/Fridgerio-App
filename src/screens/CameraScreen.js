@@ -34,8 +34,9 @@ function CameraScreen({ navigation }) {
     identifier += quantity === '' || quantity === undefined ? 0 : 1;
     /* switch statement generates the optimal productName */
     switch (identifier) {
+      case 0:
       case 1:
-        return quantity;
+        return '';
       case 2:
         return name;
       case 3:
@@ -65,10 +66,19 @@ function CameraScreen({ navigation }) {
         /* if the product is found in the database */
         /* (1) generate a product name */
         const productName = generateName(brand, product_name, quantity);
-        /* (2) set the product in the state */
-        setProduct({ productName, categories });
-        /* (3) show the modal */
-        toggleModal(true);
+        if (
+          productName === '' ||
+          productName === undefined ||
+          productName === null
+        ) {
+          alert('Produkt nicht in der Datenbank');
+          navigation.navigate('ProductFormScreen');
+        } else {
+          /* (2) set the product in the state */
+          setProduct({ productName, categories });
+          /* (3) show the modal */
+          toggleModal(true);
+        }
       } else {
         /* if product is not in the database */
         /* (1) make an alert */
