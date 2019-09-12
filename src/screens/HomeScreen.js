@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
@@ -66,6 +66,7 @@ function HomeScreen({ navigation }) {
     deleteProduct,
     isSnackBarVisible,
     addLastDeletedProduct,
+    deleteAll,
   } = useContext(Context);
 
   return (
@@ -91,6 +92,7 @@ function HomeScreen({ navigation }) {
         />
       </View>
       <Statistics style={styles.statistics} products={products} />
+      <Button title={'Delete database'} onPress={deleteAll} />
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"
