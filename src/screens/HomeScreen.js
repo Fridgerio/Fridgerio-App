@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, FlatList } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
+import { TextInput } from 'react-native-gesture-handler';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
@@ -16,8 +17,27 @@ function Expire() {
 }
 
 /* Statistics */
-function Statistics() {
-  const numbers = [4, 14, 26];
+function Statistics({ products }) {
+  const getExpired = id => {
+    const normDate = new Date(Date.now() + id * 24 * 60 * 60 * 1000);
+    const today = new Date(Date.now());
+    let number;
+    if (products && products.length > 0) {
+      number = products.reduce((num, current) => {
+        const expDate = Number((new Date(current.date).getTime() / 1000).toFixed(0));
+        if (id === 0) {
+          return expDate < normDate ? num + 1 : num;
+        }
+        return expDate < normDate && expDate > today ? num + 1 : num;
+      }, 0);
+    } else {
+      number = 0;
+    }
+    return number;
+  };
+  const expiredItems = getExpired(0);
+  const nextWeekItems = getExpired(7);
+  const numbers = [expiredItems, nextWeekItems, products.length];
   const labels = ['abgelaufen', 'in 7 Tagen', 'insgesamt'];
   return (
     <React.Fragment>
@@ -43,7 +63,7 @@ function Statistics() {
 function HomeScreen({ navigation }) {
   const {
     products,
-    handleDelete,
+    deleteProduct,
     isSnackBarVisible,
     addLastDeletedProduct,
   } = useContext(Context);
@@ -59,16 +79,18 @@ function HomeScreen({ navigation }) {
             <Product
               product={item}
               navigation={navigation}
-              onDelete={handleDelete}
+              onDelete={deleteProduct}
             />
           )}
           // element to be rendered when list is empty
           ListEmptyComponent={() => (
-            <Text style={styles.listEmpty}>No products in your list</Text>
+            <Text style={styles.listEmpty}>
+              Deine Liste enthält keine Produkte
+            </Text>
           )}
         />
       </View>
-      <Statistics style={styles.statistics} />
+      <Statistics style={styles.statistics} products={products} />
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"
