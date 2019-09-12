@@ -188,9 +188,9 @@
     "react/self-closing-comp": 2,
     "react/sort-comp": 2,
     "react/style-prop-object": 2,
-    "react/void-dom-elements-no-children": 2,
+    "react/void-dom-elements-no-children": 2
     // React-Hooks Plugin
-    "react-hooks/rules-of-hooks": 2,
-    "react-hooks/exhaustive-deps": 1
+    // "react-hooks/rules-of-hooks": 2,
+    // "react-hooks/exhaustive-deps": 1
   }
 }
