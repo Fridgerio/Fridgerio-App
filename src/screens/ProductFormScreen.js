@@ -59,13 +59,16 @@ function ProductFormScreen() {
   );
 }
 
-ProductFormScreen.navigationOptions = {
-  title: 'Neues Produkt',
+ProductFormScreen.navigationOptions = ({ navigation }) => ({
+  title:
+    navigation.dangerouslyGetParent().state.routeName == 'Add'
+      ? 'Neues Produkt'
+      : 'Produkt Bearbeiten',
   headerRight: (
     <Text>
       <Ionicons name="md-trash" size={22} color="white" />
     </Text>
   ),
-};
+});
 
 export default ProductFormScreen;

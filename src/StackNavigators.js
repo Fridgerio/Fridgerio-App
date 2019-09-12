@@ -38,13 +38,16 @@ const defaultOptions = {
   },
 };
 
-const HomeStack = createStackNavigator({ HomeScreen }, defaultOptions);
+const HomeStack = createStackNavigator(
+  { HomeScreen, ProductFormScreen },
+  defaultOptions
+);
 const AddStack = createStackNavigator(
   { CameraScreen, ProductFormScreen },
   defaultOptions
 );
 const ListStack = createStackNavigator(
-  { ListScreen, ProductDetailScreen },
+  { ListScreen, ProductDetailScreen, ProductFormScreen },
   defaultOptions
 );
 const SettingsStack = createStackNavigator(
