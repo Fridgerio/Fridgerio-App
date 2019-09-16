@@ -42,6 +42,7 @@ export default class DateTimePickerTester extends React.Component {
           isVisible={visible}
           onConfirm={this.handleDatePicked}
           onCancel={this.hideDateTimePicker}
+          ref={this.props.field}
         />
       </React.Fragment>
     );

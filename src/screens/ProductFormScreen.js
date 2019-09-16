@@ -90,7 +90,7 @@ function ProductFormScreen({ navigation }) {
 
       <NumberPicker title="Menge" maxNum={10} field={amountField} />
 
-      <BestBeforeDatePicker ref={dateSelector} />
+      <BestBeforeDatePicker field={dateSelector} />
 
       <NumberPicker
         title="Benachrichtigung"
