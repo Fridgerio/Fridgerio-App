@@ -88,14 +88,14 @@ function ProductFormScreen({ navigation }) {
         categorySelector={categorySelector}
       />
 
-      <NumberPicker title="Menge" maxNum={10} ref={amountField} />
+      <NumberPicker title="Menge" maxNum={10} field={amountField} />
 
       <BestBeforeDatePicker ref={dateSelector} />
 
       <NumberPicker
         title="Benachrichtigung"
         maxNum={14}
-        ref={notificationSelector}
+        field={notificationSelector}
       />
 
       <AddLabels ref={labelSelector} />

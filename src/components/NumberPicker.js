@@ -38,6 +38,7 @@ export default class NumberPicker extends React.Component {
           onValueChange={value => console.warn(value)}
           items={numbers}
           placeholder={{ label: 'Bitte wähle eine Zahl', value: null }}
+          ref={this.props.field}
         />
       </React.Fragment>
     );
