@@ -33,6 +33,7 @@ export default function CategoryPicker(props) {
         items={categories}
         itemKey={props ? props.category : null}
         placeholder={{ label: 'Bitte wähle eine Kategorie', value: null }}
+        ref={props.categorySelector}
       />
     </React.Fragment>
   );

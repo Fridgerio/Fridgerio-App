@@ -83,7 +83,10 @@ function ProductFormScreen({ navigation }) {
         ref={inputField}
       />
 
-      <CategoryPicker category={categories[0]} ref={categorySelector} />
+      <CategoryPicker
+        category={categories[0]}
+        categorySelector={categorySelector}
+      />
 
       <NumberPicker title="Menge" maxNum={10} ref={amountField} />
 
