@@ -29,7 +29,7 @@ export default function CategoryPicker(props) {
         <Text>Kategorie</Text>
       </Textbox>
       <RNPickerSelect
-        onValueChange={value => console.warn(value)}
+        onValueChange={value => props.onValueChange(value)}
         items={categories}
         itemKey={props ? props.category : null}
         placeholder={{ label: 'Bitte wähle eine Kategorie', value: null }}

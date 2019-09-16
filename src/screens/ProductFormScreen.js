@@ -14,7 +14,9 @@ function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
   const [name, setName] = useState(product ? product.name : null);
   const [amount, setAmount] = useState(null);
-  const [categories, setCategories] = useState(product ? product.categories : []);
+  const [categories, setCategories] = useState(
+    product ? product.categories : []
+  );
   const { addProduct, updateProduct } = useContext(Context);
   const inputField = useRef(null);
   const categorySelector = useRef(null);
@@ -36,7 +38,7 @@ function ProductFormScreen({ navigation }) {
     fields.forEach(field => (field.current.value = ''));
   };
   const addEditProduct = parentRoute => {
-    console.warn(name, amount);
+    console.warn(name, amount, categories);
     // parentRoute.state.routeName === 'Add'
     //   ? addProduct(
     //       name,
@@ -85,14 +87,11 @@ function ProductFormScreen({ navigation }) {
         onChangeText={text => setName(text)}
       />
 
-      <CategoryPicker
-        category={categories[0]}
-        categorySelector={categorySelector}
-      />
+      <CategoryPicker category={categories[0]} onValueChange={setCategories} />
 
       <NumberPicker title="Menge" maxNum={10} onValueChange={setAmount} />
 
-      <BestBeforeDatePicker field={dateSelector} />
+      <BestBeforeDatePicker />
 
       <NumberPicker
         title="Benachrichtigung"
