@@ -191,6 +191,7 @@ export default function ContextProvider({ children }) {
     barcode
   ) => {
     let data = products;
+    // console.warn(productName);
     if (productName && amount) {
       /* add the product to the data array */
       data = [
@@ -206,6 +207,7 @@ export default function ContextProvider({ children }) {
           barcode,
         },
       ];
+      console.warn(data);
 
       /* save the new item to the database */
       saveDataToDB(
@@ -217,10 +219,12 @@ export default function ContextProvider({ children }) {
         pushNotificationDate,
         customNote
       );
+      console.warn('stored');
     }
 
     /* store it in the state */
     setProducts(data);
+    console.warn('also in state');
   };
 
   /* delete the product */

@@ -13,6 +13,7 @@ import { Context } from '../context/Context';
 function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
   const [name, setName] = useState(product ? product.name : null);
+  const [amount, setAmount] = useState(null);
   const [categories, setCategories] = useState(product ? product.categories : []);
   const { addProduct, updateProduct } = useContext(Context);
   const inputField = useRef(null);
@@ -34,38 +35,29 @@ function ProductFormScreen({ navigation }) {
     ];
     fields.forEach(field => (field.current.value = ''));
   };
-  const addEditProduct = (
-    parentRoute,
-    productName,
-    amount,
-    productCategory,
-    productLabel,
-    bestBeforeDate,
-    notificationTime,
-    customNotes,
-    barcode
-  ) => {
-    parentRoute.state.routeName === 'Add'
-      ? addProduct(
-          productName,
-          amount,
-          productCategory,
-          productLabel,
-          bestBeforeDate,
-          notificationTime,
-          customNotes,
-          barcode
-        )
-      : updateProduct(
-          productName,
-          amount,
-          productCategory,
-          productLabel,
-          bestBeforeDate,
-          notificationTime,
-          customNotes,
-          barcode
-        );
+  const addEditProduct = parentRoute => {
+    console.warn(name, amount);
+    // parentRoute.state.routeName === 'Add'
+    //   ? addProduct(
+    //       name,
+    //       amount,
+    //       productCategory,
+    //       productLabel,
+    //       bestBeforeDate,
+    //       notificationTime,
+    //       customNotes,
+    //       barcode
+    //     )
+    //   : updateProduct(
+    //       name,
+    //       amount,
+    //       productCategory,
+    //       productLabel,
+    //       bestBeforeDate,
+    //       notificationTime,
+    //       customNotes,
+    //       barcode
+    //     );
   };
   // console.log(product);
   return (
@@ -90,7 +82,7 @@ function ProductFormScreen({ navigation }) {
         placeholder="z.B. Apfel"
         defaultValue={name}
         editable
-        field={inputField}
+        onChangeText={text => setName(text)}
       />
 
       <CategoryPicker
@@ -98,7 +90,7 @@ function ProductFormScreen({ navigation }) {
         categorySelector={categorySelector}
       />
 
-      <NumberPicker title="Menge" maxNum={10} field={amountField} />
+      <NumberPicker title="Menge" maxNum={10} onValueChange={setAmount} />
 
       <BestBeforeDatePicker field={dateSelector} />
 
@@ -125,18 +117,7 @@ function ProductFormScreen({ navigation }) {
           {
             key: 'v',
             name: 'Speichern',
-            function: () =>
-              addEditProduct(
-                navigation.dangerouslyGetParent(),
-                inputField.current.value,
-                amountField.current.value,
-                categorySelector.current.value,
-                labelSelector.current.value,
-                dateSelector.current.value,
-                notificationSelector.current.value,
-                notesField.current.value,
-                null
-              ),
+            function: () => addEditProduct(navigation.dangerouslyGetParent()),
           },
         ]}
         keyExtractor={item => item.key}

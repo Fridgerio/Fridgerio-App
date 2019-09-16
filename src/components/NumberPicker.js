@@ -35,10 +35,9 @@ export default class NumberPicker extends React.Component {
           <Text>{title}</Text>
         </Textbox>
         <RNPickerSelect
-          onValueChange={value => console.warn(value)}
+          onValueChange={value => this.props.onValueChange(value)}
           items={numbers}
           placeholder={{ label: 'Bitte wähle eine Zahl', value: null }}
-          ref={this.props.field}
         />
       </React.Fragment>
     );

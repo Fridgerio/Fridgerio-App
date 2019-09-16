@@ -49,7 +49,7 @@ export const Input = props => {
     margin,
     padding,
     radius,
-    field,
+    onChangeText,
   } = props;
   return (
     <StyledInputContainer
@@ -73,7 +73,7 @@ export const Input = props => {
         padding={padding}
         radius={radius}
         background={background}
-        ref={field}
+        onChangeText={onChangeText}
       >
         {children}
       </StyledInput>
