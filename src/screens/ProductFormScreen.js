@@ -34,27 +34,37 @@ function ProductFormScreen({ navigation }) {
     ];
     fields.forEach(field => (field.current.value = ''));
   };
-  const addEditProduct = () => {
-    navigation.dangerouslyGetParent.state.routeName === 'Add'
+  const addEditProduct = (
+    parentRoute,
+    productName,
+    amount,
+    productCategory,
+    productLabel,
+    bestBeforeDate,
+    notificationTime,
+    customNotes,
+    barcode
+  ) => {
+    parentRoute.state.routeName === 'Add'
       ? addProduct(
-          inputField.current.value,
-          amountField.current.value,
-          categorySelector.current.value,
-          labelSelector.current.value,
-          dateSelector.current.value,
-          notificationSelector.current.value,
-          notesField.current.value,
-          null
+          productName,
+          amount,
+          productCategory,
+          productLabel,
+          bestBeforeDate,
+          notificationTime,
+          customNotes,
+          barcode
         )
       : updateProduct(
-          inputField.current.value,
-          amountField.current.value,
-          categorySelector.current.value,
-          labelSelector.current.value,
-          dateSelector.current.value,
-          notificationSelector.current.value,
-          notesField.current.value,
-          null
+          productName,
+          amount,
+          productCategory,
+          productLabel,
+          bestBeforeDate,
+          notificationTime,
+          customNotes,
+          barcode
         );
   };
   // console.log(product);
@@ -80,7 +90,7 @@ function ProductFormScreen({ navigation }) {
         placeholder="z.B. Apfel"
         defaultValue={name}
         editable
-        ref={inputField}
+        field={inputField}
       />
 
       <CategoryPicker
@@ -106,16 +116,33 @@ function ProductFormScreen({ navigation }) {
         multiline
         editable
         textAlignVertical="top"
-        ref={notesField}
+        field={notesField}
       />
 
       <FlatList
         data={[
           { key: 'x', name: 'Abbrechen', function: { clearForm } },
-          { key: 'v', name: 'Speichern', function: { addEditProduct } },
+          {
+            key: 'v',
+            name: 'Speichern',
+            function: () =>
+              addEditProduct(
+                navigation.dangerouslyGetParent(),
+                inputField.current.value,
+                amountField.current.value,
+                categorySelector.current.value,
+                labelSelector.current.value,
+                dateSelector.current.value,
+                notificationSelector.current.value,
+                notesField.current.value,
+                null
+              ),
+          },
         ]}
         keyExtractor={item => item.key}
-        renderItem={({ item }) => <PrimaryButton title={item.name} />}
+        renderItem={({ item }) => (
+          <PrimaryButton title={item.name} onPress={item.function} />
+        )}
       />
     </ScrollView>
   );
