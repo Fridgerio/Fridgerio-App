@@ -98,7 +98,7 @@ function ProductFormScreen({ navigation }) {
         field={notificationSelector}
       />
 
-      <AddLabels ref={labelSelector} />
+      <AddLabels field={labelSelector} />
 
       <Input
         inputLabel="Notiz"
