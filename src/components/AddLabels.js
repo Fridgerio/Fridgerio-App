@@ -26,11 +26,10 @@ export default function AddLabels(props) {
           data={labels}
           keyExtractor={label => label.id}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => console.warn('clicked')}>
+            <TouchableOpacity onPress={() => props.onPress(item.color)}>
               <Ionicons
                 name={item.chosen ? 'md-checkbox' : 'md-square'}
                 style={{ color: item.color, fontSize: 32, paddingRight: 10 }}
-                ref={props.field}
               />
             </TouchableOpacity>
           )}

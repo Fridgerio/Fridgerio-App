@@ -14,9 +14,8 @@ function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
   const [name, setName] = useState(product ? product.name : null);
   const [amount, setAmount] = useState(null);
-  const [categories, setCategories] = useState(
-    product ? product.categories : []
-  );
+  const [label, setLabel] = useState([]);
+  const [categories, setCategories] = useState(product ? product.categories : []);
   const { addProduct, updateProduct } = useContext(Context);
   const inputField = useRef(null);
   const categorySelector = useRef(null);
@@ -38,7 +37,7 @@ function ProductFormScreen({ navigation }) {
     fields.forEach(field => (field.current.value = ''));
   };
   const addEditProduct = parentRoute => {
-    console.warn(name, amount, categories);
+    console.warn(name, amount, categories, label);
     // parentRoute.state.routeName === 'Add'
     //   ? addProduct(
     //       name,
@@ -99,7 +98,7 @@ function ProductFormScreen({ navigation }) {
         field={notificationSelector}
       />
 
-      <AddLabels field={labelSelector} />
+      <AddLabels onPress={setLabel} />
 
       <Input
         inputLabel="Notiz"
