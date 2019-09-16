@@ -11,9 +11,9 @@ import { Input } from '../components/styled-components/Inputs';
 
 function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
-  const [name, setName] = useState(product ? product.name : null);
+  const [name, setName] = useState(product ? product.productName : null);
   const [categories, setCategories] = useState(product ? product.categories : []);
-  console.log(product);
+  //  console.log(product);
   return (
     <ScrollView>
       {/* Large category icon */}
