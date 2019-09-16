@@ -14,7 +14,7 @@ function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
   const [name, setName] = useState(product ? product.name : null);
   const [categories, setCategories] = useState(product ? product.categories : []);
-  const { addProduct } = useContext(Context);
+  const { addProduct, updateProduct } = useContext(Context);
   const inputField = useRef(null);
   const categorySelector = useRef(null);
   const amountField = useRef(null);
@@ -34,7 +34,30 @@ function ProductFormScreen({ navigation }) {
     ];
     fields.forEach(field => (field.current.value = ''));
   };
-  console.log(product);
+  const addEditProduct = () => {
+    navigation.dangerouslyGetParent.state.routeName === 'Add'
+      ? addProduct(
+          inputField.current.value,
+          amountField.current.value,
+          categorySelector.current.value,
+          labelSelector.current.value,
+          dateSelector.current.value,
+          notificationSelector.current.value,
+          notesField.current.value,
+          null
+        )
+      : updateProduct(
+          inputField.current.value,
+          amountField.current.value,
+          categorySelector.current.value,
+          labelSelector.current.value,
+          dateSelector.current.value,
+          notificationSelector.current.value,
+          notesField.current.value,
+          null
+        );
+  };
+  // console.log(product);
   return (
     <ScrollView>
       {/* Large category icon */}
