@@ -12,10 +12,12 @@ import { Context } from '../context/Context';
 
 function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
-  const [name, setName] = useState(product ? product.name : null);
+  const [name, setName] = useState(product ? product.productName : null);
   const [amount, setAmount] = useState(null);
   const [label, setLabel] = useState(null);
-  const [categories, setCategories] = useState(product ? product.categories : []);
+const [categories, setCategories] = useState(
+    product ? product.categories : []
+  );
   const [expiryDate, setExpiryDate] = useState(null);
   const [notification, setNotification] = useState(null);
   const [customNote, setCustomNote] = useState(null);
