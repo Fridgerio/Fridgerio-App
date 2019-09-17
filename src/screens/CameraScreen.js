@@ -12,6 +12,8 @@ function CameraScreen({ navigation }) {
   const [scanned, toggleScanned] = useState(false);
   const [showModal, toggleModal] = useState(false);
   const [product, setProduct] = useState(null);
+  const [showHelp, setShowHelp] = useState(false);
+
   /* Lifecycle method to check camera permission first */
   useEffect(() => {
     const askPermission = async () => {
@@ -152,7 +154,7 @@ function CameraScreen({ navigation }) {
         }}
       />
       <BarcodeFrame />
-      <HelpText />
+      <HelpText showHelp={showHelp} setShowHelp={setShowHelp} />
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
         title={'Manuell\neingeben'}
