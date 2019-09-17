@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { data as dummyData } from './data';
+import { data } from './data';
 
 export const Context = React.createContext(null);
 
 export default function ContextProvider({ children }) {
-  const [products, setProducts] = useState(dummyData);
+  const [products, setProducts] = useState(data);
+  const [productsSorted, setProductsSorted] = useState([]);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
   const [lastDeletedIndex, setLastDeletedIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
+  const [sortMethod, setSortMethod] = useState('bestBeforeDate');
 
   /* wrapper functions */
   /* add a product to the state and also to the database */
   const addProduct = (
+    id,
     productName,
     amount,
     productCategory,
-    labels,
     bestBeforeDate,
     pushNotificationDate,
     customNote,
@@ -30,13 +32,13 @@ export default function ContextProvider({ children }) {
       data = [
         ...products,
         {
-          name: productName,
+          id,
+          productName,
           amount,
-          category: productCategory,
-          label: labels,
-          bbdate: bestBeforeDate,
-          notification: pushNotificationDate,
-          note: customNote,
+          productCategory,
+          bestBeforeDate,
+          pushNotificationDate,
+          customNote,
           barcode,
         },
       ];
@@ -61,7 +63,9 @@ export default function ContextProvider({ children }) {
       }
     }
     /* store the remaining products */
-    const updatedProducts = products.filter(product => product.id !== productId);
+    const updatedProducts = products.filter(
+      product => product.id !== productId
+    );
     /* write updated products to the state */
     setProducts(updatedProducts);
     /* write deleted product to the state */
@@ -70,30 +74,28 @@ export default function ContextProvider({ children }) {
     handleSnackBar();
   };
 
-  /* update the product (not productName, not category) */
-  const updateProduct = (
-    index,
-    productName,
-    amount,
-    productCategory,
-    labels,
-    bestBeforeDate,
-    pushNotificationDate,
-    customNote
-  ) => {
-    const data = products;
-    // Update data in DB
-    data[index] = {
-      productName,
-      amount,
-      productCategory,
-      labels,
-      bestBeforeDate,
-      pushNotificationDate,
-      customNote,
-    };
-    setProducts(data);
-  };
+  // /* update the product (not productName, not category) */
+  // const updateProduct = (
+  //   index,
+  //   productName,
+  //   amount,
+  //   productCategory,
+  //   bestBeforeDate,
+  //   pushNotificationDate,
+  //   customNote
+  // ) => {
+  //   const data = products;
+  //   // Update data in DB
+  //   data[index] = {
+  //     productName,
+  //     amount,
+  //     productCategory,
+  //     bestBeforeDate,
+  //     pushNotificationDate,
+  //     customNote,
+  //   };
+  //   setProducts(data);
+  // };
 
   // toggle snackbar
   const handleSnackBar = () => {
@@ -121,7 +123,7 @@ export default function ContextProvider({ children }) {
         products,
         addProduct,
         deleteProduct,
-        updateProduct,
+        // updateProduct,
         isSnackBarVisible,
         handleSnackBar,
         addLastDeletedProduct,
