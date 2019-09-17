@@ -93,11 +93,13 @@ function CameraScreen({ navigation }) {
   };
   const redirectRight = () => {
     toggleModal(false);
+    toggleScanned(false);
     const { name, categories } = product;
     navigation.navigate('ProductFormScreen', { name, categories });
   };
   const redirectFalse = () => {
     toggleModal(false);
+    toggleScanned(false);
     navigation.navigate('ProductFormScreen');
   };
   const handleBarCodeScanned = Platform.select({
@@ -149,17 +151,6 @@ function CameraScreen({ navigation }) {
         }}
       />
       <BarcodeFrame />
-      {scanned && (
-        <PrimaryButton
-          title={'Nochmals scannen'}
-          style={{
-            width: '70%',
-            marginRight: 'auto',
-            marginLeft: 'auto',
-          }}
-          onPress={() => toggleScanned(false)}
-        />
-      )}
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
         title={'Manuell\neingeben'}
