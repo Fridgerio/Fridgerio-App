@@ -99,11 +99,13 @@ function CameraScreen({ navigation }) {
     toggleScanned(false);
     const { name, categories } = product;
     navigation.navigate('ProductFormScreen', { name, categories });
+    setShowHelp(false);
   };
   const redirectFalse = () => {
     toggleModal(false);
     toggleScanned(false);
     navigation.navigate('ProductFormScreen');
+    setShowHelp(false);
   };
   const handleBarCodeScanned = Platform.select({
     ios: ({ data }) => handleBarCodeIOS(data),
@@ -112,12 +114,14 @@ function CameraScreen({ navigation }) {
   const handleBarCodeIOS = data => {
     fetchProduct(data); // fetch the data from the products API
     toggleScanned(true); // set scanned to true, to avoid multiple scanning
+    setShowHelp(false); // remove help text
   };
   const handleBarCodeAndroid = (type, data) => {
     /* if it is ean13 or ean8 */
     if (type === 32 || type === 64) {
       fetchProduct(data); // fetch the data from the products API
       toggleScanned(true); // set scanned to true, to avoid multiple scanning
+      setShowHelp(false); // remove help text
     } else {
       toggleScanned(false); // scanned remains false for qr codes etc.
     }
@@ -164,7 +168,10 @@ function CameraScreen({ navigation }) {
           marginRight: 'auto',
           marginLeft: 'auto',
         }}
-        onPress={() => navigation.navigate('ProductFormScreen')}
+        onPress={() => {
+          setShowHelp(false);
+          navigation.navigate('ProductFormScreen');
+        }}
       />
       <Modal animationType={'slide'} visible={showModal}>
         <View style={{ marginVertical: 120, marginHorizontal: 25 }}>
