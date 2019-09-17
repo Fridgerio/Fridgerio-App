@@ -4,6 +4,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { BarcodeFrame } from '../components/svg/BarcodeFrame';
+import HelpText from '../components/CameraHelpText';
 
 function CameraScreen({ navigation }) {
   /* State Hooks and functions to change these states */
@@ -151,6 +152,7 @@ function CameraScreen({ navigation }) {
         }}
       />
       <BarcodeFrame />
+      <HelpText />
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
         title={'Manuell\neingeben'}
