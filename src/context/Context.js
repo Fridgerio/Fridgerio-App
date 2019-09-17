@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SQLite } from 'expo-sqlite';
 import { data as dummyData } from './data';
 
@@ -75,7 +75,7 @@ export default function ContextProvider({ children }) {
     notification,
     notes
   ) => {
-    const labelString = label.join(',');
+    const labelString = typeof label === 'string' ? label : label.join(',');
     db.transaction(
       tx => {
         tx.executeSql(
@@ -197,13 +197,13 @@ export default function ContextProvider({ children }) {
       data = [
         ...products,
         {
-          productName,
+          name: productName,
           amount,
-          productCategory,
-          labels,
-          bestBeforeDate,
-          pushNotificationDate,
-          customNote,
+          category: productCategory,
+          label: labels,
+          bbdate: bestBeforeDate,
+          notification: pushNotificationDate,
+          note: customNote,
           barcode,
         },
       ];

@@ -37,36 +37,36 @@ function ProductFormScreen({ navigation }) {
     fields.forEach(field => (field.current.value = ''));
   };
   const addEditProduct = parentRoute => {
-    console.warn(
-      name,
-      amount,
-      categories,
-      label,
-      expiryDate,
-      notification,
-      customNote
-    );
-    // parentRoute.state.routeName === 'Add'
-    //   ? addProduct(
-    //       name,
-    //       amount,
-    //       productCategory,
-    //       productLabel,
-    //       bestBeforeDate,
-    //       notificationTime,
-    //       customNotes,
-    //       barcode
-    //     )
-    //   : updateProduct(
-    //       name,
-    //       amount,
-    //       productCategory,
-    //       productLabel,
-    //       bestBeforeDate,
-    //       notificationTime,
-    //       customNotes,
-    //       barcode
-    //     );
+    // console.warn(
+    //   name,
+    //   amount,
+    //   categories,
+    //   label,
+    //   expiryDate,
+    //   notification,
+    //   customNote
+    // );
+    parentRoute.state.routeName === 'Add'
+      ? addProduct(
+          name,
+          amount,
+          categories,
+          label,
+          expiryDate,
+          notification,
+          customNote,
+          null
+        )
+      : updateProduct(
+          name,
+          amount,
+          categories,
+          label,
+          expiryDate,
+          notification,
+          customNote,
+          null
+        );
   };
   // console.log(product);
   return (
