@@ -22,8 +22,15 @@ export default class DateTimePickerTester extends React.Component {
 
   handleDatePicked = date => {
     this.setState({ date: date });
-    console.warn('A date has been picked: ', date);
-    this.props.onValueChange(date);
+    const year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    month = month < 10 ? `0${month}` : `${month}`;
+    let day = date.getDate();
+    day = day < 10 ? `0${day}` : `${day}`;
+    const fullDate = [year, month, day];
+    const formattedDate = fullDate.join('-');
+    console.warn('A date has been picked: ', formattedDate);
+    this.props.onValueChange(formattedDate);
     this.hideDateTimePicker();
   };
 
