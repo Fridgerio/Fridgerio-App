@@ -14,61 +14,37 @@ function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
   const [name, setName] = useState(product ? product.productName : null);
   const [amount, setAmount] = useState(null);
-  const [label, setLabel] = useState(null);
-const [categories, setCategories] = useState(
-    product ? product.categories : []
-  );
+  const [categories, setCategories] = useState(product ? product.categories : []);
   const [expiryDate, setExpiryDate] = useState(null);
   const [notification, setNotification] = useState(null);
   const [customNote, setCustomNote] = useState(null);
-  const { addProduct, updateProduct } = useContext(Context);
+  const { addProduct } = useContext(Context);
   const getNotificationDate = days => {
     const notificationDate = new Date(expiryDate - days * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
     setNotification(notificationDate);
   };
-  const clearForm = () => {
-    const fields = [
-      inputField,
-      categorySelector,
-      amountField,
-      dateSelector,
-      notificationSelector,
-      labelSelector,
-      notesField,
-    ];
-    fields.forEach(field => (field.current.value = ''));
+  const dateOfToday = () => {
+    const date = new Date(Date.now());
+    return date.toLocaleDateString('de-DE');
   };
-  const addEditProduct = parentRoute => {
-    // console.warn(
-    //   name,
-    //   amount,
-    //   categories,
-    //   label,
-    //   expiryDate,
-    //   notification,
-    //   customNote
-    // );
-    parentRoute.state.routeName === 'Add'
-      ? addProduct(
-          name,
-          amount,
-          categories,
-          label,
-          expiryDate,
-          notification,
-          customNote,
-          null
-        )
-      : updateProduct(
-          name,
-          amount,
-          categories,
-          label,
-          expiryDate,
-          notification,
-          customNote,
-          null
-        );
+  const clearForm = () => {
+    setName(product ? product.name : null);
+    setAmount(null);
+    setCategories(product ? product.categories : []);
+    setExpiryDate(dateOfToday());
+    setNotification(null);
+    setCustomNote(null);
+  };
+  const addEditProduct = () => {
+    addProduct(
+      name,
+      amount,
+      categories,
+      expiryDate,
+      notification,
+      customNote,
+      null
+    );
   };
   // console.log(product);
   return (
@@ -108,8 +84,6 @@ const [categories, setCategories] = useState(
         onValueChange={getNotificationDate}
       />
 
-      <AddLabels onPress={setLabel} />
-
       <Input
         inputLabel="Notiz"
         placeholder="Add custom note"
@@ -121,11 +95,11 @@ const [categories, setCategories] = useState(
 
       <FlatList
         data={[
-          { key: 'x', name: 'Abbrechen', function: { clearForm } },
+          { key: 'x', name: 'Abbrechen', function: () => clearForm() },
           {
             key: 'v',
             name: 'Speichern',
-            function: () => addEditProduct(navigation.dangerouslyGetParent()),
+            function: () => addEditProduct(),
           },
         ]}
         keyExtractor={item => item.key}

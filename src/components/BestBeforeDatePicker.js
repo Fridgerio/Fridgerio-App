@@ -23,6 +23,7 @@ export default class DateTimePickerTester extends React.Component {
   handleDatePicked = date => {
     this.setState({ date: date });
     console.warn('A date has been picked: ', date);
+    this.props.onValueChange(date);
     this.hideDateTimePicker();
   };
 
@@ -40,7 +41,7 @@ export default class DateTimePickerTester extends React.Component {
           titleIOS="Wähle das Datum"
           date={date}
           isVisible={visible}
-          onConfirm={expiryDate => this.props.onValueChange(expiryDate)}
+          onConfirm={this.handleDatePicked}
           onCancel={this.hideDateTimePicker}
         />
       </React.Fragment>
