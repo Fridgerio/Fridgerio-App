@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SQLite } from 'expo-sqlite';
 import { data as dummyData } from './data';
 
@@ -75,7 +75,7 @@ export default function ContextProvider({ children }) {
     notification,
     notes
   ) => {
-    const labelString = label.join(',');
+    const labelString = typeof label === 'string' ? label : label.join(',');
     db.transaction(
       tx => {
         tx.executeSql(
@@ -191,21 +191,23 @@ export default function ContextProvider({ children }) {
     barcode
   ) => {
     let data = products;
+    // console.warn(productName);
     if (productName && amount) {
       /* add the product to the data array */
       data = [
         ...products,
         {
-          productName,
+          name: productName,
           amount,
-          productCategory,
-          labels,
-          bestBeforeDate,
-          pushNotificationDate,
-          customNote,
+          category: productCategory,
+          label: labels,
+          bbdate: bestBeforeDate,
+          notification: pushNotificationDate,
+          note: customNote,
           barcode,
         },
       ];
+      console.warn(data);
 
       /* save the new item to the database */
       saveDataToDB(
@@ -217,10 +219,12 @@ export default function ContextProvider({ children }) {
         pushNotificationDate,
         customNote
       );
+      console.warn('stored');
     }
 
     /* store it in the state */
     setProducts(data);
+    console.warn('also in state');
   };
 
   /* delete the product */

@@ -14,7 +14,7 @@ const labels = [
 ];
 
 // Returns a list of colored labels
-export default function AddLabels() {
+export default function AddLabels(props) {
   return (
     <React.Fragment>
       <Textbox>
@@ -26,7 +26,7 @@ export default function AddLabels() {
           data={labels}
           keyExtractor={label => label.id}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => console.warn('clicked')}>
+            <TouchableOpacity onPress={() => props.onPress(item.color)}>
               <Ionicons
                 name={item.chosen ? 'md-checkbox' : 'md-square'}
                 style={{ color: item.color, fontSize: 32, paddingRight: 10 }}
