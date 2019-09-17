@@ -17,6 +17,7 @@ function ProductFormScreen({ navigation }) {
   const [label, setLabel] = useState(null);
   const [categories, setCategories] = useState(product ? product.categories : []);
   const [expiryDate, setExpiryDate] = useState(null);
+  const [notification, setNotification] = useState(null);
   const { addProduct, updateProduct } = useContext(Context);
   const inputField = useRef(null);
   const categorySelector = useRef(null);
@@ -25,6 +26,10 @@ function ProductFormScreen({ navigation }) {
   const notificationSelector = useRef(null);
   const labelSelector = useRef(null);
   const notesField = useRef(null);
+  const getNotificationDate = days => {
+    const notificationDate = new Date(expiryDate - days * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
+    setNotification(notificationDate);
+  };
   const clearForm = () => {
     const fields = [
       inputField,
@@ -38,7 +43,7 @@ function ProductFormScreen({ navigation }) {
     fields.forEach(field => (field.current.value = ''));
   };
   const addEditProduct = parentRoute => {
-    console.warn(name, amount, categories, label, expiryDate);
+    console.warn(name, amount, categories, label, expiryDate, notification);
     // parentRoute.state.routeName === 'Add'
     //   ? addProduct(
     //       name,
@@ -96,7 +101,7 @@ function ProductFormScreen({ navigation }) {
       <NumberPicker
         title="Benachrichtigung"
         maxNum={14}
-        field={notificationSelector}
+        onValueChange={getNotificationDate}
       />
 
       <AddLabels onPress={setLabel} />
