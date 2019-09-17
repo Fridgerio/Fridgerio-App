@@ -162,9 +162,10 @@ function CameraScreen({ navigation }) {
       )}
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
-        title={'Manuell eingeben'}
+        title={'Manuell\neingeben'}
+        font={'16px'}
         style={{
-          width: '70%',
+          opacity: 0.8,
           marginRight: 'auto',
           marginLeft: 'auto',
         }}
