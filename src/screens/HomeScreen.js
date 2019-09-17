@@ -3,15 +3,12 @@ import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
-import { TextInput } from 'react-native-gesture-handler';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
   return (
     <View style={styles.expireView}>
-      <Text style={styles.expireText}>
-        Deine Produkte, die in der nächsten Zeit ablaufen:
-      </Text>
+      <Text style={styles.expireText}>Demnächst laufen ab:</Text>
     </View>
   );
 }
