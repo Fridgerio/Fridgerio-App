@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import uuid from 'uuid/v4';
 import { data } from './data';
 
 export const Context = React.createContext(null);
@@ -16,7 +17,6 @@ export default function ContextProvider({ children }) {
   /* wrapper functions */
   /* add a product to the state and also to the database */
   const addProduct = (
-    id,
     productName,
     amount,
     productCategory,
@@ -32,7 +32,7 @@ export default function ContextProvider({ children }) {
       data = [
         ...products,
         {
-          id,
+          id: uuid(),
           productName,
           amount,
           productCategory,
@@ -63,9 +63,7 @@ export default function ContextProvider({ children }) {
       }
     }
     /* store the remaining products */
-    const updatedProducts = products.filter(
-      product => product.id !== productId
-    );
+    const updatedProducts = products.filter(product => product.id !== productId);
     /* write updated products to the state */
     setProducts(updatedProducts);
     /* write deleted product to the state */
