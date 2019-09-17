@@ -89,7 +89,6 @@ function HomeScreen({ navigation }) {
         />
       </View>
       <Statistics style={styles.statistics} products={products} />
-      <Button title={'Delete database'} onPress={deleteAll} />
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"
