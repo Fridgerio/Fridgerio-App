@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import uuid from 'uuid/v4';
 import { data } from './data';
 
 export const Context = React.createContext(null);
@@ -31,7 +32,7 @@ export default function ContextProvider({ children }) {
       data = [
         ...products,
         {
-          // id,
+          id: uuid(),
           productName,
           amount,
           productCategory,
