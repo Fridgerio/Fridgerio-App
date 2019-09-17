@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import { ScrollView, Text, FlatList } from 'react-native';
 
 import CategoryPicker from '../components/CategoryPicker';
