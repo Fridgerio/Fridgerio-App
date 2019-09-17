@@ -90,7 +90,7 @@ function HomeScreen({ navigation }) {
         />
         {products.length > 0 && (
           <Button
-            title={'Alle produkte'}
+            title={'Alle Produkte'}
             onPress={() => navigation.navigate('ListScreen')}
           />
         )}
