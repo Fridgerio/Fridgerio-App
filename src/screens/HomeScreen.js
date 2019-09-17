@@ -88,6 +88,12 @@ function HomeScreen({ navigation }) {
             </Text>
           )}
         />
+        {products.length > 0 && (
+          <Button
+            title={'Alle produkte'}
+            onPress={() => navigation.navigate('ListScreen')}
+          />
+        )}
       </View>
       <SnackBar
         visible={isSnackBarVisible}
