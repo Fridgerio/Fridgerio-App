@@ -3,15 +3,12 @@ import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
-import { TextInput } from 'react-native-gesture-handler';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
   return (
     <View style={styles.expireView}>
-      <Text style={styles.expireText}>
-        Deine Produkte, die in der nächsten Zeit ablaufen:
-      </Text>
+      <Text style={styles.expireText}>Demnächst laufen ab:</Text>
     </View>
   );
 }
@@ -71,6 +68,7 @@ function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Statistics style={styles.statistics} products={products} />
       <Expire />
       <View>
         <FlatList
@@ -90,9 +88,13 @@ function HomeScreen({ navigation }) {
             </Text>
           )}
         />
+        {products.length > 0 && (
+          <Button
+            title={'Alle Produkte'}
+            onPress={() => navigation.navigate('ListScreen')}
+          />
+        )}
       </View>
-      <Statistics style={styles.statistics} products={products} />
-      <Button title={'Delete database'} onPress={deleteAll} />
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"
@@ -117,6 +119,8 @@ const styles = StyleSheet.create({
   },
   expireView: {
     paddingHorizontal: 15,
+    marginTop: 60,
+    marginBottom: 15,
   },
   expireText: {
     fontWeight: 'bold',
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
   numbersContainer: {
     marginTop: 30,
     paddingHorizontal: 20,
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     flexDirection: 'row',
   },
   statNumbers: {
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
   labelsContainer: {
     marginVertical: 10,
     paddingHorizontal: 20,
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     flexDirection: 'row',
   },
   statLabels: {
