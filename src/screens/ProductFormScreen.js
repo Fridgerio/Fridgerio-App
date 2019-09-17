@@ -18,14 +18,8 @@ function ProductFormScreen({ navigation }) {
   const [categories, setCategories] = useState(product ? product.categories : []);
   const [expiryDate, setExpiryDate] = useState(null);
   const [notification, setNotification] = useState(null);
+  const [customNote, setCustomNote] = useState(null);
   const { addProduct, updateProduct } = useContext(Context);
-  const inputField = useRef(null);
-  const categorySelector = useRef(null);
-  const amountField = useRef(null);
-  const dateSelector = useRef(null);
-  const notificationSelector = useRef(null);
-  const labelSelector = useRef(null);
-  const notesField = useRef(null);
   const getNotificationDate = days => {
     const notificationDate = new Date(expiryDate - days * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
     setNotification(notificationDate);
@@ -43,7 +37,15 @@ function ProductFormScreen({ navigation }) {
     fields.forEach(field => (field.current.value = ''));
   };
   const addEditProduct = parentRoute => {
-    console.warn(name, amount, categories, label, expiryDate, notification);
+    console.warn(
+      name,
+      amount,
+      categories,
+      label,
+      expiryDate,
+      notification,
+      customNote
+    );
     // parentRoute.state.routeName === 'Add'
     //   ? addProduct(
     //       name,
@@ -112,7 +114,7 @@ function ProductFormScreen({ navigation }) {
         multiline
         editable
         textAlignVertical="top"
-        field={notesField}
+        onChangeText={text => setCustomNote(text)}
       />
 
       <FlatList
