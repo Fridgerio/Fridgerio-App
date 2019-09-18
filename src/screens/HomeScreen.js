@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
+import { PrimaryButton } from '../components/styled-components/Buttons';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
@@ -95,7 +96,10 @@ function HomeScreen({ navigation }) {
             onPress={() => navigation.navigate('ListScreen')}
           />
         )}
-        <Button title={'Mitteilung'} onPress={() => sendNotification()} />
+        <PrimaryButton
+          title={'Mitteilung'}
+          onPress={() => sendNotification()}
+        />
       </View>
       <SnackBar
         visible={isSnackBarVisible}
