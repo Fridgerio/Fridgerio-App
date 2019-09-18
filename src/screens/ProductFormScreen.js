@@ -10,7 +10,7 @@ import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Input } from '../components/styled-components/Inputs';
 import { Row } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
-import { Textbox } from '../components/styled-components/Boxes';
+import { Textbox, Elementbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
 import { StyledText } from '../components/styled-components/Text';
 import { StyledIonicon } from '../components/styled-components/Icons';
@@ -89,20 +89,10 @@ function ProductFormScreen({ navigation }) {
         />
       </Textbox>
 
-      <FlatList
-        data={[
-          { key: 'x', name: 'Abbrechen', function: () => clearForm() },
-          {
-            key: 'v',
-            name: 'Speichern',
-            function: () => addEditProduct(),
-          },
-        ]}
-        keyExtractor={item => item.key}
-        renderItem={({ item }) => (
-          <PrimaryButton title={item.name} onPress={item.function} />
-        )}
-      />
+      <Elementbox>
+        <PrimaryButton title="Abbrechen" onPress={() => clearForm()} flex="1" margin="3px" />
+        <PrimaryButton title="Speichern" onPress={() => addEditProduct()} flex="1" margin="3px" />
+      </Elementbox>
     </ScrollView>
   );
 }
