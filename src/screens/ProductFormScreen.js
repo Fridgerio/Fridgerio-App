@@ -5,9 +5,12 @@ import CategoryPicker from '../components/CategoryPicker';
 import AddLabels from '../components/AddLabels';
 import NumberPicker from '../components/NumberPicker';
 import BestBeforeDatePicker from '../components/BestBeforeDatePicker';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Input } from '../components/styled-components/Inputs';
+import { Row } from '../components/styled-components/Links';
+import { Colors } from '../components/styled-components/Variables';
+import { Textbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
 
 function ProductFormScreen({ navigation }) {
@@ -49,13 +52,16 @@ function ProductFormScreen({ navigation }) {
   // console.log(product);
   return (
     <ScrollView>
-      <Input
-        inputLabel="Name"
-        placeholder="z.B. Apfel"
-        defaultValue={name}
-        editable
-        onChangeText={text => setName(text)}
-      />
+       <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Input
+          inputLabel="Name"
+          placeholder="z.B. Apfel"
+          defaultValue={name}
+          editable
+          onChangeText={text => setName(text)}
+          borderWidth='0'
+        />
+      </Textbox>
 
       <CategoryPicker category={categories[0]} onValueChange={setCategories} />
 
@@ -69,14 +75,17 @@ function ProductFormScreen({ navigation }) {
         onValueChange={getNotificationDate}
       />
 
-      <Input
-        inputLabel="Notiz"
-        placeholder="Add custom note"
-        multiline
-        editable
-        textAlignVertical="top"
-        onChangeText={text => setCustomNote(text)}
-      />
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Input
+          inputLabel="Notiz"
+          placeholder="Add custom note"
+          multiline
+          editable
+          textAlignVertical="top"
+          borderWidth='0'
+          onChangeText={text => setCustomNote(text)}
+        />
+      </Textbox>
 
       <FlatList
         data={[
