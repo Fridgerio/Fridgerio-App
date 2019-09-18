@@ -86,7 +86,7 @@ function HomeScreen({ navigation }) {
           // element to be rendered when list is empty
           ListEmptyComponent={() => (
             <Text style={styles.listEmpty}>
-              Deine Liste enthält keine Produkte
+              Deine Liste enthält keine Produkte.
             </Text>
           )}
         />

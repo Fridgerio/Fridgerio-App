@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -17,10 +17,23 @@ import SnackBar from 'react-native-snackbar-component';
 function ListScreen({ navigation }) {
   const {
     productsSortedByDate,
+    productsSortedByName,
     deleteProduct,
     isSnackBarVisible,
     addLastDeletedProduct,
+    sortMethod,
   } = useContext(Context);
+
+  const [sortedProducts, setSortedProducts] = useState([]);
+
+  useEffect(() => {
+    const products =
+      sortMethod === 'productName'
+        ? productsSortedByName
+        : productsSortedByDate;
+
+    setSortedProducts(products);
+  }, [sortMethod]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -29,7 +42,8 @@ function ListScreen({ navigation }) {
         <CategoryFilter />
         <SortingTabs />
         <FlatList
-          data={productsSortedByDate}
+          data={sortedProducts}
+          extraData={sortMethod}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <Product
@@ -68,6 +82,10 @@ export default ListScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  activeTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: 'red',
   },
   listEmpty: {
     textAlign: 'center',

@@ -7,15 +7,27 @@ export const Context = React.createContext(null);
 export default function ContextProvider({ children }) {
   const [products, setProducts] = useState(data);
   const [productsSortedByDate, setProductsSortedByDate] = useState(null);
+  const [productsSortedByName, setProductsSortedByName] = useState(null);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
   const [lastDeletedIndex, setLastDeletedIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
+  const [activeCategoryFilter, setActiveCategoryFilter] = useState('drinks');
 
   useEffect(() => {
-    const compare = (a, b) => {
+    const compareName = (a, b) => {
+      if (a.productName < b.productName) {
+        return -1;
+      }
+      if (a.productName > b.productName) {
+        return 1;
+      }
+      return 0;
+    };
+
+    const compareDate = (a, b) => {
       if (a.bestBeforeDate < b.bestBeforeDate) {
         return -1;
       }
@@ -25,9 +37,10 @@ export default function ContextProvider({ children }) {
       return 0;
     };
 
-    const sorted = products.sort(compare);
-    setProductsSortedByDate(sorted);
-    // console.log('sorted by date:', productsSortedByDate);
+    const name = [...products];
+    const date = [...products];
+    setProductsSortedByName(name.sort(compareName));
+    setProductsSortedByDate(date.sort(compareDate));
   }, []);
 
   /* wrapper functions */
@@ -142,6 +155,7 @@ export default function ContextProvider({ children }) {
         handleSnackBar,
         addLastDeletedProduct,
         productsSortedByDate,
+        productsSortedByName,
         setSortMethod,
         sortMethod,
       }}

@@ -21,7 +21,7 @@ export const data = [
     customNote: 'lorem ipsum',
     productCategory: 'fruits',
     addedDate: '2019-09-03',
-    bestBeforeDate: '2019-11-23',
+    bestBeforeDate: '2020-11-23',
     pushNotificationDate: '2019-11-11',
   },
   {
