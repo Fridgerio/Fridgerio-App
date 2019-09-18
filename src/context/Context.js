@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import { data } from './data';
+import { Platform, Alert } from 'react-native';
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 export const Context = React.createContext(null);
 
@@ -13,6 +16,19 @@ export default function ContextProvider({ children }) {
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
+  const [notification, setNotification] = useState(null);
+  const [pushToken, setPushToken] = useState(null);
+
+  const formatDate = date => {
+    const [year, month, day] = date.split('-');
+    return [day, month, year].join('.');
+  };
+  const getiOSNotificationPermission = async () => {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    if (status !== 'granted') {
+      await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    }
+  };
 
   /* wrapper functions */
   /* add a product to the state and also to the database */
@@ -115,6 +131,38 @@ export default function ContextProvider({ children }) {
     }
   };
 
+  /* subscribe to notifications */
+  const handleButtonPress = () => {
+    const localNotification = {
+      title: 'Produkt läuft ab',
+      body: `Das Produkt ${products[0].productName} läuft am ${formatDate(products[0].bestBeforeDate)} ab.`,
+      android: {
+        sound: false,
+      },
+      ios: {
+        sound: false,
+        _displayInForeground: true,
+      },
+    };
+    let sendAfterFiveSeconds = Date.now();
+    sendAfterFiveSeconds += 5000;
+    const schedulingOptions = { time: sendAfterFiveSeconds };
+    Notifications.scheduleLocalNotificationAsync(
+      localNotification,
+      schedulingOptions
+    );
+  };
+  const listenForNotifications = () => {
+    Notifications.addListener(notification => {
+      if (notification.origin === 'received' && Platform.OS === 'ios') {
+        Alert.alert(notification.title, notification.body);
+      }
+    });
+  };
+  useEffect(() => {
+    getiOSNotificationPermission();
+    listenForNotifications();
+  });
   return (
     <Context.Provider
       value={{
@@ -125,6 +173,7 @@ export default function ContextProvider({ children }) {
         isSnackBarVisible,
         handleSnackBar,
         addLastDeletedProduct,
+        handleButtonPress,
       }}
     >
       {children}
