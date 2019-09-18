@@ -165,14 +165,8 @@ function CameraScreen({ navigation }) {
       />
       <BarcodeFrame />
       <NavigationEvents
-        onDidBlur={payload => {
-          console.log('blur');
-          setShowHelp(false);
-        }}
-        onDidFocus={payload => {
-          console.log('focus');
-          setHelpTimer();
-        }}
+        onDidBlur={() => setShowHelp(false)}
+        onDidFocus={() => setHelpTimer()}
       />
       {!showHelp && <StyledText />}
       {showHelp && <HelpText />}
