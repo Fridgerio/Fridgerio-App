@@ -8,7 +8,7 @@ export default function HelpText(props) {
   }, 6000);
   return showHelp ? (
     <StyledText color="white" margin="0 auto">
-      Position a product barcode in the frame
+      Barcode mittig positionieren
     </StyledText>
   ) : (
     <StyledText />
