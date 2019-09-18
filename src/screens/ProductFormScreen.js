@@ -12,6 +12,8 @@ import { Row } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
 import { Textbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
+import { StyledText } from '../components/styled-components/Text';
+import { StyledIonicon } from '../components/styled-components/Icons';
 
 function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
@@ -52,7 +54,7 @@ function ProductFormScreen({ navigation }) {
   // console.log(product);
   return (
     <ScrollView>
-       <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
         <Input
           inputLabel="Name"
           placeholder="z.B. Apfel"
@@ -111,9 +113,7 @@ ProductFormScreen.navigationOptions = ({ navigation }) => ({
       ? 'Neues Produkt'
       : 'Produkt Bearbeiten',
   headerRight: (
-    <Text>
-      <Ionicons name="md-trash" size={22} color="white" />
-    </Text>
+    <StyledIonicon name="md-trash" color={Colors.LightColor} margin="0 10px" padding="5px" />
   ),
 });
 
