@@ -32,10 +32,16 @@ export const RowCheckLink = props => {
   );
 };
 
+const StyledRow = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 0;
+`;
+
 export const Row = props => {
   return (
-    <StyledRowLink>
+    <StyledRow>
       {props.children}
-    </StyledRowLink>
+    </StyledRow>
   );
 };
