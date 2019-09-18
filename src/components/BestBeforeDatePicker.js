@@ -3,8 +3,9 @@ import { TouchableOpacity } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { StyledText } from './styled-components/Text';
 import { Row } from './styled-components/Links';
-import { Colors } from './styled-components/Variables';
+import { Colors, FontSize } from './styled-components/Variables';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { Ionicons } from '@expo/vector-icons';
 
 export default class DateTimePickerTester extends React.Component {
   constructor(props) {
@@ -42,10 +43,19 @@ export default class DateTimePickerTester extends React.Component {
     return (
       <Textbox bottomLine={Colors.PrimaryUtilityColor}>
         <Row>
+          <StyledText>Mindesthaltbarkeitsdatum</StyledText>
+        </Row>
+        <Row>
           <TouchableOpacity onPress={this.showDateTimePicker}>
-            <StyledText>Mindesthaltbarkeitsdatum</StyledText>
-            <StyledText>{date.toLocaleDateString('de-DE')}</StyledText>
+            <StyledText 
+              color="#C7C7CD"
+              size={FontSize.small}
+            >
+              {date.toLocaleDateString('de-DE')}
+            </StyledText>
           </TouchableOpacity>
+          <Ionicons name="ios-arrow-down" size={24} />
+        </Row>
           <DateTimePicker
             titleIOS="Wähle das Datum"
             date={date}
@@ -53,7 +63,6 @@ export default class DateTimePickerTester extends React.Component {
             onConfirm={this.handleDatePicked}
             onCancel={this.hideDateTimePicker}
           />
-        </Row>
       </Textbox>
     );
   }
