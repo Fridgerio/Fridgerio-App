@@ -152,6 +152,7 @@ export default function ContextProvider({ children }) {
         _displayInForeground: true /* display notification when app is opened */,
       },
     };
+    setPushNotification(localNotification);
     /* options when to send notifiction */
     let sendAfterFiveSeconds = Date.now(); // current time
     sendAfterFiveSeconds += 5000; // add 5 seconds
@@ -161,16 +162,20 @@ export default function ContextProvider({ children }) {
       localNotification,
       schedulingOptions
     );
-    setPushNotification(localNotification);
   };
+  /* Listener to show an alert if a notification arrived */
   const listenForNotifications = () => {
     Notifications.addListener(notification => {
-      if (notification.origin === 'received' && Platform.OS === 'ios') {
-        Alert.alert(notification.title, notification.body);
+      if (notification.origin === 'received' && pushNotification !== null) {
+        const { title, body } = pushNotification;
+        /* show an alert containing the same text as the notification */
+        Alert.alert(title, body);
+        /* reset the state to null */
+        setPushNotification(null);
       }
     });
   };
-  /* ask for permission and start listener after rendering */
+  /* ask for permission and start listener after first rendering */
   useEffect(() => {
     getiOSNotificationPermission();
     listenForNotifications();
