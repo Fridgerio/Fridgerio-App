@@ -6,13 +6,29 @@ export const Context = React.createContext(null);
 
 export default function ContextProvider({ children }) {
   const [products, setProducts] = useState(data);
-  const [productsSorted, setProductsSorted] = useState([]);
+  const [productsSortedByDate, setProductsSortedByDate] = useState(null);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
   const [lastDeletedIndex, setLastDeletedIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
+
+  useEffect(() => {
+    const compare = (a, b) => {
+      if (a.bestBeforeDate < b.bestBeforeDate) {
+        return -1;
+      }
+      if (a.bestBeforeDate > b.bestBeforeDate) {
+        return 1;
+      }
+      return 0;
+    };
+
+    const sorted = products.sort(compare);
+    setProductsSortedByDate(sorted);
+    // console.log('sorted by date:', productsSortedByDate);
+  }, []);
 
   /* wrapper functions */
   /* add a product to the state and also to the database */
@@ -63,7 +79,9 @@ export default function ContextProvider({ children }) {
       }
     }
     /* store the remaining products */
-    const updatedProducts = products.filter(product => product.id !== productId);
+    const updatedProducts = products.filter(
+      product => product.id !== productId
+    );
     /* write updated products to the state */
     setProducts(updatedProducts);
     /* write deleted product to the state */
@@ -125,6 +143,7 @@ export default function ContextProvider({ children }) {
         isSnackBarVisible,
         handleSnackBar,
         addLastDeletedProduct,
+        productsSortedByDate,
       }}
     >
       {children}

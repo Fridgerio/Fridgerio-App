@@ -45,8 +45,8 @@ function Product({ navigation, product, onDelete }) {
             padding="0 15px 0 0"
             flex="1"
           />
-          <StyledText flex="4">{product.name}</StyledText>
-          <StyledText flex="2">{product.expiryDate}</StyledText>
+          <StyledText flex="4">{product.productName}</StyledText>
+          <StyledText flex="2">{product.bestBeforeDate}</StyledText>
         </Elementbox>
       </TouchableOpacity>
     </Swipeable>

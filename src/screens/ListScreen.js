@@ -16,7 +16,7 @@ import SnackBar from 'react-native-snackbar-component';
 
 function ListScreen({ navigation }) {
   const {
-    products,
+    productsSortedByDate,
     deleteProduct,
     isSnackBarVisible,
     addLastDeletedProduct,
@@ -29,7 +29,7 @@ function ListScreen({ navigation }) {
         <CategoryFilter />
         <SortingTabs />
         <FlatList
-          data={products}
+          data={productsSortedByDate}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <Product
