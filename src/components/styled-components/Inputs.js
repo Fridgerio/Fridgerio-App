@@ -1,22 +1,20 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { SearchIcon } from './Icons';
-import { Colors } from './Variables';
-
-const normal = '16px';
+import { Colors, FontSize } from './Variables';
 
 // Input field
 const StyledInput = styled.TextInput(props => `
 flex: ${props.flex || '1'};
 padding: ${props.padding || '0 10px'};
-font-size: ${props.size || normal};
+font-size: ${props.size || FontSize.normal};
 background-color: ${props.background || Colors.PrimaryUtilityColor};
 border-radius: ${props.radius || '7px'};
 `);
 
 const InputLabel = styled.Text(props => `
   padding: ${props.padding || '0 10px'};
-  font-size: ${props.size || normal}
+  font-size: ${props.size || FontSize.normal}
   `);
 
 // Text input and text area (multiline) container. When height property is not defined explicitly, the default height changes according to the TextInput multiline property of the child component
