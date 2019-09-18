@@ -3,8 +3,10 @@ import { View, Text, Modal, Platform } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
+import { StyledText } from '../components/styled-components/Text.js';
 import { BarcodeFrame } from '../components/svg/BarcodeFrame';
 import HelpText from '../components/CameraHelpText';
+import { NavigationEvents } from 'react-navigation';
 
 function CameraScreen({ navigation }) {
   /* State Hooks and functions to change these states */
@@ -21,7 +23,15 @@ function CameraScreen({ navigation }) {
       toggleCameraPermission(status === 'granted');
     };
     askPermission();
+    setHelpTimer();
   }, []);
+
+  /* Show help text after 8 seconds without successfull scan */
+  const setHelpTimer = () =>
+    setTimeout(() => {
+      setShowHelp(true);
+    }, 8000);
+
   /* method to build a product name from the API data */
   const generateName = (brand, name, quantity) => {
     let pbrand;
@@ -99,13 +109,11 @@ function CameraScreen({ navigation }) {
     toggleScanned(false);
     const { name, categories } = product;
     navigation.navigate('ProductFormScreen', { name, categories });
-    setShowHelp(false);
   };
   const redirectFalse = () => {
     toggleModal(false);
     toggleScanned(false);
     navigation.navigate('ProductFormScreen');
-    setShowHelp(false);
   };
   const handleBarCodeScanned = Platform.select({
     ios: ({ data }) => handleBarCodeIOS(data),
@@ -114,14 +122,12 @@ function CameraScreen({ navigation }) {
   const handleBarCodeIOS = data => {
     fetchProduct(data); // fetch the data from the products API
     toggleScanned(true); // set scanned to true, to avoid multiple scanning
-    setShowHelp(false); // remove help text
   };
   const handleBarCodeAndroid = (type, data) => {
     /* if it is ean13 or ean8 */
     if (type === 32 || type === 64) {
       fetchProduct(data); // fetch the data from the products API
       toggleScanned(true); // set scanned to true, to avoid multiple scanning
-      setShowHelp(false); // remove help text
     } else {
       toggleScanned(false); // scanned remains false for qr codes etc.
     }
@@ -158,7 +164,18 @@ function CameraScreen({ navigation }) {
         }}
       />
       <BarcodeFrame />
-      <HelpText showHelp={showHelp} setShowHelp={setShowHelp} />
+      <NavigationEvents
+        onDidBlur={payload => {
+          console.log('blur');
+          setShowHelp(false);
+        }}
+        onDidFocus={payload => {
+          console.log('focus');
+          setHelpTimer();
+        }}
+      />
+      {!showHelp && <StyledText />}
+      {showHelp && <HelpText />}
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
         title={'Manuell\neingeben'}
@@ -169,7 +186,6 @@ function CameraScreen({ navigation }) {
           marginLeft: 'auto',
         }}
         onPress={() => {
-          setShowHelp(false);
           navigation.navigate('ProductFormScreen');
         }}
       />
