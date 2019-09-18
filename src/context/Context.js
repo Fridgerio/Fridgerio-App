@@ -129,7 +129,13 @@ export default function ContextProvider({ children }) {
       setProducts(upDatedProducts);
     }
   };
-
+  /* Notification Settings for Android */
+  if (Platform.OS === 'android') {
+    Notifications.createChannelAndroidAsync('androidNotifications', {
+      name: 'Android Notifications',
+      sound: true,
+    });
+  }
   /* function to handle if the button on HomeScreen is pressed */
   const sendNotification = () => {
     /* notification to be sent */
@@ -138,11 +144,11 @@ export default function ContextProvider({ children }) {
       body: `Das Produkt ${products[0].productName} läuft am ${formatDate(products[0].bestBeforeDate)} ab.`,
       /* settings for android */
       android: {
-        sound: false,
+        channelId: 'androidNotifications',
       },
       /* settings for ios */
       ios: {
-        sound: false /* play sound when received */,
+        sound: true /* play sound when received */,
         _displayInForeground: true /* display notification when app is opened */,
       },
     };
