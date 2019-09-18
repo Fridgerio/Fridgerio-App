@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ScrollView, Linking } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
+import { Context } from '../context/Context';
 
 function SettingsScreen({ navigation }) {
+  const { language } = useContext(Context);
+  console.log(language);
   return (
     <ScrollView>
       <Textbox bottomLine={Colors.PrimaryUtilityColor}>
@@ -29,10 +32,7 @@ function SettingsScreen({ navigation }) {
         <RowLink
           title="Hilfe / FAQ"
           onPress={() =>
-            Linking.openURL(
-              'https://facebook.github.io/react-native/docs/linking'
-            )
-          }
+            Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
         />
       </Textbox>
       <Textbox bottomLine={Colors.PrimaryUtilityColor}>
