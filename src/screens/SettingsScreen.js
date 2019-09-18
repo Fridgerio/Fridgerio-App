@@ -8,45 +8,88 @@ import { Context } from '../context/Context';
 function SettingsScreen({ navigation }) {
   const { language } = useContext(Context);
   console.log(language);
-  return (
-    <ScrollView>
-      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-        <RowLink
-          title="Sprachen"
-          onPress={() => navigation.navigate('SettingsLanguageScreen')}
-        />
-        <RowLink
-          title="Design"
-          onPress={() => navigation.navigate('SettingsThemeScreen')}
-        />
-        <RowLink
-          title="Benachrichtigungen"
-          onPress={() => navigation.navigate('SettingsNotificationsScreen')}
-        />
-      </Textbox>
-      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-        <RowLink title="Bewerte die App" />
-        <RowLink title="Teile die App" />
-      </Textbox>
-      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-        <RowLink
-          title="Hilfe / FAQ"
-          onPress={() =>
-            Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
-        />
-      </Textbox>
-      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-        <RowLink
-          title="Impressum"
-          onPress={() => navigation.navigate('LegalNoticeScreen')}
-        />
-        <RowLink
-          title="Datenschutzerklärung"
-          onPress={() => navigation.navigate('PrivacyPolicyScreen')}
-        />
-      </Textbox>
-    </ScrollView>
-  );
+  switch (language) {
+    case 'DE':
+      return (
+        <ScrollView>
+          <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+            <RowLink
+              title="Sprachen"
+              onPress={() => navigation.navigate('SettingsLanguageScreen')}
+            />
+            <RowLink
+              title="Design"
+              onPress={() => navigation.navigate('SettingsThemeScreen')}
+            />
+            <RowLink
+              title="Benachrichtigungen"
+              onPress={() => navigation.navigate('SettingsNotificationsScreen')}
+            />
+          </Textbox>
+          <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+            <RowLink title="Bewerte die App" />
+            <RowLink title="Teile die App" />
+          </Textbox>
+          <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+            <RowLink
+              title="Hilfe / FAQ"
+              onPress={() =>
+                Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
+            />
+          </Textbox>
+          <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+            <RowLink
+              title="Impressum"
+              onPress={() => navigation.navigate('LegalNoticeScreen')}
+            />
+            <RowLink
+              title="Datenschutzerklärung"
+              onPress={() => navigation.navigate('PrivacyPolicyScreen')}
+            />
+          </Textbox>
+        </ScrollView>
+      );
+    default:
+      return (
+        <ScrollView>
+          <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+            <RowLink
+              title="Languages"
+              onPress={() => navigation.navigate('SettingsLanguageScreen')}
+            />
+            <RowLink
+              title="Theme"
+              onPress={() => navigation.navigate('SettingsThemeScreen')}
+            />
+            <RowLink
+              title="Notifications"
+              onPress={() => navigation.navigate('SettingsNotificationsScreen')}
+            />
+          </Textbox>
+          <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+            <RowLink title="Rate App" />
+            <RowLink title="Share App" />
+          </Textbox>
+          <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+            <RowLink
+              title="Help / FAQ"
+              onPress={() =>
+                Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
+            />
+          </Textbox>
+          <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+            <RowLink
+              title="Legal Notice"
+              onPress={() => navigation.navigate('LegalNoticeScreen')}
+            />
+            <RowLink
+              title="Privacy Policy"
+              onPress={() => navigation.navigate('PrivacyPolicyScreen')}
+            />
+          </Textbox>
+        </ScrollView>
+      );
+  }
 }
 
 export default SettingsScreen;
