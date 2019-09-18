@@ -1,6 +1,9 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
+import { StyledText } from './styled-components/Text';
+import { Row } from './styled-components/Links';
+import { Colors } from './styled-components/Variables';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 export default class DateTimePickerTester extends React.Component {
@@ -37,21 +40,21 @@ export default class DateTimePickerTester extends React.Component {
   render() {
     const { date, visible } = this.state;
     return (
-      <React.Fragment>
-        <TouchableOpacity onPress={this.showDateTimePicker}>
-          <Textbox>
-            <Text>Mindesthaltbarkeitsdatum</Text>
-            <Text>{date.toLocaleDateString('de-DE')}</Text>
-          </Textbox>
-        </TouchableOpacity>
-        <DateTimePicker
-          titleIOS="Wähle das Datum"
-          date={date}
-          isVisible={visible}
-          onConfirm={this.handleDatePicked}
-          onCancel={this.hideDateTimePicker}
-        />
-      </React.Fragment>
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Row>
+          <TouchableOpacity onPress={this.showDateTimePicker}>
+            <StyledText>Mindesthaltbarkeitsdatum</StyledText>
+            <StyledText>{date.toLocaleDateString('de-DE')}</StyledText>
+          </TouchableOpacity>
+          <DateTimePicker
+            titleIOS="Wähle das Datum"
+            date={date}
+            isVisible={visible}
+            onConfirm={this.handleDatePicked}
+            onCancel={this.hideDateTimePicker}
+          />
+        </Row>
+      </Textbox>
     );
   }
 }

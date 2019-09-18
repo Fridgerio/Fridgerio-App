@@ -1,6 +1,8 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { Textbox } from './styled-components/Boxes';
+import { StyledText } from './styled-components/Text';
+import { Row } from './styled-components/Links';
+import { Colors } from './styled-components/Variables';
 import RNPickerSelect from 'react-native-picker-select';
 
 const categories = [
@@ -24,17 +26,19 @@ const categories = [
 // Returns picker with category names
 export default function CategoryPicker(props) {
   return (
-    <React.Fragment>
-      <Textbox>
-        <Text>Kategorie</Text>
-      </Textbox>
-      <RNPickerSelect
-        onValueChange={value => props.onValueChange(value)}
-        items={categories}
-        itemKey={props ? props.category : null}
-        placeholder={{ label: 'Bitte wähle eine Kategorie', value: null }}
-        ref={props.categorySelector}
-      />
-    </React.Fragment>
+    <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+      <Row>
+        <StyledText>Kategorie</StyledText>
+      </Row>
+      <Row>
+        <RNPickerSelect
+          onValueChange={value => props.onValueChange(value)}
+          items={categories}
+          itemKey={props ? props.category : null}
+          placeholder={{ label: 'Bitte wähle eine Kategorie', value: null }}
+          ref={props.categorySelector}
+        />
+      </Row>
+    </Textbox>
   );
 }
