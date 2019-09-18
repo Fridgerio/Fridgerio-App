@@ -31,3 +31,11 @@ export const RowCheckLink = props => {
     </StyledRowLink>
   );
 };
+
+export const Row = props => {
+  return (
+    <StyledRowLink>
+      {props.children}
+    </StyledRowLink>
+  );
+};
