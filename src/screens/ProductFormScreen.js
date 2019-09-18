@@ -49,21 +49,6 @@ function ProductFormScreen({ navigation }) {
   // console.log(product);
   return (
     <ScrollView>
-      {/* Large category icon */}
-      <MaterialCommunityIcons
-        name="food-apple"
-        style={{
-          color: '#7da10d',
-          fontSize: 150,
-          width: 150,
-          height: 150,
-          paddingRight: 15,
-          backgroundColor: '#1b4e55',
-          alignSelf: 'flex-end',
-          margin: 10,
-        }}
-      />
-
       <Input
         inputLabel="Name"
         placeholder="z.B. Apfel"
