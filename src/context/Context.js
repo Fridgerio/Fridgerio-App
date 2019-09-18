@@ -79,9 +79,7 @@ export default function ContextProvider({ children }) {
       }
     }
     /* store the remaining products */
-    const updatedProducts = products.filter(
-      product => product.id !== productId
-    );
+    const updatedProducts = products.filter(product => product.id !== productId);
     /* write updated products to the state */
     setProducts(updatedProducts);
     /* write deleted product to the state */
@@ -144,6 +142,8 @@ export default function ContextProvider({ children }) {
         handleSnackBar,
         addLastDeletedProduct,
         productsSortedByDate,
+        setSortMethod,
+        sortMethod,
       }}
     >
       {children}
