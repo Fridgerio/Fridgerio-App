@@ -16,8 +16,7 @@ export default function ContextProvider({ children }) {
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
-  const [notification, setNotification] = useState(null);
-  const [pushToken, setPushToken] = useState(null);
+  const [pushNotification, setPushNotification] = useState(null);
 
   const formatDate = date => {
     const [year, month, day] = date.split('-');
@@ -131,26 +130,32 @@ export default function ContextProvider({ children }) {
     }
   };
 
-  /* subscribe to notifications */
+  /* function to handle if the button on HomeScreen is pressed */
   const handleButtonPress = () => {
+    /* notification to be sent */
     const localNotification = {
       title: 'Produkt läuft ab',
       body: `Das Produkt ${products[0].productName} läuft am ${formatDate(products[0].bestBeforeDate)} ab.`,
+      /* settings for android */
       android: {
         sound: false,
       },
+      /* settings for ios */
       ios: {
-        sound: false,
-        _displayInForeground: true,
+        sound: false /* play sound when received */,
+        _displayInForeground: true /* display notification when app is opened */,
       },
     };
-    let sendAfterFiveSeconds = Date.now();
-    sendAfterFiveSeconds += 5000;
+    /* options when to send notifiction */
+    let sendAfterFiveSeconds = Date.now(); // current time
+    sendAfterFiveSeconds += 5000; // add 5 seconds
     const schedulingOptions = { time: sendAfterFiveSeconds };
+    /* send the notification */
     Notifications.scheduleLocalNotificationAsync(
       localNotification,
       schedulingOptions
     );
+    setPushNotification(localNotification);
   };
   const listenForNotifications = () => {
     Notifications.addListener(notification => {
@@ -159,6 +164,7 @@ export default function ContextProvider({ children }) {
       }
     });
   };
+  /* ask for permission and start listener after rendering */
   useEffect(() => {
     getiOSNotificationPermission();
     listenForNotifications();
