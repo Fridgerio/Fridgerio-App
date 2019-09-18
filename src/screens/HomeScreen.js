@@ -64,7 +64,7 @@ function HomeScreen({ navigation }) {
     isSnackBarVisible,
     addLastDeletedProduct,
     deleteAll,
-    handleButtonPress,
+    sendNotification,
   } = useContext(Context);
 
   return (
@@ -95,7 +95,7 @@ function HomeScreen({ navigation }) {
             onPress={() => navigation.navigate('ListScreen')}
           />
         )}
-        <Button title={'Mitteilung'} onPress={() => handleButtonPress()} />
+        <Button title={'Mitteilung'} onPress={() => sendNotification()} />
       </View>
       <SnackBar
         visible={isSnackBarVisible}

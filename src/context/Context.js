@@ -131,7 +131,7 @@ export default function ContextProvider({ children }) {
   };
 
   /* function to handle if the button on HomeScreen is pressed */
-  const handleButtonPress = () => {
+  const sendNotification = () => {
     /* notification to be sent */
     const localNotification = {
       title: 'Produkt läuft ab',
@@ -179,7 +179,7 @@ export default function ContextProvider({ children }) {
         isSnackBarVisible,
         handleSnackBar,
         addLastDeletedProduct,
-        handleButtonPress,
+        sendNotification,
       }}
     >
       {children}
