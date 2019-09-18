@@ -14,9 +14,11 @@ export const CategoryIcon = props => <StyledCategoryIcon name={props.name} />;
 // Ionicon icons
 const StyledIon = styled(Ionicons)`
   color: ${Colors.PrimaryUtilityColor};
-  font-size: 28px;
+  font-size: ${props => props.size || '28'};
+  margin: ${props => props.margin || '0'};
+  padding: ${props => props.padding || '0'};
 `;
-export const StyledIonicon = props => <StyledIon name={props.name} />;
+export const StyledIonicon = props => <StyledIon name={props.name} size={props.size} margin={props.margin} padding={props.padding} />;
 
 // MaterialCommunityIcons icons
 const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)`
