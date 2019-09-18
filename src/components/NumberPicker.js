@@ -4,6 +4,7 @@ import { StyledText } from './styled-components/Text';
 import { Row } from './styled-components/Links';
 import { Colors } from './styled-components/Variables';
 import RNPickerSelect from 'react-native-picker-select';
+import { Ionicons } from '@expo/vector-icons';
 
 export default class NumberPicker extends React.Component {
   constructor(props) {
@@ -42,6 +43,7 @@ export default class NumberPicker extends React.Component {
             items={numbers}
             placeholder={{ label: 'Bitte wähle eine Zahl', value: null }}
           />
+          <Ionicons name="ios-arrow-down" size={24} />
         </Row>
       </Textbox>
     );

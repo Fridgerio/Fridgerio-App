@@ -4,6 +4,7 @@ import { StyledText } from './styled-components/Text';
 import { Row } from './styled-components/Links';
 import { Colors } from './styled-components/Variables';
 import RNPickerSelect from 'react-native-picker-select';
+import { Ionicons } from '@expo/vector-icons';
 
 const categories = [
   { value: '1', label: 'Alle', icon: 'food', key: 'Alle' },
@@ -38,6 +39,7 @@ export default function CategoryPicker(props) {
           placeholder={{ label: 'Bitte wähle eine Kategorie', value: null }}
           ref={props.categorySelector}
         />
+        <Ionicons name="ios-arrow-down" size={24} />
       </Row>
     </Textbox>
   );
