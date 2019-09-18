@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import { data } from './data';
+import { Platform, Alert } from 'react-native';
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 export const Context = React.createContext(null);
 
@@ -13,6 +16,18 @@ export default function ContextProvider({ children }) {
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
+  const [pushNotification, setPushNotification] = useState(null);
+
+  const formatDate = date => {
+    const [year, month, day] = date.split('-');
+    return [day, month, year].join('.');
+  };
+  const getiOSNotificationPermission = async () => {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    if (status !== 'granted') {
+      await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    }
+  };
 
   /* wrapper functions */
   /* add a product to the state and also to the database */
@@ -114,7 +129,57 @@ export default function ContextProvider({ children }) {
       setProducts(upDatedProducts);
     }
   };
-
+  /* Notification Settings for Android */
+  if (Platform.OS === 'android') {
+    Notifications.createChannelAndroidAsync('androidNotifications', {
+      name: 'Android Notifications',
+      sound: true,
+    });
+  }
+  /* function to handle if the button on HomeScreen is pressed */
+  const sendNotification = () => {
+    /* notification to be sent */
+    const localNotification = {
+      title: 'Produkt läuft ab',
+      body: `Das Produkt ${products[0].productName} läuft am ${formatDate(products[0].bestBeforeDate)} ab.`,
+      /* settings for android */
+      android: {
+        channelId: 'androidNotifications',
+      },
+      /* settings for ios */
+      ios: {
+        sound: true /* play sound when received */,
+        _displayInForeground: true /* display notification when app is opened */,
+      },
+    };
+    setPushNotification(localNotification);
+    /* options when to send notifiction */
+    let sendAfterFiveSeconds = Date.now(); // current time
+    sendAfterFiveSeconds += 5000; // add 5 seconds
+    const schedulingOptions = { time: sendAfterFiveSeconds };
+    /* send the notification */
+    Notifications.scheduleLocalNotificationAsync(
+      localNotification,
+      schedulingOptions
+    );
+  };
+  /* Listener to show an alert if a notification arrived */
+  const listenForNotifications = () => {
+    Notifications.addListener(notification => {
+      if (notification.origin === 'received' && pushNotification !== null) {
+        const { title, body } = pushNotification;
+        /* show an alert containing the same text as the notification */
+        Alert.alert(title, body);
+        /* reset the state to null */
+        setPushNotification(null);
+      }
+    });
+  };
+  /* ask for permission and start listener after first rendering */
+  useEffect(() => {
+    getiOSNotificationPermission();
+    listenForNotifications();
+  });
   return (
     <Context.Provider
       value={{
@@ -125,6 +190,7 @@ export default function ContextProvider({ children }) {
         isSnackBarVisible,
         handleSnackBar,
         addLastDeletedProduct,
+        sendNotification,
       }}
     >
       {children}
