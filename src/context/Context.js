@@ -13,6 +13,7 @@ export default function ContextProvider({ children }) {
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
+  const [language, setLanguage] = useState('DE');
 
   /* wrapper functions */
   /* add a product to the state and also to the database */
@@ -125,6 +126,7 @@ export default function ContextProvider({ children }) {
         isSnackBarVisible,
         handleSnackBar,
         addLastDeletedProduct,
+        language,
       }}
     >
       {children}
