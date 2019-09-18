@@ -16,7 +16,7 @@ export const data = [
   {
     id: uuid(),
     barcode: '',
-    productName: 'Product 1',
+    productName: 'Product 2',
     amount: 1,
     customNote: 'lorem ipsum',
     productCategory: 'fruits',
@@ -27,7 +27,7 @@ export const data = [
   {
     id: uuid(),
     barcode: '',
-    productName: 'Product 2',
+    productName: 'Product 3',
     amount: 6,
     customNote: '',
     productCategory: 'dairy',
@@ -38,7 +38,7 @@ export const data = [
   {
     id: uuid(),
     barcode: '',
-    productName: 'Product 3',
+    productName: 'Product 4',
     amount: 1,
     customNote: 'lorem ipsum',
     productCategory: 'pastry',
@@ -49,7 +49,7 @@ export const data = [
   {
     id: uuid(),
     barcode: '',
-    productName: 'Product 4',
+    productName: 'Product 5',
     amount: 3,
     customNote: 'lorem ipsum',
     productCategory: 'drinks',
@@ -60,7 +60,7 @@ export const data = [
   {
     id: uuid(),
     barcode: '',
-    productName: 'Product 5',
+    productName: 'Product 6',
     amount: 3,
     customNote: 'lorem ipsum',
     productCategory: 'drinks',
@@ -71,7 +71,7 @@ export const data = [
   {
     id: uuid(),
     barcode: '',
-    productName: 'Product 6',
+    productName: 'Product 7',
     amount: 3,
     customNote: 'lorem ipsum',
     productCategory: 'drinks',
@@ -82,7 +82,7 @@ export const data = [
   {
     id: uuid(),
     barcode: '',
-    productName: 'Product 7',
+    productName: 'Product 8',
     amount: 3,
     customNote: 'lorem ipsum',
     productCategory: 'drinks',
@@ -93,7 +93,7 @@ export const data = [
   {
     id: uuid(),
     barcode: '',
-    productName: 'Product 8',
+    productName: 'Product 9',
     amount: 3,
     customNote: 'lorem ipsum',
     productCategory: 'drinks',
