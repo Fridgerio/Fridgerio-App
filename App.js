@@ -53,6 +53,7 @@ export default function App() {
       require('./assets/img/all.png'),
       require('./assets/img/bread-pastry.png'),
       require('./assets/img/canned.png'),
+      require('./assets/img/dairy.png'),
       require('./assets/img/drinks.png'),
       require('./assets/img/frozen.png'),
       require('./assets/img/fruits-vegetables.png'),
