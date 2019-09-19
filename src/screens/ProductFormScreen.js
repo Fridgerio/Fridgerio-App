@@ -17,13 +17,13 @@ function ProductFormScreen({ navigation }) {
   const [productName, setProductName] = useState(name);
   const [amount, setAmount] = useState(null);
   const [productCategory, setProductCategory] = useState(category);
-  const [expiryDate, setExpiryDate] = useState(null);
-  const [notification, setNotification] = useState(null);
+  const [bestBeforeDate, setBestBeforeDate] = useState(null);
+  const [pushNotificationDate, setPushNotificationDate] = useState(null);
   const [customNote, setCustomNote] = useState(null);
   const { addProduct } = useContext(Context);
   const getNotificationDate = days => {
-    const notificationDate = new Date(expiryDate - days * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
-    setNotification(notificationDate);
+    const notificationDate = new Date(bestBeforeDate - days * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
+    setPushNotificationDate(notificationDate);
   };
   const dateOfToday = () => {
     const date = new Date(Date.now());
@@ -33,8 +33,8 @@ function ProductFormScreen({ navigation }) {
     setProductName(productName);
     setAmount(null);
     setProductCategory(productCategory);
-    setExpiryDate(dateOfToday());
-    setNotification(null);
+    setBestBeforeDate(dateOfToday());
+    setPushNotificationDate(null);
     setCustomNote(null);
   };
   const addEditProduct = () => {
@@ -42,8 +42,8 @@ function ProductFormScreen({ navigation }) {
       productName,
       amount,
       productCategory,
-      expiryDate,
-      notification,
+      bestBeforeDate,
+      pushNotificationDate,
       customNote,
       null
     );
@@ -78,7 +78,7 @@ function ProductFormScreen({ navigation }) {
 
       <NumberPicker title="Menge" maxNum={10} onValueChange={setAmount} />
 
-      <BestBeforeDatePicker onValueChange={setExpiryDate} />
+      <BestBeforeDatePicker onValueChange={setBestBeforeDate} />
 
       <NumberPicker
         title="Benachrichtigung"
