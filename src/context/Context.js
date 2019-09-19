@@ -8,17 +8,31 @@ import * as Permissions from 'expo-permissions';
 export const Context = React.createContext(null);
 
 export default function ContextProvider({ children }) {
-  const storedProducts = JSON.parse(AsyncStorage.getItem('products')) || null;
-  const [products, setProducts] = useState([]);
-  if (storedProducts === null) {
-    setProducts(data);
-    AsyncStorage.setItem('products', JSON.stringify(data));
-  } else {
-    setProducts(storedProducts);
-  }
-  const saveProducts = dataArray => {
+  const getStoredProducts = async () => {
+    const allKeys = await AsyncStorage.getAllKeys();
+    console.warn(allKeys);
+    if (allKeys.includes('products')) {
+      const storedProductsJSON = await AsyncStorage.getItem('products');
+      const storedProducts = await JSON.parse(storedProductsJSON);
+      console.warn(storedProducts);
+      return storedProducts;
+    }
+    return null;
+  };
+  const [products, setProducts] = useState(data);
+  useEffect(() => {
+    const storedProducts = getStoredProducts();
+    if (storedProducts !== null && storedProducts.length > 0) {
+      setProducts(storedProducts);
+    } else {
+      const dataJSON = JSON.stringify(data);
+      AsyncStorage.setItem('products', dataJSON);
+    }
+  }, []);
+  const saveProducts = async dataArray => {
+    await AsyncStorage.setItem('products', JSON.stringify(dataArray));
     setProducts(dataArray);
-    AsyncStorage.setItem('products', JSON.stringify(dataArray));
+    console.log(dataArray);
   };
   const [productsSorted, setProductsSorted] = useState([]);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
@@ -72,7 +86,8 @@ export default function ContextProvider({ children }) {
     }
 
     /* store it in the state */
-    setProducts(data);
+    // setProducts(data);
+    saveProducts(data);
     // console.warn('also in state');
   };
 
@@ -91,7 +106,8 @@ export default function ContextProvider({ children }) {
     /* store the remaining products */
     const updatedProducts = products.filter(product => product.id !== productId);
     /* write updated products to the state */
-    setProducts(updatedProducts);
+    // setProducts(updatedProducts);
+    saveProducts(updatedProducts);
     /* write deleted product to the state */
     setLastDeletedProduct(deletedProduct);
     /* snack bar message */
@@ -137,7 +153,8 @@ export default function ContextProvider({ children }) {
       // undoDeleteInDB();
       setLastDeletedProduct(null);
       setLastDeletedIndex(null);
-      setProducts(upDatedProducts);
+      // setProducts(upDatedProducts);
+      saveProducts(upDatedProducts);
     }
   };
   /* Notification Settings for Android */
