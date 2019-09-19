@@ -24,7 +24,6 @@ export default function ContextProvider({ children }) {
   const [productsSortedByDate, setProductsSortedByDate] = useState(null);
   const [productsSortedByName, setProductsSortedByName] = useState(null);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
-  const [lastDeletedIndex, setLastDeletedIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
@@ -57,7 +56,8 @@ export default function ContextProvider({ children }) {
     const date = [...products];
     setProductsSortedByName(name.sort(compareName));
     setProductsSortedByDate(date.sort(compareDate));
-  }, []);
+    /* useEffect needs to listen to updates to products in order apply add/delete actions to the productsSortedBy states */
+  }, [products]);
 
   /* wrapper functions */
   /* add a product to the state and also to the database */
@@ -101,12 +101,7 @@ export default function ContextProvider({ children }) {
 
     /* store the deleted item */
     const deletedProduct = products.find(product => product.id === productId);
-    for (let i = 0; i < products.length; i++) {
-      if (products[i].id === productId) {
-        setLastDeletedIndex(i);
-        break;
-      }
-    }
+
     /* store the remaining products */
     const updatedProducts = products.filter(product => product.id !== productId);
     /* write updated products to the state */
@@ -148,14 +143,9 @@ export default function ContextProvider({ children }) {
 
   const addLastDeletedProduct = () => {
     if (lastDeletedProduct) {
-      const upDatedProducts = products.splice(
-        lastDeletedIndex,
-        0,
-        lastDeletedProduct
-      );
+      const upDatedProducts = products.concat(lastDeletedProduct);
       // undoDeleteInDB();
       setLastDeletedProduct(null);
-      setLastDeletedIndex(null);
       setProducts(upDatedProducts);
     }
   };

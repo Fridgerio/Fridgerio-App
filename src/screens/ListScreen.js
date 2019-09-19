@@ -34,7 +34,7 @@ function ListScreen({ navigation }) {
         : productsSortedByDate;
 
     setSortedProducts(products);
-  }, [sortMethod]);
+  }, [sortMethod, productsSortedByDate, productsSortedByName]);
 
   const filterProducts = () => {
     if (activeCategoryFilter !== 'all') {
@@ -55,11 +55,7 @@ function ListScreen({ navigation }) {
           extraData={sortMethod}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <Product
-              product={item}
-              navigation={navigation}
-              onDelete={deleteProduct}
-            />
+            <Product product={item} navigation={navigation} />
           )}
           // element to be rendered when list is empty
           ListEmptyComponent={() => (

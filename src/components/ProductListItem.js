@@ -13,8 +13,8 @@ import { StyledText } from './styled-components/Text';
 import Swipeable from 'react-native-swipeable';
 import { Context } from '../context/Context';
 
-function Product({ navigation, product, onDelete }) {
-  const { categoryImages } = useContext(Context);
+function Product({ navigation, product }) {
+  const { categoryImages, deleteProduct } = useContext(Context);
 
   /* dynamically calculate width for different mobile screen sizes; variable is used to set the ActionActivationDistance prop; current value will trigger action when swiping horizontally 45% of the screen width */
   const width = Dimensions.get('window').width * 0.45;
@@ -36,7 +36,7 @@ function Product({ navigation, product, onDelete }) {
           <Text style={{ color: 'white' }}>Delete</Text>
         </View>
       }
-      onRightActionRelease={() => onDelete(product.id)}
+      onRightActionRelease={() => deleteProduct(product.id)}
     >
       <TouchableOpacity
         onPress={() => navigation.navigate('ProductFormScreen')}
