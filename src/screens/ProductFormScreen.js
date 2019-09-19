@@ -12,9 +12,11 @@ import { Context } from '../context/Context';
 
 function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
-  const [name, setName] = useState(product ? product.productName : null);
+  const name = product ? product.productName : undefined;
+  const category = product ? product.productCategory : undefined;
+  const [productName, setProductName] = useState(name);
   const [amount, setAmount] = useState(null);
-  const [categories, setCategories] = useState(product ? product.categories : []);
+  const [productCategory, setProductCategory] = useState(category);
   const [expiryDate, setExpiryDate] = useState(null);
   const [notification, setNotification] = useState(null);
   const [customNote, setCustomNote] = useState(null);
@@ -28,18 +30,18 @@ function ProductFormScreen({ navigation }) {
     return date.toLocaleDateString('de-DE');
   };
   const clearForm = () => {
-    setName(product ? product.name : null);
+    setProductName(productName);
     setAmount(null);
-    setCategories(product ? product.categories : []);
+    setProductCategory(productCategory);
     setExpiryDate(dateOfToday());
     setNotification(null);
     setCustomNote(null);
   };
   const addEditProduct = () => {
     addProduct(
-      name,
+      productName,
       amount,
-      categories,
+      productCategory,
       expiryDate,
       notification,
       customNote,
@@ -69,10 +71,10 @@ function ProductFormScreen({ navigation }) {
         placeholder="z.B. Apfel"
         defaultValue={name}
         editable
-        onChangeText={text => setName(text)}
+        onChangeText={text => setProductName(text)}
       />
 
-      <CategoryPicker category={categories[0]} onValueChange={setCategories} />
+      <CategoryPicker category={category} onValueChange={setProductCategory} />
 
       <NumberPicker title="Menge" maxNum={10} onValueChange={setAmount} />
 
