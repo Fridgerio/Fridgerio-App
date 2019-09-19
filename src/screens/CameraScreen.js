@@ -107,7 +107,7 @@ function CameraScreen({ navigation }) {
   };
   const redirectRight = () => {
     toggleModal(false);
-    toggleScanned(false);
+    toggleScanned(true);
     const { productName, productCategory } = product;
     navigation.navigate('ProductFormScreen', {
       productName,
@@ -116,7 +116,7 @@ function CameraScreen({ navigation }) {
   };
   const redirectFalse = () => {
     toggleModal(false);
-    toggleScanned(false);
+    toggleScanned(true);
     navigation.navigate('ProductFormScreen');
   };
   const handleBarCodeScanned = Platform.select({
@@ -169,8 +169,14 @@ function CameraScreen({ navigation }) {
       />
       <BarcodeFrame />
       <NavigationEvents
-        onDidBlur={() => setShowHelp(false)}
-        onDidFocus={() => setHelpTimer()}
+        onDidBlur={() => {
+          toggleScanned(true);
+          setShowHelp(false);
+        }}
+        onDidFocus={() => {
+          toggleScanned(false);
+          setHelpTimer();
+        }}
       />
       {!showHelp && <StyledText />}
       {showHelp && <HelpText />}
