@@ -79,6 +79,7 @@ function CameraScreen({ navigation }) {
         /* if the product is found in the database */
         /* (1) generate a product name */
         const productName = generateName(brand, product_name, quantity);
+        const productCategory = categories ? categories[0] : undefined;
         if (
           productName === '' ||
           productName === undefined ||
@@ -88,7 +89,7 @@ function CameraScreen({ navigation }) {
           navigation.navigate('ProductFormScreen');
         } else {
           /* (2) set the product in the state */
-          setProduct({ productName, categories });
+          setProduct({ productName, productCategory });
           /* (3) show the modal */
           toggleModal(true);
         }
@@ -106,13 +107,16 @@ function CameraScreen({ navigation }) {
   };
   const redirectRight = () => {
     toggleModal(false);
-    toggleScanned(false);
-    const { name, categories } = product;
-    navigation.navigate('ProductFormScreen', { name, categories });
+    toggleScanned(true);
+    const { productName, productCategory } = product;
+    navigation.navigate('ProductFormScreen', {
+      productName,
+      productCategory,
+    });
   };
   const redirectFalse = () => {
     toggleModal(false);
-    toggleScanned(false);
+    toggleScanned(true);
     navigation.navigate('ProductFormScreen');
   };
   const handleBarCodeScanned = Platform.select({
@@ -165,8 +169,14 @@ function CameraScreen({ navigation }) {
       />
       <BarcodeFrame />
       <NavigationEvents
-        onDidBlur={() => setShowHelp(false)}
-        onDidFocus={() => setHelpTimer()}
+        onDidBlur={() => {
+          toggleScanned(true);
+          setShowHelp(false);
+        }}
+        onDidFocus={() => {
+          toggleScanned(false);
+          setHelpTimer();
+        }}
       />
       {!showHelp && <StyledText />}
       {showHelp && <HelpText />}
