@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   TouchableOpacity,
   View,
   Text,
   Dimensions,
   StyleSheet,
+  Image,
 } from 'react-native';
 import { MaterialCommunityIcon } from './styled-components/Icons';
 import { Elementbox } from './styled-components/Boxes';
 import { StyledText } from './styled-components/Text';
 import Swipeable from 'react-native-swipeable';
+import { Context } from '../context/Context';
 
 function Product({ navigation, product, onDelete }) {
+  const { categoryImages } = useContext(Context);
+
   /* dynamically calculate width for different mobile screen sizes; variable is used to set the ActionActivationDistance prop; current value will trigger action when swiping horizontally 45% of the screen width */
   const width = Dimensions.get('window').width * 0.45;
   return (
@@ -40,10 +44,9 @@ function Product({ navigation, product, onDelete }) {
         activeOpacity={0.7}
       >
         <Elementbox withBottomLine>
-          <MaterialCommunityIcon
-            name="food-apple"
-            padding="0 15px 0 0"
-            flex="1"
+          <Image
+            source={categoryImages[product.productCategory]}
+            style={{ height: 30, width: 30, marginRight: 20 }}
           />
           <StyledText flex="4">{product.productName}</StyledText>
           <StyledText flex="2">{product.bestBeforeDate}</StyledText>

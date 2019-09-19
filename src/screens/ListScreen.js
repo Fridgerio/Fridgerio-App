@@ -22,6 +22,7 @@ function ListScreen({ navigation }) {
     isSnackBarVisible,
     addLastDeletedProduct,
     sortMethod,
+    activeCategoryFilter,
   } = useContext(Context);
 
   const [sortedProducts, setSortedProducts] = useState([]);
@@ -35,6 +36,14 @@ function ListScreen({ navigation }) {
     setSortedProducts(products);
   }, [sortMethod]);
 
+  const filterProducts = () => {
+    if (activeCategoryFilter !== 'all') {
+      const filtered = sortedProducts.filter(ele => ele.productCategory === activeCategoryFilter);
+      return filtered;
+    }
+    return sortedProducts;
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       {/* View needs to stretch over entire screen for the snackbar to pop up at the very bottom */}
@@ -42,7 +51,7 @@ function ListScreen({ navigation }) {
         <CategoryFilter />
         <SortingTabs />
         <FlatList
-          data={sortedProducts}
+          data={filterProducts()}
           extraData={sortMethod}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (

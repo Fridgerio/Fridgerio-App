@@ -49,7 +49,7 @@ function CategoryFilter() {
           <TouchableOpacity onPress={() => setActiveCategoryFilter(item.name)}>
             <Image
               source={item.path}
-              style={{ height: 30, width: 30, marginHorizontal: 8 }}
+              style={{ height: 30, width: 30, marginRight: 20 }}
             />
           </TouchableOpacity>
         )}

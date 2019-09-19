@@ -2,6 +2,21 @@ import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import { data } from './data';
 
+const images = {
+  all: require('../../assets/img/all.png'),
+  bread: require('../../assets/img/bread-pastry.png'),
+  canned: require('../../assets/img/canned.png'),
+  dairy: require('../../assets/img/dairy.png'),
+  drinks: require('../../assets/img/drinks.png'),
+  frozen: require('../../assets/img/frozen.png'),
+  fruits: require('../../assets/img/fruits-vegetables.png'),
+  meat: require('../../assets/img/meat.png'),
+  pasta: require('../../assets/img/pasta.png'),
+  sauces: require('../../assets/img/sauces-oils-spices.png'),
+  snacks: require('../../assets/img/snacks-sweets.png'),
+  uncategorized: require('../../assets/img/uncategorized.png'),
+};
+
 export const Context = React.createContext(null);
 
 export default function ContextProvider({ children }) {
@@ -14,7 +29,8 @@ export default function ContextProvider({ children }) {
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
-  const [activeCategoryFilter, setActiveCategoryFilter] = useState('drinks');
+  const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
+  const [categoryImages] = useState(images);
 
   useEffect(() => {
     const compareName = (a, b) => {
@@ -158,6 +174,9 @@ export default function ContextProvider({ children }) {
         productsSortedByName,
         setSortMethod,
         sortMethod,
+        activeCategoryFilter,
+        setActiveCategoryFilter,
+        categoryImages,
       }}
     >
       {children}
