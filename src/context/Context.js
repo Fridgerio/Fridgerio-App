@@ -39,7 +39,9 @@ export default function ContextProvider({ children }) {
     /* save to asyncStorage */
     await AsyncStorage.setItem('products', JSON.stringify(dataArray));
     /* save to local state */
-    setProducts(dataArray);
+    const storedJSON = await AsyncStorage.getItem('products');
+    const stored = await JSON.parse(storedJSON);
+    setProducts(stored);
   };
   /* further state hooks */
   const [productsSorted, setProductsSorted] = useState([]);
