@@ -24,15 +24,18 @@ export default function ContextProvider({ children }) {
   const [products, setProducts] = useState(data);
   useEffect(() => {
     /* get stored products */
-    const storedProducts = getStoredProducts();
-    if (storedProducts !== null && storedProducts.length > 0) {
-      /* set it to the local state if it is existing and not empty */
-      setProducts(storedProducts);
-    } else {
-      /* write the dummy data to asyncStorage if necessary */
-      const dataJSON = JSON.stringify(data);
-      AsyncStorage.setItem('products', dataJSON);
-    }
+    const asyncInit = async () => {
+      const storedProducts = await getStoredProducts();
+      if (storedProducts !== null && storedProducts.length > 0) {
+        /* set it to the local state if it is existing and not empty */
+        setProducts(storedProducts);
+      } else {
+        /* write the dummy data to asyncStorage if necessary */
+        const dataJSON = JSON.stringify(data);
+        await AsyncStorage.setItem('products', dataJSON);
+      }
+    };
+    asyncInit();
   }, []);
   /* method to save to local state and asyncStorage */
   const saveProducts = async dataArray => {
