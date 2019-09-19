@@ -127,6 +127,7 @@ export default function ContextProvider({ children }) {
         handleSnackBar,
         addLastDeletedProduct,
         language,
+        setLanguage,
       }}
     >
       {children}
