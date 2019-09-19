@@ -6,12 +6,20 @@ import { Colors } from '../components/styled-components/Variables';
 import { Context } from '../context/Context';
 
 function SettingsLanguageScreen() {
-  const { setLanguage } = useContext(Context);
+  const { language, setLanguage } = useContext(Context);
   return (
     <ScrollView>
       <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-        <RowCheckLink title="Deutsch" onPress={() => setLanguage('DE')} />
-        <RowCheckLink title="English" onPress={() => setLanguage('EN')} />
+        <RowCheckLink
+          title="Deutsch"
+          name={language === 'DE' ? 'md-checkmark' : null}
+          onPress={() => setLanguage('DE')}
+        />
+        <RowCheckLink
+          title="English"
+          name={language === 'EN' ? 'md-checkmark' : null}
+          onPress={() => setLanguage('EN')}
+        />
       </Textbox>
     </ScrollView>
   );
