@@ -8,23 +8,23 @@ import { Context } from '../context/Context';
 
 const categories = [
   { name: 'all', path: require('../../assets/img/all.png') },
-  { name: 'bread-pastry', path: require('../../assets/img/bread-pastry.png') },
+  { name: 'bread', path: require('../../assets/img/bread-pastry.png') },
   { name: 'canned', path: require('../../assets/img/canned.png') },
   { name: 'dairy', path: require('../../assets/img/dairy.png') },
   { name: 'drinks', path: require('../../assets/img/drinks.png') },
   { name: 'frozen', path: require('../../assets/img/frozen.png') },
   {
-    name: 'fruits-vegetables',
+    name: 'fruits',
     path: require('../../assets/img/fruits-vegetables.png'),
   },
   { name: 'meat', path: require('../../assets/img/meat.png') },
   { name: 'pasta', path: require('../../assets/img/pasta.png') },
   {
-    name: 'sauces-oils-spices',
+    name: 'sauces',
     path: require('../../assets/img/sauces-oils-spices.png'),
   },
   {
-    name: 'snacks-sweets',
+    name: 'snacks',
     path: require('../../assets/img/snacks-sweets.png'),
   },
   {
@@ -34,7 +34,7 @@ const categories = [
 ];
 
 function CategoryFilter() {
-  const { setActiveCategoryFilter } = useContext(Context);
+  const { activeCategoryFilter, setActiveCategoryFilter } = useContext(Context);
 
   return (
     <Elementbox>
@@ -49,7 +49,12 @@ function CategoryFilter() {
           <TouchableOpacity onPress={() => setActiveCategoryFilter(item.name)}>
             <Image
               source={item.path}
-              style={{ height: 30, width: 30, marginRight: 20 }}
+              style={{
+                height: 30,
+                width: 30,
+                marginRight: 20,
+                opacity: activeCategoryFilter === item.name ? 1 : 0.6,
+              }}
             />
           </TouchableOpacity>
         )}
