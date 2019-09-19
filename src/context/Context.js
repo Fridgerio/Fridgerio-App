@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import { data } from './data';
-import { Platform, Alert } from 'react-native';
+import { Platform, Alert, AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
 export const Context = React.createContext(null);
 
 export default function ContextProvider({ children }) {
-  const [products, setProducts] = useState(data);
+  const storedProducts = JSON.parse(AsyncStorage.getItem('products')) || null;
+  const [products, setProducts] = useState([]);
+  if (storedProducts === null) {
+    setProducts(data);
+    AsyncStorage.setItem('products', JSON.stringify(data));
+  } else {
+    setProducts(storedProducts);
+  }
+  const saveProducts = dataArray => {
+    setProducts(dataArray);
+    AsyncStorage.setItem('products', JSON.stringify(dataArray));
+  };
   const [productsSorted, setProductsSorted] = useState([]);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
   const [lastDeletedIndex, setLastDeletedIndex] = useState(null);
