@@ -16,18 +16,24 @@ function Expire() {
 
 /* Statistics */
 function Statistics({ products }) {
+  /* get the number of expired products (by now or after a week) */
   const getExpired = id => {
+    /* reference date (now or in 7 days etc.) as a timestamp */
     const normDate = Number((
         new Date(Date.now() + id * 24 * 60 * 60 * 1000).getTime() / 1000
       ).toFixed(0));
+    /* timestamp of now */
     const today = Number((new Date(Date.now()).getTime() / 1000).toFixed(0));
     let number;
     if (products && products.length > 0) {
       number = products.reduce((num, current) => {
+        /* expiry date as a timestamp */
         const expDate = Number((new Date(current.bestBeforeDate).getTime() / 1000).toFixed(0));
         if (id === 0) {
+          /* add 1 if the expiry date is before today */
           return expDate < today ? num + 1 : num;
         }
+        /* add 1 if the expiry date is between today and next week */
         return expDate < normDate && expDate > today ? num + 1 : num;
       }, 0);
     } else {
