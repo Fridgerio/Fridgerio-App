@@ -13,13 +13,13 @@ const StyledPrimaryButton = styled.TouchableOpacity`
 `;
 const StyledPrimaryButtonText = styled.Text`
   text-align: center;
-  font-size: 18px;
+  font-size: ${props => props.size || '18px'};
 `;
 export const PrimaryButton = props => {
-  const { color, flex, title, style, onPress } = props;
+  const { color, flex, title, size, style, onPress } = props;
   return (
     <StyledPrimaryButton color={color} flex={flex} onPress={onPress} style={style}>
-      <StyledPrimaryButtonText>{title}</StyledPrimaryButtonText>
+      <StyledPrimaryButtonText size={size}>{title}</StyledPrimaryButtonText>
     </StyledPrimaryButton>
   );
 };

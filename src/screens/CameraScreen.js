@@ -3,7 +3,10 @@ import { View, Text, Modal, Platform } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
+import { StyledText } from '../components/styled-components/Text.js';
 import { BarcodeFrame } from '../components/svg/BarcodeFrame';
+import HelpText from '../components/CameraHelpText';
+import { NavigationEvents } from 'react-navigation';
 
 function CameraScreen({ navigation }) {
   /* State Hooks and functions to change these states */
@@ -11,6 +14,8 @@ function CameraScreen({ navigation }) {
   const [scanned, toggleScanned] = useState(false);
   const [showModal, toggleModal] = useState(false);
   const [product, setProduct] = useState(null);
+  const [showHelp, setShowHelp] = useState(false);
+
   /* Lifecycle method to check camera permission first */
   useEffect(() => {
     const askPermission = async () => {
@@ -18,7 +23,15 @@ function CameraScreen({ navigation }) {
       toggleCameraPermission(status === 'granted');
     };
     askPermission();
+    setHelpTimer();
   }, []);
+
+  /* Show help text after 8 seconds without successfull scan */
+  const setHelpTimer = () =>
+    setTimeout(() => {
+      setShowHelp(true);
+    }, 8000);
+
   /* method to build a product name from the API data */
   const generateName = (brand, name, quantity) => {
     let pbrand;
@@ -93,11 +106,13 @@ function CameraScreen({ navigation }) {
   };
   const redirectRight = () => {
     toggleModal(false);
+    toggleScanned(false);
     const { name, categories } = product;
     navigation.navigate('ProductFormScreen', { name, categories });
   };
   const redirectFalse = () => {
     toggleModal(false);
+    toggleScanned(false);
     navigation.navigate('ProductFormScreen');
   };
   const handleBarCodeScanned = Platform.select({
@@ -149,26 +164,24 @@ function CameraScreen({ navigation }) {
         }}
       />
       <BarcodeFrame />
-      {scanned && (
-        <PrimaryButton
-          title={'Nochmals scannen'}
-          style={{
-            width: '70%',
-            marginRight: 'auto',
-            marginLeft: 'auto',
-          }}
-          onPress={() => toggleScanned(false)}
-        />
-      )}
+      <NavigationEvents
+        onDidBlur={() => setShowHelp(false)}
+        onDidFocus={() => setHelpTimer()}
+      />
+      {!showHelp && <StyledText />}
+      {showHelp && <HelpText />}
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
-        title={'Manuell eingeben'}
+        title={'Manuell\neingeben'}
+        font={'16px'}
         style={{
-          width: '70%',
+          opacity: 0.8,
           marginRight: 'auto',
           marginLeft: 'auto',
         }}
-        onPress={() => navigation.navigate('ProductFormScreen')}
+        onPress={() => {
+          navigation.navigate('ProductFormScreen');
+        }}
       />
       <Modal animationType={'slide'} visible={showModal}>
         <View style={{ marginVertical: 120, marginHorizontal: 25 }}>
