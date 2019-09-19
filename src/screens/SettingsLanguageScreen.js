@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowCheckLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
@@ -16,8 +16,14 @@ function SettingsLanguageScreen() {
   );
 }
 
+function CustomHeader() {
+  const { language } = useContext(Context);
+  const title = language === 'DE' ? 'Wähle eine Sprache' : 'Choose a language';
+  return <Text style={{ color: 'white' }}>{title}</Text>;
+}
+
 SettingsLanguageScreen.navigationOptions = {
-  title: 'Wähle eine Sprache',
+  headerTitle: <CustomHeader />,
 };
 
 export default SettingsLanguageScreen;
