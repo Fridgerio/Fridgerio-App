@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ScrollView } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowCheckLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
+import { Context } from '../context/Context';
 
 function SettingsLanguageScreen() {
   return (
