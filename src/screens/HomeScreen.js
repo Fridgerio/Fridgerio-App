@@ -18,23 +18,30 @@ function Expire() {
 function Statistics({ products }) {
   /* get the number of expired products (by now or after a week) */
   const getExpired = id => {
-    /* reference date (now or in 7 days etc.) as a timestamp */
-    const normDate = Number((
-        new Date(Date.now() + id * 24 * 60 * 60 * 1000).getTime() / 1000
-      ).toFixed(0));
     /* timestamp of now */
-    const today = Number((new Date(Date.now()).getTime() / 1000).toFixed(0));
+    const todayDateObject = new Date(Date.now());
+    let day = todayDateObject.getDate();
+    let month = todayDateObject.getMonth() + 1;
+    const year = todayDateObject.getFullYear();
+    month = month < 10 ? `0${month}` : `${month}`;
+    day = day < 10 ? `0${day}` : `${day}`;
+    const todayObject = new Date(`${year}-${month}-${day}T00:00:00`);
+    const today = Number((todayObject.getTime() / 1000).toFixed(0));
+    /* reference date (now or in 7 days etc.) as a timestamp */
+    const normDate = today + id * 24 * 60 * 60;
     let number;
     if (products && products.length > 0) {
       number = products.reduce((num, current) => {
         /* expiry date as a timestamp */
-        const expDate = Number((new Date(current.bestBeforeDate).getTime() / 1000).toFixed(0));
+        const expDate = Number((
+            new Date(`${current.bestBeforeDate}T00:00:00`).getTime() / 1000
+          ).toFixed(0));
         if (id === 0) {
           /* add 1 if the expiry date is before today */
           return expDate < today ? num + 1 : num;
         }
         /* add 1 if the expiry date is between today and next week */
-        return expDate < normDate && expDate > today ? num + 1 : num;
+        return expDate < normDate && expDate >= today ? num + 1 : num;
       }, 0);
     } else {
       number = 0;
