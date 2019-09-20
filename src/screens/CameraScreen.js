@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, Platform } from 'react-native';
+import { View, Text, Modal, Platform, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { StyledText } from '../components/styled-components/Text.js';
-import { BarcodeFrame } from '../components/svg/BarcodeFrame';
-import HelpText from '../components/CameraHelpText';
+ import HelpText from '../components/CameraHelpText';
 import { NavigationEvents } from 'react-navigation';
 
 function CameraScreen({ navigation }) {
@@ -141,7 +140,7 @@ function CameraScreen({ navigation }) {
     return <Text>Frage Kameraerlaubnis ab.</Text>;
   } else if (hasCameraPermission === false) {
     /* Render this if camera permission is denied */
-    return <Text>Kein Zugriff auf Kamera.</Text>;
+    return <Text>Kein Zugriff auf Kamera.</Text>; 
   }
   /* Render this if camera permission is granted */
   return (
@@ -152,6 +151,7 @@ function CameraScreen({ navigation }) {
         justifyContent: 'space-around',
       }}
     >
+      <Image source={require("../../assets/BarcodeScannerWindow.png")} style={{width: '100%', height: '100%', position: "absolute", top: 0, right: 0, bottom: 0, left: 0}} />
       <BarCodeScanner
         barCodeTypes={[
           BarCodeScanner.Constants.BarCodeType.ean8,
@@ -165,9 +165,9 @@ function CameraScreen({ navigation }) {
           top: 0,
           bottom: 0,
           flex: 2,
+          zIndex: -10
         }}
       />
-      <BarcodeFrame />
       <NavigationEvents
         onDidBlur={() => {
           toggleScanned(true);
@@ -183,7 +183,7 @@ function CameraScreen({ navigation }) {
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
         title={'Manuell\neingeben'}
-        font={'16px'}
+        size={'16px'}
         style={{
           opacity: 0.8,
           marginRight: 'auto',
