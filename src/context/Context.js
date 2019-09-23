@@ -31,7 +31,7 @@ export default function ContextProvider({ children }) {
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
-
+  const [pushNotification, setPushNotification] = useState(null);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
   const [categoryImages] = useState(images);
 
