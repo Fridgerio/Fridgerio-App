@@ -20,7 +20,7 @@ function ProductFormScreen({ navigation }) {
   const [productName, setProductName] = useState(name);
   const [amount, setAmount] = useState(1);
   const [productCategory, setProductCategory] = useState(category);
-  const [bestBeforeDate, setBestBeforeDate] = useState(null);
+  const [bestBeforeDate, setBestBeforeDate] = useState(dateOfToday());
   const [pushNotificationDate, setPushNotificationDate] = useState(null);
   const [customNote, setCustomNote] = useState(null);
   const [error, setError] = useState(null);
