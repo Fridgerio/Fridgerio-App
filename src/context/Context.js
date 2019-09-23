@@ -5,29 +5,64 @@ import { Platform, Alert } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
+const images = {
+  all: require('../../assets/img/all.png'),
+  bread: require('../../assets/img/bread-pastry.png'),
+  canned: require('../../assets/img/canned.png'),
+  dairy: require('../../assets/img/dairy.png'),
+  drinks: require('../../assets/img/drinks.png'),
+  frozen: require('../../assets/img/frozen.png'),
+  fruits: require('../../assets/img/fruits-vegetables.png'),
+  meat: require('../../assets/img/meat.png'),
+  pasta: require('../../assets/img/pasta.png'),
+  sauces: require('../../assets/img/sauces-oils-spices.png'),
+  snacks: require('../../assets/img/snacks-sweets.png'),
+  uncategorized: require('../../assets/img/uncategorized.png'),
+};
+
 export const Context = React.createContext(null);
 
 export default function ContextProvider({ children }) {
   const [products, setProducts] = useState(data);
-  const [productsSorted, setProductsSorted] = useState([]);
+  const [productsSortedByDate, setProductsSortedByDate] = useState(null);
+  const [productsSortedByName, setProductsSortedByName] = useState(null);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
-  const [lastDeletedIndex, setLastDeletedIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
-  const [pushNotification, setPushNotification] = useState(null);
 
-  const formatDate = date => {
-    const [year, month, day] = date.split('-');
-    return [day, month, year].join('.');
-  };
-  const getiOSNotificationPermission = async () => {
-    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-    if (status !== 'granted') {
-      await Permissions.askAsync(Permissions.NOTIFICATIONS);
-    }
-  };
+  const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
+  const [categoryImages] = useState(images);
+
+  useEffect(() => {
+    const compareName = (a, b) => {
+      if (a.productName < b.productName) {
+        return -1;
+      }
+      if (a.productName > b.productName) {
+        return 1;
+      }
+      return 0;
+    };
+
+    const compareDate = (a, b) => {
+      if (a.bestBeforeDate < b.bestBeforeDate) {
+        return -1;
+      }
+      if (a.bestBeforeDate > b.bestBeforeDate) {
+        return 1;
+      }
+      return 0;
+    };
+
+    const name = [...products];
+    const date = [...products];
+    setProductsSortedByName(name.sort(compareName));
+    setProductsSortedByDate(date.sort(compareDate));
+    /* useEffect needs to listen to updates to products in order apply add/delete actions to the productsSortedBy states */
+  }, [products]);
+
 
   /* wrapper functions */
   /* add a product to the state and also to the database */
@@ -71,12 +106,7 @@ export default function ContextProvider({ children }) {
 
     /* store the deleted item */
     const deletedProduct = products.find(product => product.id === productId);
-    for (let i = 0; i < products.length; i++) {
-      if (products[i].id === productId) {
-        setLastDeletedIndex(i);
-        break;
-      }
-    }
+
     /* store the remaining products */
     const updatedProducts = products.filter(product => product.id !== productId);
     /* write updated products to the state */
@@ -118,14 +148,9 @@ export default function ContextProvider({ children }) {
 
   const addLastDeletedProduct = () => {
     if (lastDeletedProduct) {
-      const upDatedProducts = products.splice(
-        lastDeletedIndex,
-        0,
-        lastDeletedProduct
-      );
+      const upDatedProducts = products.concat(lastDeletedProduct);
       // undoDeleteInDB();
       setLastDeletedProduct(null);
-      setLastDeletedIndex(null);
       setProducts(upDatedProducts);
     }
   };
@@ -190,6 +215,13 @@ export default function ContextProvider({ children }) {
         isSnackBarVisible,
         handleSnackBar,
         addLastDeletedProduct,
+        productsSortedByDate,
+        productsSortedByName,
+        setSortMethod,
+        sortMethod,
+        activeCategoryFilter,
+        setActiveCategoryFilter,
+        categoryImages,
         sendNotification,
       }}
     >

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -16,11 +16,33 @@ import SnackBar from 'react-native-snackbar-component';
 
 function ListScreen({ navigation }) {
   const {
-    products,
+    productsSortedByDate,
+    productsSortedByName,
     deleteProduct,
     isSnackBarVisible,
     addLastDeletedProduct,
+    sortMethod,
+    activeCategoryFilter,
   } = useContext(Context);
+
+  const [sortedProducts, setSortedProducts] = useState([]);
+
+  useEffect(() => {
+    const products =
+      sortMethod === 'productName'
+        ? productsSortedByName
+        : productsSortedByDate;
+
+    setSortedProducts(products);
+  }, [sortMethod, productsSortedByDate, productsSortedByName]);
+
+  const filterProducts = () => {
+    if (activeCategoryFilter !== 'all') {
+      const filtered = sortedProducts.filter(ele => ele.productCategory === activeCategoryFilter);
+      return filtered;
+    }
+    return sortedProducts;
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -29,14 +51,11 @@ function ListScreen({ navigation }) {
         <CategoryFilter />
         <SortingTabs />
         <FlatList
-          data={products}
+          data={filterProducts()}
+          extraData={sortMethod}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <Product
-              product={item}
-              navigation={navigation}
-              onDelete={deleteProduct}
-            />
+            <Product product={item} navigation={navigation} />
           )}
           // element to be rendered when list is empty
           ListEmptyComponent={() => (
@@ -68,6 +87,10 @@ export default ListScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  activeTab: {
+    borderBottomWidth: 2,
+    borderBottomColor: 'red',
   },
   listEmpty: {
     textAlign: 'center',

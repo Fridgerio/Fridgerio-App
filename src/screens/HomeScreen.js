@@ -60,8 +60,7 @@ function Statistics({ products }) {
 /* Total Home Screen */
 function HomeScreen({ navigation }) {
   const {
-    products,
-    deleteProduct,
+    productsSortedByDate,
     isSnackBarVisible,
     addLastDeletedProduct,
     deleteAll,
@@ -72,15 +71,22 @@ function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <Statistics style={styles.statistics} products={products} />
       <Expire />
-      <View>
-        <FlatList
-          data={products.slice(0, 3)}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <Product
-              product={item}
-              navigation={navigation}
-              onDelete={deleteProduct}
+      {/* wait for productsSortedByDate to receive data via the useEffect hook in Context */}
+      {productsSortedByDate && (
+        <React.Fragment>
+          <View>
+            <FlatList
+              data={productsSortedByDate.slice(0, 3)}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <Product product={item} navigation={navigation} />
+              )}
+              // element to be rendered when list is empty
+              ListEmptyComponent={() => (
+                <Text style={styles.listEmpty}>
+                  Deine Liste enthält keine Produkte.
+                </Text>
+              )}
             />
           )}
           // element to be rendered when list is empty
@@ -112,8 +118,6 @@ function HomeScreen({ navigation }) {
         accentColor={'#1C4E55'}
         // The color of main message text, default is	#FFFFFF
         messageColor={'#fff'}
-        // to figure out
-        distanceCallback={distance => 60}
       />
     </View>
   );
