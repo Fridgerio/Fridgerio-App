@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import { Elementbox } from './styled-components/Boxes';
 import { PrimaryButton } from './styled-components/Buttons';
 import { Context } from '../context/Context';
+import { Text } from 'react-native';
 
 function SortingTabs() {
+  console.log('We are here');
   const { sortMethod, setSortMethod } = useContext(Context);
 
   const sortByDate = () => {
@@ -21,14 +23,12 @@ function SortingTabs() {
         color="transparent"
         title="A-Z"
         active={sortMethod === 'productName'}
-        style={{ flex: 1 }}
       />
       <PrimaryButton
         onPress={sortByDate}
         color="transparent"
         title="Datum"
         active={sortMethod === 'bestBeforeDate'}
-        style={{ flex: 1 }}
       />
     </Elementbox>
   );
