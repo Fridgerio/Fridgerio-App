@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
+import { PrimaryButton } from '../components/styled-components/Buttons';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
@@ -60,41 +61,48 @@ function Statistics({ products }) {
 function HomeScreen({ navigation }) {
   const {
     products,
-    deleteProduct,
+    productsSortedByDate,
     isSnackBarVisible,
     addLastDeletedProduct,
     deleteAll,
+    sendNotification,
   } = useContext(Context);
 
   return (
     <View style={styles.container}>
       <Statistics style={styles.statistics} products={products} />
       <Expire />
-      <View>
-        <FlatList
-          data={products.slice(0, 3)}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <Product
-              product={item}
-              navigation={navigation}
-              onDelete={deleteProduct}
+      {/* wait for productsSortedByDate to receive data via the useEffect hook in Context */}
+      {productsSortedByDate && (
+        <React.Fragment>
+          <View>
+            <FlatList
+              data={productsSortedByDate.slice(0, 3)}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <Product product={item} navigation={navigation} />
+              )}
+              // element to be rendered when list is empty
+              ListEmptyComponent={() => (
+                <Text style={styles.listEmpty}>
+                  Deine Liste enthält keine Produkte.
+                </Text>
+              )}
             />
-          )}
-          // element to be rendered when list is empty
-          ListEmptyComponent={() => (
-            <Text style={styles.listEmpty}>
-              Deine Liste enthält keine Produkte
-            </Text>
-          )}
+          </View>
+        </React.Fragment>
+      )}
+      {products.length > 0 && (
+        <Button
+          title={'Alle Produkte'}
+          onPress={() => navigation.navigate('ListScreen')}
         />
-        {products.length > 0 && (
-          <Button
-            title={'Alle Produkte'}
-            onPress={() => navigation.navigate('ListScreen')}
-          />
-        )}
-      </View>
+      )}
+      <PrimaryButton
+        title={'Mitteilung'}
+        color={'orange'}
+        onPress={() => sendNotification()}
+      />
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"
