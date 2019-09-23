@@ -16,7 +16,7 @@ function ProductFormScreen({ navigation }) {
   const name = product ? product.productName : undefined;
   const category = product ? product.productCategory : undefined;
   const [productName, setProductName] = useState(name);
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState(1);
   const [productCategory, setProductCategory] = useState(category);
   const [bestBeforeDate, setBestBeforeDate] = useState(null);
   const [pushNotificationDate, setPushNotificationDate] = useState(null);
@@ -38,6 +38,8 @@ function ProductFormScreen({ navigation }) {
     setBestBeforeDate(dateOfToday());
     setPushNotificationDate(null);
     setCustomNote(null);
+    console.log(navigation);
+    navigation.navigate('HomeScreen');
   };
   const addEditProduct = () => {
     if (
@@ -51,7 +53,7 @@ function ProductFormScreen({ navigation }) {
     } else {
       setError(null);
     }
-    if (error !== null) {
+    if (error === null) {
       addProduct(
         productName,
         amount,
@@ -61,6 +63,7 @@ function ProductFormScreen({ navigation }) {
         customNote,
         null
       );
+      navigation.navigate('HomeScreen');
     }
   };
   // console.log(product);
