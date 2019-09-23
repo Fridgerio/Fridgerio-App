@@ -31,7 +31,7 @@ function ProductFormScreen({ navigation }) {
   };
   const clearForm = () => {
     setProductName(productName);
-    setAmount(null);
+    setAmount(1);
     setProductCategory(productCategory);
     setBestBeforeDate(dateOfToday());
     setPushNotificationDate(null);
@@ -76,7 +76,12 @@ function ProductFormScreen({ navigation }) {
 
       <CategoryPicker category={category} onValueChange={setProductCategory} />
 
-      <NumberPicker title="Menge" maxNum={10} onValueChange={setAmount} />
+      <NumberPicker
+        title="Menge"
+        defaultValue={amount || 1}
+        maxNum={50}
+        onValueChange={setAmount}
+      />
 
       <BestBeforeDatePicker onValueChange={setBestBeforeDate} />
 
