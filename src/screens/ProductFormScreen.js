@@ -12,9 +12,11 @@ import { Context } from '../context/Context';
 import { BlockText } from '../components/styled-components/Text';
 
 function ProductFormScreen({ navigation }) {
+  /* get data from CameraScreen */
   const product = navigation.state.params;
   const name = product ? product.productName : undefined;
   const category = product ? product.productCategory : undefined;
+  /* some states */
   const [productName, setProductName] = useState(name);
   const [amount, setAmount] = useState(1);
   const [productCategory, setProductCategory] = useState(category);
@@ -22,25 +24,33 @@ function ProductFormScreen({ navigation }) {
   const [pushNotificationDate, setPushNotificationDate] = useState(null);
   const [customNote, setCustomNote] = useState(null);
   const [error, setError] = useState(null);
+  /* add function from Context */
   const { addProduct } = useContext(Context);
+  /* calculate the date for the notification */
   const getNotificationDate = days => {
     const notificationDate = new Date(bestBeforeDate - days * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
     setPushNotificationDate(notificationDate);
   };
+  /* calculate the date of today */
   const dateOfToday = () => {
     const date = new Date(Date.now());
     return date.toLocaleDateString('de-DE');
   };
+  /* clear the form (cancel button at the end of the form) */
   const clearForm = () => {
+    /* reset all states to original values */
     setProductName(productName);
     setAmount(1);
     setProductCategory(productCategory);
     setBestBeforeDate(dateOfToday());
     setPushNotificationDate(null);
     setCustomNote(null);
+    /* navigate back to HomeScreen */
     navigation.navigate('HomeScreen');
   };
+  /* function to add or edit a product (save button) */
   const addEditProduct = () => {
+    /* check for empty required form fields */
     if (
       productName === null ||
       productName === undefined ||
@@ -52,7 +62,9 @@ function ProductFormScreen({ navigation }) {
     } else {
       setError(null);
     }
+    /* go on if there is no error */
     if (error === null) {
+      /* add product to the list */
       addProduct(
         productName,
         amount,
@@ -62,7 +74,8 @@ function ProductFormScreen({ navigation }) {
         customNote,
         null
       );
-      navigation.navigate('HomeScreen');
+      /* navigate to the list */
+      navigation.navigate('ListScreen');
     }
   };
   // console.log(product);
