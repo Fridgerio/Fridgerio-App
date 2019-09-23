@@ -31,6 +31,7 @@ export default function ContextProvider({ children }) {
   const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
+  const [language, setLanguage] = useState('DE');
   const [pushNotification, setPushNotification] = useState(null);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
   const [categoryImages] = useState(images);
@@ -226,6 +227,8 @@ export default function ContextProvider({ children }) {
         isSnackBarVisible,
         handleSnackBar,
         addLastDeletedProduct,
+        language,
+        setLanguage,
         productsSortedByDate,
         productsSortedByName,
         setSortMethod,
