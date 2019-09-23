@@ -60,6 +60,7 @@ function Statistics({ products }) {
 /* Total Home Screen */
 function HomeScreen({ navigation }) {
   const {
+    products,
     productsSortedByDate,
     isSnackBarVisible,
     addLastDeletedProduct,
@@ -88,26 +89,20 @@ function HomeScreen({ navigation }) {
                 </Text>
               )}
             />
-          )}
-          // element to be rendered when list is empty
-          ListEmptyComponent={() => (
-            <Text style={styles.listEmpty}>
-              Deine Liste enthält keine Produkte
-            </Text>
-          )}
+          </View>
+        </React.Fragment>
+      )}
+      {products.length > 0 && (
+        <Button
+          title={'Alle Produkte'}
+          onPress={() => navigation.navigate('ListScreen')}
         />
-        {products.length > 0 && (
-          <Button
-            title={'Alle Produkte'}
-            onPress={() => navigation.navigate('ListScreen')}
-          />
-        )}
-        <PrimaryButton
-          title={'Mitteilung'}
-          color={'orange'}
-          onPress={() => sendNotification()}
-        />
-      </View>
+      )}
+      <PrimaryButton
+        title={'Mitteilung'}
+        color={'orange'}
+        onPress={() => sendNotification()}
+      />
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"
@@ -118,6 +113,8 @@ function HomeScreen({ navigation }) {
         accentColor={'#1C4E55'}
         // The color of main message text, default is	#FFFFFF
         messageColor={'#fff'}
+        // to figure out
+        distanceCallback={distance => 60}
       />
     </View>
   );
