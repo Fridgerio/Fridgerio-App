@@ -38,7 +38,6 @@ function ProductFormScreen({ navigation }) {
     setBestBeforeDate(dateOfToday());
     setPushNotificationDate(null);
     setCustomNote(null);
-    console.log(navigation);
     navigation.navigate('HomeScreen');
   };
   const addEditProduct = () => {
