@@ -3,15 +3,13 @@ import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
-import { TextInput } from 'react-native-gesture-handler';
+import { PrimaryButton } from '../components/styled-components/Buttons';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
   return (
     <View style={styles.expireView}>
-      <Text style={styles.expireText}>
-        Deine Produkte, die in der nächsten Zeit ablaufen:
-      </Text>
+      <Text style={styles.expireText}>Demnächst laufen ab:</Text>
     </View>
   );
 }
@@ -66,10 +64,12 @@ function HomeScreen({ navigation }) {
     isSnackBarVisible,
     addLastDeletedProduct,
     deleteAll,
+    sendNotification,
   } = useContext(Context);
 
   return (
     <View style={styles.container}>
+      <Statistics style={styles.statistics} products={products} />
       <Expire />
       {/* wait for productsSortedByDate to receive data via the useEffect hook in Context */}
       {productsSortedByDate && (
@@ -88,14 +88,26 @@ function HomeScreen({ navigation }) {
                 </Text>
               )}
             />
-          </View>
-          <Statistics
-            style={styles.statistics}
-            products={productsSortedByDate}
+          )}
+          // element to be rendered when list is empty
+          ListEmptyComponent={() => (
+            <Text style={styles.listEmpty}>
+              Deine Liste enthält keine Produkte
+            </Text>
+          )}
+        />
+        {products.length > 0 && (
+          <Button
+            title={'Alle Produkte'}
+            onPress={() => navigation.navigate('ListScreen')}
           />
-        </React.Fragment>
-      )}
-      <Button title={'Delete database'} onPress={deleteAll} />
+        )}
+        <PrimaryButton
+          title={'Mitteilung'}
+          color={'orange'}
+          onPress={() => sendNotification()}
+        />
+      </View>
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"
@@ -118,6 +130,8 @@ const styles = StyleSheet.create({
   },
   expireView: {
     paddingHorizontal: 15,
+    marginTop: 60,
+    marginBottom: 15,
   },
   expireText: {
     fontWeight: 'bold',
@@ -129,7 +143,7 @@ const styles = StyleSheet.create({
   numbersContainer: {
     marginTop: 30,
     paddingHorizontal: 20,
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     flexDirection: 'row',
   },
   statNumbers: {
@@ -139,7 +153,7 @@ const styles = StyleSheet.create({
   labelsContainer: {
     marginVertical: 10,
     paddingHorizontal: 20,
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     flexDirection: 'row',
   },
   statLabels: {
