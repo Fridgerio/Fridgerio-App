@@ -17,36 +17,38 @@ import { StyledIonicon } from '../components/styled-components/Icons';
 
 function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
-  const [name, setName] = useState(product ? product.productName : null);
+  const name = product ? product.productName : undefined;
+  const category = product ? product.productCategory : undefined;
+  const [productName, setProductName] = useState(name);
   const [amount, setAmount] = useState(null);
-  const [categories, setCategories] = useState(product ? product.categories : []);
-  const [expiryDate, setExpiryDate] = useState(null);
-  const [notification, setNotification] = useState(null);
+  const [productCategory, setProductCategory] = useState(category);
+  const [bestBeforeDate, setBestBeforeDate] = useState(null);
+  const [pushNotificationDate, setPushNotificationDate] = useState(null);
   const [customNote, setCustomNote] = useState(null);
   const { addProduct } = useContext(Context);
   const getNotificationDate = days => {
-    const notificationDate = new Date(expiryDate - days * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
-    setNotification(notificationDate);
+    const notificationDate = new Date(bestBeforeDate - days * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
+    setPushNotificationDate(notificationDate);
   };
   const dateOfToday = () => {
     const date = new Date(Date.now());
     return date.toLocaleDateString('de-DE');
   };
   const clearForm = () => {
-    setName(product ? product.name : null);
+    setProductName(productName);
     setAmount(null);
-    setCategories(product ? product.categories : []);
-    setExpiryDate(dateOfToday());
-    setNotification(null);
+    setProductCategory(productCategory);
+    setBestBeforeDate(dateOfToday());
+    setPushNotificationDate(null);
     setCustomNote(null);
   };
   const addEditProduct = () => {
     addProduct(
-      name,
+      productName,
       amount,
-      categories,
-      expiryDate,
-      notification,
+      productCategory,
+      bestBeforeDate,
+      pushNotificationDate,
       customNote,
       null
     );
@@ -60,16 +62,17 @@ function ProductFormScreen({ navigation }) {
           placeholder="z.B. Apfel"
           defaultValue={name}
           editable
-          onChangeText={text => setName(text)}
+          onChangeText={text => setProductName(text)}
           borderWidth='0'
         />
       </Textbox>
 
-      <CategoryPicker category={categories[0]} onValueChange={setCategories} />
+
+      <CategoryPicker category={category} onValueChange={setProductCategory} />
 
       <NumberPicker title="Menge" maxNum={10} onValueChange={setAmount} />
 
-      <BestBeforeDatePicker onValueChange={setExpiryDate} />
+      <BestBeforeDatePicker onValueChange={setBestBeforeDate} />
 
       <NumberPicker
         title="Benachrichtigung"

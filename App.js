@@ -49,8 +49,20 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   const loadAssetsAsync = async () => {
-    // dummy import
-    const imageAssets = cacheImages([require('./assets/splash.png')]);
+    const imageAssets = cacheImages([
+      require('./assets/img/all.png'),
+      require('./assets/img/bread-pastry.png'),
+      require('./assets/img/canned.png'),
+      require('./assets/img/dairy.png'),
+      require('./assets/img/drinks.png'),
+      require('./assets/img/frozen.png'),
+      require('./assets/img/fruits-vegetables.png'),
+      require('./assets/img/meat.png'),
+      require('./assets/img/pasta.png'),
+      require('./assets/img/sauces-oils-spices.png'),
+      require('./assets/img/snacks-sweets.png'),
+      require('./assets/img/uncategorized.png'),
+    ]);
 
     const fontAssets = cacheFonts([Ionicons.font]);
 
