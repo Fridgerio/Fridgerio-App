@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import { data } from './data';
-import { Platform, Alert } from 'react-native';
+import { Platform, Alert, AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
@@ -23,7 +23,46 @@ const images = {
 export const Context = React.createContext(null);
 
 export default function ContextProvider({ children }) {
+  /* method to get the products from asyncStorage */
+  const getStoredProducts = async () => {
+    /* check if 'products' key is existing */
+    const allKeys = await AsyncStorage.getAllKeys();
+    if (allKeys.includes('products')) {
+      /* get stored products from asyncStorage and transform them */
+      const storedProductsJSON = await AsyncStorage.getItem('products');
+      const storedProducts = await JSON.parse(storedProductsJSON);
+      return storedProducts;
+    }
+    /* return null if 'products' key does not exist */
+    return null;
+  };
   const [products, setProducts] = useState(data);
+  useEffect(() => {
+    /* get stored products */
+    const asyncInit = async () => {
+      const storedProducts = await getStoredProducts();
+      if (storedProducts !== null && storedProducts.length > 0) {
+        /* set it to the local state if it is existing and not empty */
+        setProducts(storedProducts);
+      } else {
+        /* write the dummy data to asyncStorage if necessary */
+        const dataJSON = JSON.stringify(data);
+        await AsyncStorage.setItem('products', dataJSON);
+      }
+    };
+    asyncInit();
+  }, []);
+  /* method to save to local state and asyncStorage */
+  const saveProducts = async dataArray => {
+    /* save to asyncStorage */
+    await AsyncStorage.setItem('products', JSON.stringify(dataArray));
+    /* save to local state */
+    const storedJSON = await AsyncStorage.getItem('products');
+    const stored = await JSON.parse(storedJSON);
+    setProducts(stored);
+  };
+  /* further state hooks */
+  const [productsSorted, setProductsSorted] = useState([]);
   const [productsSortedByDate, setProductsSortedByDate] = useState(null);
   const [productsSortedByName, setProductsSortedByName] = useState(null);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
@@ -32,6 +71,18 @@ export default function ContextProvider({ children }) {
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
 
+  /* consistent formatting of date in the format YYYY-MM-DD */
+  const formatDate = date => {
+    const [year, month, day] = date.split('-');
+    return [day, month, year].join('.');
+  };
+  /* get permission for local notifications on iOS (maybe also Android) */
+  const getiOSNotificationPermission = async () => {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    if (status !== 'granted') {
+      await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    }
+  };
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
   const [categoryImages] = useState(images);
 
@@ -96,7 +147,8 @@ export default function ContextProvider({ children }) {
     }
 
     /* store it in the state */
-    setProducts(data);
+    // setProducts(data);
+    saveProducts(data);
     // console.warn('also in state');
   };
 
@@ -110,7 +162,8 @@ export default function ContextProvider({ children }) {
     /* store the remaining products */
     const updatedProducts = products.filter(product => product.id !== productId);
     /* write updated products to the state */
-    setProducts(updatedProducts);
+    // setProducts(updatedProducts);
+    saveProducts(updatedProducts);
     /* write deleted product to the state */
     setLastDeletedProduct(deletedProduct);
     /* snack bar message */
@@ -151,13 +204,18 @@ export default function ContextProvider({ children }) {
       const upDatedProducts = products.concat(lastDeletedProduct);
       // undoDeleteInDB();
       setLastDeletedProduct(null);
-      setProducts(upDatedProducts);
+      setLastDeletedIndex(null);
+      // setProducts(upDatedProducts);
+      saveProducts(upDatedProducts);
+
     }
   };
   /* Notification Settings for Android */
   if (Platform.OS === 'android') {
     Notifications.createChannelAndroidAsync('androidNotifications', {
+      /* channel name (will be used when notification is sent) */
       name: 'Android Notifications',
+      /* play sound */
       sound: true,
     });
   }
