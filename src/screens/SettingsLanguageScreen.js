@@ -1,12 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowCheckLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
 import { Context } from '../context/Context';
 
-function SettingsLanguageScreen() {
+function SettingsLanguageScreen({ navigation }) {
   const { language, setLanguage } = useContext(Context);
+  useEffect(() => {
+    const title =
+      language === 'DE' ? 'Wähle eine Sprache' : 'Choose a language';
+    navigation.setParams({ title });
+  }, [language]);
   return (
     <ScrollView>
       <Textbox bottomLine={Colors.PrimaryUtilityColor}>
@@ -25,14 +30,8 @@ function SettingsLanguageScreen() {
   );
 }
 
-function CustomHeader() {
-  const { language } = useContext(Context);
-  const title = language === 'DE' ? 'Wähle eine Sprache' : 'Choose a language';
-  return <Text style={{ color: 'white' }}>{title}</Text>;
-}
-
-SettingsLanguageScreen.navigationOptions = {
-  headerTitle: <CustomHeader />,
-};
+SettingsLanguageScreen.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam('title'),
+});
 
 export default SettingsLanguageScreen;

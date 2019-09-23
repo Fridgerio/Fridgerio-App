@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { ScrollView, Linking, Text } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { ScrollView, Linking, Text, View } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
@@ -7,6 +7,11 @@ import { Context } from '../context/Context';
 
 function SettingsScreen({ navigation }) {
   const { language } = useContext(Context);
+  useEffect(() => {
+    const title = language === 'DE' ? 'Einstellungen' : 'Settings';
+    navigation.setParams({ title });
+  }, [language]);
+
   switch (language) {
     case 'DE':
       return (
@@ -91,14 +96,8 @@ function SettingsScreen({ navigation }) {
   }
 }
 
-function CustomHeader() {
-  const { language } = useContext(Context);
-  const title = language === 'DE' ? 'Einstellungen' : 'Settings';
-  return <Text style={{ color: 'white' }}>{title}</Text>;
-}
-
-SettingsScreen.navigationOptions = {
-  headerTitle: <CustomHeader />,
-};
+SettingsScreen.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam('title'),
+});
 
 export default SettingsScreen;
