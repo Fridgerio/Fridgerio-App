@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Platform, Text } from 'react-native';
 import { Textbox } from './styled-components/Boxes';
 import { StyledText } from './styled-components/Text';
 import { Row } from './styled-components/Links';
@@ -24,8 +25,7 @@ const categories = [
   { value: '5', label: 'Getränke', icon: 'food-variant', key: 'Getränke' },
 ];
 
-// Returns picker with category names
-export default function CategoryPicker(props) {
+function ComponentIOS(props) {
   return (
     <Textbox bottomLine={Colors.PrimaryUtilityColor}>
       <Row>
@@ -43,4 +43,30 @@ export default function CategoryPicker(props) {
       </Row>
     </Textbox>
   );
+}
+
+function ComponentAndroid(props) {
+  return (
+    <Fragment>
+      <Textbox>
+        <Text>Kategorie</Text>
+      </Textbox>
+      <RNPickerSelect
+        onValueChange={value => props.onValueChange(value)}
+        items={categories}
+        itemKey={props ? props.category : null}
+        placeholder={{ label: 'Bitte wähle eine Kategorie', value: null }}
+        ref={props.categorySelector}
+      />
+    </Fragment>
+  );
+}
+
+// Returns picker with category names
+export default function CategoryPicker(props) {
+  const Component = Platform.select({
+    ios: () => ComponentIOS,
+    android: () => ComponentAndroid,
+  })();
+  return <Component />;
 }
