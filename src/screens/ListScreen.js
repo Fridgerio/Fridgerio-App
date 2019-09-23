@@ -59,7 +59,11 @@ function ListScreen({ navigation }) {
           )}
           // element to be rendered when list is empty
           ListEmptyComponent={() => (
-            <Text style={styles.listEmpty}>No products in your list</Text>
+            <Text style={styles.listEmpty}>
+              {activeCategoryFilter === 'all'
+                ? 'Keine Produkte in deiner Liste.'
+                : 'Keine Produkte in dieser Kategorie.'}
+            </Text>
           )}
         />
         <SnackBar
