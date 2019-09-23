@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, Platform } from 'react-native';
+import { View, Text, Modal, Platform, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { StyledText } from '../components/styled-components/Text.js';
-import { BarcodeFrame } from '../components/svg/BarcodeFrame';
-import HelpText from '../components/CameraHelpText';
+ import HelpText from '../components/CameraHelpText';
 import { NavigationEvents } from 'react-navigation';
 
 function CameraScreen({ navigation }) {
@@ -79,6 +78,7 @@ function CameraScreen({ navigation }) {
         /* if the product is found in the database */
         /* (1) generate a product name */
         const productName = generateName(brand, product_name, quantity);
+        const productCategory = categories ? categories[0] : undefined;
         if (
           productName === '' ||
           productName === undefined ||
@@ -88,7 +88,7 @@ function CameraScreen({ navigation }) {
           navigation.navigate('ProductFormScreen');
         } else {
           /* (2) set the product in the state */
-          setProduct({ productName, categories });
+          setProduct({ productName, productCategory });
           /* (3) show the modal */
           toggleModal(true);
         }
@@ -106,13 +106,16 @@ function CameraScreen({ navigation }) {
   };
   const redirectRight = () => {
     toggleModal(false);
-    toggleScanned(false);
-    const { name, categories } = product;
-    navigation.navigate('ProductFormScreen', { name, categories });
+    toggleScanned(true);
+    const { productName, productCategory } = product;
+    navigation.navigate('ProductFormScreen', {
+      productName,
+      productCategory,
+    });
   };
   const redirectFalse = () => {
     toggleModal(false);
-    toggleScanned(false);
+    toggleScanned(true);
     navigation.navigate('ProductFormScreen');
   };
   const handleBarCodeScanned = Platform.select({
@@ -137,7 +140,7 @@ function CameraScreen({ navigation }) {
     return <Text>Frage Kameraerlaubnis ab.</Text>;
   } else if (hasCameraPermission === false) {
     /* Render this if camera permission is denied */
-    return <Text>Kein Zugriff auf Kamera.</Text>;
+    return <Text>Kein Zugriff auf Kamera.</Text>; 
   }
   /* Render this if camera permission is granted */
   return (
@@ -148,6 +151,7 @@ function CameraScreen({ navigation }) {
         justifyContent: 'space-around',
       }}
     >
+      <Image source={require("../../assets/BarcodeScannerWindow.png")} style={{width: '100%', height: '100%', position: "absolute", top: 0, right: 0, bottom: 0, left: 0}} />
       <BarCodeScanner
         barCodeTypes={[
           BarCodeScanner.Constants.BarCodeType.ean8,
@@ -161,19 +165,25 @@ function CameraScreen({ navigation }) {
           top: 0,
           bottom: 0,
           flex: 2,
+          zIndex: -10
         }}
       />
-      <BarcodeFrame />
       <NavigationEvents
-        onDidBlur={() => setShowHelp(false)}
-        onDidFocus={() => setHelpTimer()}
+        onDidBlur={() => {
+          toggleScanned(true);
+          setShowHelp(false);
+        }}
+        onDidFocus={() => {
+          toggleScanned(false);
+          setHelpTimer();
+        }}
       />
       {!showHelp && <StyledText />}
       {showHelp && <HelpText />}
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
         title={'Manuell\neingeben'}
-        font={'16px'}
+        size={'16px'}
         style={{
           opacity: 0.8,
           marginRight: 'auto',
