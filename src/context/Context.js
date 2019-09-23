@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import uuid from 'uuid/v4';
 import { data } from './data';
-import { Platform, Alert } from 'react-native';
+import { Platform, Alert, AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
@@ -63,6 +63,28 @@ export default function ContextProvider({ children }) {
     /* useEffect needs to listen to updates to products in order apply add/delete actions to the productsSortedBy states */
   }, [products]);
 
+  /* method to get the products from asyncStorage */
+  const getStoredProducts = async () => {
+    /* check if 'products' key is existing */
+    const allKeys = await AsyncStorage.getAllKeys();
+    if (allKeys.includes('products')) {
+      /* get stored products from asyncStorage and transform them */
+      const storedProductsJSON = await AsyncStorage.getItem('products');
+      const storedProducts = await JSON.parse(storedProductsJSON);
+      return storedProducts;
+    }
+    /* return null if 'products' key does not exist */
+    return null;
+  };
+  /* method to save to local state and asyncStorage */
+  const saveProducts = async dataArray => {
+    /* save to asyncStorage */
+    await AsyncStorage.setItem('products', JSON.stringify(dataArray));
+    /* save to local state */
+    const storedJSON = await AsyncStorage.getItem('products');
+    const stored = await JSON.parse(storedJSON);
+    setProducts(stored);
+  };
   /* wrapper functions */
   /* add a product to the state and also to the database */
   const addProduct = (
@@ -94,8 +116,8 @@ export default function ContextProvider({ children }) {
       console.warn(data);
     }
 
-    /* store it in the state */
-    setProducts(data);
+    /* store it in the state and in AsyncStorage */
+    saveProducts(data);
     // console.warn('also in state');
   };
 
@@ -109,7 +131,7 @@ export default function ContextProvider({ children }) {
     /* store the remaining products */
     const updatedProducts = products.filter(product => product.id !== productId);
     /* write updated products to the state */
-    setProducts(updatedProducts);
+    saveProducts(updatedProducts);
     /* write deleted product to the state */
     setLastDeletedProduct(deletedProduct);
     /* snack bar message */
@@ -150,7 +172,7 @@ export default function ContextProvider({ children }) {
       const upDatedProducts = products.concat(lastDeletedProduct);
       // undoDeleteInDB();
       setLastDeletedProduct(null);
-      setProducts(upDatedProducts);
+      saveProducts(upDatedProducts);
     }
   };
   /* format the date */
@@ -215,6 +237,19 @@ export default function ContextProvider({ children }) {
   useEffect(() => {
     getiOSNotificationPermission();
     listenForNotifications();
+    /* get stored products */
+    const asyncInit = async () => {
+      const storedProducts = await getStoredProducts();
+      if (storedProducts !== null && storedProducts.length > 0) {
+        /* set it to the local state if it is existing and not empty */
+        setProducts(storedProducts);
+      } else {
+        /* write the dummy data to asyncStorage if necessary */
+        const dataJSON = JSON.stringify(data);
+        await AsyncStorage.setItem('products', dataJSON);
+      }
+    };
+    asyncInit();
   });
   return (
     <Context.Provider
