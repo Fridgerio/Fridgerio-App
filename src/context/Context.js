@@ -63,7 +63,6 @@ export default function ContextProvider({ children }) {
     /* useEffect needs to listen to updates to products in order apply add/delete actions to the productsSortedBy states */
   }, [products]);
 
-
   /* wrapper functions */
   /* add a product to the state and also to the database */
   const addProduct = (
@@ -152,6 +151,18 @@ export default function ContextProvider({ children }) {
       // undoDeleteInDB();
       setLastDeletedProduct(null);
       setProducts(upDatedProducts);
+    }
+  };
+  /* format the date */
+  const formatDate = date => {
+    const [year, month, day] = date.split('-');
+    return [day, month, year].join('.');
+  };
+  /* ask for permission for IOS */
+  const getiOSNotificationPermission = async () => {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    if (status !== 'granted') {
+      await Permissions.askAsync(Permissions.NOTIFICATIONS);
     }
   };
   /* Notification Settings for Android */
