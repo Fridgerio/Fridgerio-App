@@ -5,10 +5,15 @@ import CategoryPicker from '../components/CategoryPicker';
 import AddLabels from '../components/AddLabels';
 import NumberPicker from '../components/NumberPicker';
 import BestBeforeDatePicker from '../components/BestBeforeDatePicker';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Input } from '../components/styled-components/Inputs';
+import { Row } from '../components/styled-components/Links';
+import { Colors } from '../components/styled-components/Variables';
+import { Textbox, Elementbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
+import { StyledText } from '../components/styled-components/Text';
+import { StyledIonicon } from '../components/styled-components/Icons';
 
 function ProductFormScreen({ navigation }) {
   const product = navigation.state.params;
@@ -51,28 +56,17 @@ function ProductFormScreen({ navigation }) {
   // console.log(product);
   return (
     <ScrollView>
-      {/* Large category icon */}
-      <MaterialCommunityIcons
-        name="food-apple"
-        style={{
-          color: '#7da10d',
-          fontSize: 150,
-          width: 150,
-          height: 150,
-          paddingRight: 15,
-          backgroundColor: '#1b4e55',
-          alignSelf: 'flex-end',
-          margin: 10,
-        }}
-      />
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Input
+          inputLabel="Name"
+          placeholder="z.B. Apfel"
+          defaultValue={name}
+          editable
+          onChangeText={text => setProductName(text)}
+          borderWidth='0'
+        />
+      </Textbox>
 
-      <Input
-        inputLabel="Name"
-        placeholder="z.B. Apfel"
-        defaultValue={name}
-        editable
-        onChangeText={text => setProductName(text)}
-      />
 
       <CategoryPicker category={category} onValueChange={setProductCategory} />
 
@@ -86,29 +80,22 @@ function ProductFormScreen({ navigation }) {
         onValueChange={getNotificationDate}
       />
 
-      <Input
-        inputLabel="Notiz"
-        placeholder="Add custom note"
-        multiline
-        editable
-        textAlignVertical="top"
-        onChangeText={text => setCustomNote(text)}
-      />
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Input
+          inputLabel="Notiz"
+          placeholder="Add custom note"
+          multiline
+          editable
+          textAlignVertical="top"
+          borderWidth='0'
+          onChangeText={text => setCustomNote(text)}
+        />
+      </Textbox>
 
-      <FlatList
-        data={[
-          { key: 'x', name: 'Abbrechen', function: () => clearForm() },
-          {
-            key: 'v',
-            name: 'Speichern',
-            function: () => addEditProduct(),
-          },
-        ]}
-        keyExtractor={item => item.key}
-        renderItem={({ item }) => (
-          <PrimaryButton title={item.name} onPress={item.function} />
-        )}
-      />
+      <Elementbox>
+        <PrimaryButton title="Abbrechen" onPress={() => clearForm()} flex="1" margin="3px" />
+        <PrimaryButton title="Speichern" onPress={() => addEditProduct()} flex="1" margin="3px" />
+      </Elementbox>
     </ScrollView>
   );
 }
@@ -119,9 +106,7 @@ ProductFormScreen.navigationOptions = ({ navigation }) => ({
       ? 'Neues Produkt'
       : 'Produkt Bearbeiten',
   headerRight: (
-    <Text>
-      <Ionicons name="md-trash" size={22} color="white" />
-    </Text>
+    <StyledIonicon name="md-trash" color={Colors.LightColor} margin="0 10px" padding="5px" />
   ),
 });
 

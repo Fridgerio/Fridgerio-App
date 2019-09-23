@@ -1,7 +1,11 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
+import { StyledText } from './styled-components/Text';
+import { Row } from './styled-components/Links';
+import { Colors, FontSize } from './styled-components/Variables';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { Ionicons } from '@expo/vector-icons';
 
 export default class DateTimePickerTester extends React.Component {
   constructor(props) {
@@ -37,21 +41,29 @@ export default class DateTimePickerTester extends React.Component {
   render() {
     const { date, visible } = this.state;
     return (
-      <React.Fragment>
-        <TouchableOpacity onPress={this.showDateTimePicker}>
-          <Textbox>
-            <Text>Mindesthaltbarkeitsdatum</Text>
-            <Text>{date.toLocaleDateString('de-DE')}</Text>
-          </Textbox>
-        </TouchableOpacity>
-        <DateTimePicker
-          titleIOS="Wähle das Datum"
-          date={date}
-          isVisible={visible}
-          onConfirm={this.handleDatePicked}
-          onCancel={this.hideDateTimePicker}
-        />
-      </React.Fragment>
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Row>
+          <StyledText>Mindesthaltbarkeitsdatum</StyledText>
+        </Row>
+        <Row>
+          <TouchableOpacity onPress={this.showDateTimePicker}>
+            <StyledText 
+              color="#C7C7CD"
+              size={FontSize.small}
+            >
+              {date.toLocaleDateString('de-DE')}
+            </StyledText>
+          </TouchableOpacity>
+          <Ionicons name="ios-arrow-down" size={24} />
+        </Row>
+          <DateTimePicker
+            titleIOS="Wähle das Datum"
+            date={date}
+            isVisible={visible}
+            onConfirm={this.handleDatePicked}
+            onCancel={this.hideDateTimePicker}
+          />
+      </Textbox>
     );
   }
 }
