@@ -2,10 +2,8 @@ import React, { useContext } from 'react';
 import { Elementbox } from './styled-components/Boxes';
 import { PrimaryButton } from './styled-components/Buttons';
 import { Context } from '../context/Context';
-import { Text } from 'react-native';
 
 function SortingTabs() {
-  console.log('We are here');
   const { sortMethod, setSortMethod } = useContext(Context);
 
   const sortByDate = () => {
