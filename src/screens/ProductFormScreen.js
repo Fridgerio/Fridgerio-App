@@ -175,14 +175,14 @@ ProductFormScreen.navigationOptions = ({ navigation }) => ({
     navigation.dangerouslyGetParent().state.routeName == 'Add'
       ? 'Neues Produkt'
       : 'Produkt Bearbeiten',
-  headerRight: (
-    <StyledIonicon
-      name="md-trash"
-      color={Colors.LightColor}
-      margin="0 10px"
-      padding="5px"
-    />
-  ),
+  // headerRight: (
+  // <StyledIonicon
+  //   name="md-trash"
+  //   color={Colors.LightColor}
+  //   margin="0 10px"
+  //   padding="5px"
+  // />
+  // ),
 });
 
 export default ProductFormScreen;
