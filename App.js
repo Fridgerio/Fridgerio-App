@@ -76,7 +76,7 @@ export default function App() {
       <AppLoading
         startAsync={loadAssetsAsync}
         onFinish={() => setIsReady(true)}
-        onError={console.warn}
+        // onError={console.warn}
       />
     );
   }

@@ -33,7 +33,7 @@ export default class DateTimePickerTester extends React.Component {
     day = day < 10 ? `0${day}` : `${day}`;
     const fullDate = [year, month, day];
     const formattedDate = fullDate.join('-');
-    console.warn('A date has been picked: ', formattedDate);
+    // console.warn('A date has been picked: ', formattedDate);
     this.props.onValueChange(formattedDate);
     this.hideDateTimePicker();
   };

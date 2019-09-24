@@ -92,7 +92,7 @@ export default function ContextProvider({ children }) {
           barcode,
         },
       ];
-      console.warn(data);
+      // console.warn(data);
     }
 
     /* store it in the state */
