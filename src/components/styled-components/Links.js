@@ -15,11 +15,11 @@ const StyledRowLinkLabel = styled.Text`
   font-family: 'FridgerioPrimaryFont';
 `;
 export const RowLink = props => {
-  const { name, title, onPress } = props;
+  const { color, name, title, onPress } = props;
   return (
     <StyledRowLink onPress={onPress}>
       <StyledRowLinkLabel>{title}</StyledRowLinkLabel>
-      <Ionicons name={name || 'ios-arrow-forward'} size={24} />
+      <Ionicons color={Colors.SecondaryUtilityColor} name={name || 'ios-arrow-forward'} size={24} />
     </StyledRowLink>
   );
 };
