@@ -60,7 +60,6 @@ export default class NumberPicker extends Component {
 
   ComponentAndroid = () => {
     const { title, numbers } = this.state;
-    console.log(this.state);
     return (
       <Fragment>
         <Textbox>

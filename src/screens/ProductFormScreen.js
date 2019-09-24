@@ -93,7 +93,6 @@ function ProductFormScreen({ navigation }) {
       navigation.navigate('ListScreen');
     }
   };
-  // console.log(product);
   return (
     <ScrollView>
       <KeyboardAvoidingView
