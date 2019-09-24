@@ -133,9 +133,7 @@ export default function ContextProvider({ children }) {
     const deletedProduct = products.find(product => product.id === productId);
 
     /* store the remaining products */
-    const updatedProducts = products.filter(
-      product => product.id !== productId
-    );
+    const updatedProducts = products.filter(product => product.id !== productId);
     /* write updated products to the state */
     saveProducts(updatedProducts);
     /* write deleted product to the state */
@@ -205,9 +203,7 @@ export default function ContextProvider({ children }) {
     /* notification to be sent */
     const localNotification = {
       title: 'Produkt läuft ab',
-      body: `Das Produkt ${products[0].productName} läuft am ${formatDate(
-        products[0].bestBeforeDate
-      )} ab.`,
+      body: `Das Produkt ${products[0].productName} läuft am ${formatDate(products[0].bestBeforeDate)} ab.`,
       /* settings for android */
       android: {
         channelId: 'androidNotifications',
