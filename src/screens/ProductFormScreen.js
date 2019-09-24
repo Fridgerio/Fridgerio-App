@@ -25,7 +25,7 @@ function ProductFormScreen({ navigation }) {
   const [amount, setAmount] = useState(1);
   const [productCategory, setProductCategory] = useState(category);
   const [bestBeforeDate, setBestBeforeDate] = useState(dateOfToday());
-  const [pushNotificationDate, setPushNotificationDate] = useState(null);
+  const [pushNotificationDate, setPushNotificationDate] = useState(3);
   const [customNote, setCustomNote] = useState(null);
   const [error, setError] = useState(null);
   /* add function from Context */
@@ -122,6 +122,8 @@ function ProductFormScreen({ navigation }) {
         title="Benachrichtigung"
         maxNum={14}
         onValueChange={getNotificationDate}
+        defaultValue={3}
+        type={'notification'}
       />
 
       <Textbox bottomLine={Colors.PrimaryUtilityColor}>

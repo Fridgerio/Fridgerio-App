@@ -25,7 +25,15 @@ export default class NumberPicker extends Component {
   CreateNumberPicker = () => {
     const numbers = [];
     for (let i = 1; i <= this.state.maxNum; i++) {
-      numbers.push({ label: `${i}`, value: i });
+      if (this.props.type === 'notification') {
+        if (i === 1) {
+          numbers.push({ label: `${i} Tag vorher`, value: i });
+        } else {
+          numbers.push({ label: `${i} Tage vorher`, value: i });
+        }
+      } else {
+        numbers.push({ label: `${i}`, value: i });
+      }
     }
     this.setState({ numbers: numbers });
     return numbers;
