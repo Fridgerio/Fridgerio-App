@@ -95,9 +95,15 @@ function HomeScreen({ navigation }) {
         </React.Fragment>
       )}
       {products.length > 0 && (
-        <Button
+        <PrimaryButton
           title={'Alle Produkte'}
           onPress={() => navigation.navigate('ListScreen')}
+          style={{
+            marginTop: 30,
+            marginBottom: 30,
+            marginRight: 'auto',
+            marginLeft: 'auto',
+          }}
         />
       )}
       <PrimaryButton
