@@ -25,7 +25,15 @@ export default class NumberPicker extends Component {
   CreateNumberPicker = () => {
     const numbers = [];
     for (let i = 1; i <= this.state.maxNum; i++) {
-      numbers.push({ label: `${i}`, value: i });
+      if (this.props.type === 'notification') {
+        if (i === 1) {
+          numbers.push({ label: `${i} Tag vorher`, value: i });
+        } else {
+          numbers.push({ label: `${i} Tage vorher`, value: i });
+        }
+      } else {
+        numbers.push({ label: `${i}`, value: i });
+      }
     }
     this.setState({ numbers: numbers });
     return numbers;
@@ -48,25 +56,24 @@ export default class NumberPicker extends Component {
         </Row>
       </Textbox>
     );
-  }
-  
+  };
+
   ComponentAndroid = () => {
     const { title, numbers } = this.state;
-    console.log(this.state)
     return (
       <Fragment>
         <Textbox>
           <Text>{title}</Text>
         </Textbox>
         <RNPickerSelect
-          onValueChange={value => props.onValueChange(value)}
+          value={this.props.defaultValue}
+          onValueChange={value => this.props.onValueChange(value)}
           items={numbers}
           placeholder={{ label: 'Bitte wähle eine Zahl', value: null }}
         />
       </Fragment>
     );
-  }
-  
+  };
 
   render() {
     const Component = Platform.select({

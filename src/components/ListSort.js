@@ -21,14 +21,12 @@ function SortingTabs() {
         color="transparent"
         title="A-Z"
         active={sortMethod === 'productName'}
-        style={{ flex: 1 }}
       />
       <PrimaryButton
         onPress={sortByDate}
         color="transparent"
         title="Datum"
         active={sortMethod === 'bestBeforeDate'}
-        style={{ flex: 1 }}
       />
     </Elementbox>
   );

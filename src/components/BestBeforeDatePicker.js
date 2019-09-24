@@ -47,22 +47,19 @@ export default class DateTimePickerTester extends React.Component {
         </Row>
         <Row>
           <TouchableOpacity onPress={this.showDateTimePicker}>
-            <StyledText 
-              color="#C7C7CD"
-              size={FontSize.small}
-            >
+            <StyledText color="#C7C7CD" size={FontSize.small}>
               {date.toLocaleDateString('de-DE')}
             </StyledText>
           </TouchableOpacity>
           <Ionicons name="ios-arrow-down" size={24} />
         </Row>
-          <DateTimePicker
-            titleIOS="Wähle das Datum"
-            date={date}
-            isVisible={visible}
-            onConfirm={this.handleDatePicked}
-            onCancel={this.hideDateTimePicker}
-          />
+        <DateTimePicker
+          titleIOS="Wähle das Datum"
+          date={date}
+          isVisible={visible}
+          onConfirm={this.handleDatePicked}
+          onCancel={this.hideDateTimePicker}
+        />
       </Textbox>
     );
   }
