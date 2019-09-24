@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
+import { Colors } from './Variables';
 
 const StyledRowLink = styled.TouchableOpacity`
   flex-direction: row;
@@ -24,11 +25,11 @@ export const RowLink = props => {
 };
 
 export const RowCheckLink = props => {
-  const { name, title, onPress } = props;
+  const { color, name, title, onPress } = props;
   return (
     <StyledRowLink onPress={onPress}>
       <StyledRowLinkLabel>{title}</StyledRowLinkLabel>
-      {name ? <Ionicons name={name} size={24} /> : <Text />}
+      {name ? <Ionicons color={Colors.PrimaryColor} name={name} size={24} /> : <Text />}
     </StyledRowLink>
   );
 };
