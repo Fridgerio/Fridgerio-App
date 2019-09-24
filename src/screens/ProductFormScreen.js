@@ -36,10 +36,10 @@ function ProductFormScreen({ navigation }) {
     setPushNotificationDate(notificationDate);
   };
   /* calculate the date of today */
-  const dateOfToday = () => {
+  function dateOfToday() {
     const date = new Date(Date.now());
     return date.toLocaleDateString('de-DE');
-  };
+  }
   /* clear the form (cancel button at the end of the form) */
   const clearForm = () => {
     /* reset all states to original values */
