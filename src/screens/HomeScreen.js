@@ -24,9 +24,10 @@ function Statistics({ products }) {
     const year = todayDateObject.getFullYear();
     month = month < 10 ? `0${month}` : `${month}`;
     day = day < 10 ? `0${day}` : `${day}`;
+    /* set reference time always to midnight */
     const todayObject = new Date(`${year}-${month}-${day}T00:00:00`);
     const today = Number((todayObject.getTime() / 1000).toFixed(0));
-    /* reference date (now or in 7 days etc.) as a timestamp */
+    /* refernce date (now or in 7 days etc.) as a timestamp */
     const normDate = today + id * 24 * 60 * 60;
     let number;
     if (products && products.length > 0) {
