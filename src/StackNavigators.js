@@ -31,6 +31,7 @@ const defaultOptions = {
       fontWeight: 'normal',
       color: Colors.TertiaryColor, // overwrites headerTintColor
     },
+    headerBackTitle: ' ', // only the arrow without text; it's default on Android
     headerBackTitleStyle: {
       color: Colors.TertiaryColor,
     },
