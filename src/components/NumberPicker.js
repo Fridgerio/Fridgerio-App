@@ -73,13 +73,9 @@ export default class NumberPicker extends Component {
           <Text>{title}</Text>
         </Textbox>
         <RNPickerSelect
-          value={this.props.defaultValue}
           onValueChange={value => this.props.onValueChange(value)}
           items={numbers}
-          placeholder={{
-            label: numbers[0].label,
-            value: this.props.defaultValue,
-          }}
+          placeholder={{}}
         />
       </Fragment>
     );
