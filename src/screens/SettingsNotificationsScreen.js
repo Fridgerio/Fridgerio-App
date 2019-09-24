@@ -10,8 +10,7 @@ function SettingsNotificationsScreen() {
     <ScrollView>
       <StyledText>Set default notifications:</StyledText>
       <PrimaryButton
-        title={'Show notification'}
-        color={'orange'}
+        title={'Send notification'}
         onPress={() => sendNotification()}
       />
     </ScrollView>
