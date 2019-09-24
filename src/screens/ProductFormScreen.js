@@ -55,19 +55,23 @@ function ProductFormScreen({ navigation }) {
   /* function to add or edit a product (save button) */
   const addEditProduct = () => {
     /* check for empty required form fields */
+    let errorCode = 0;
     if (
       productName === null ||
       productName === undefined ||
       productName === ''
     ) {
       setError('Es wurde kein Name angegeben.');
+      errorCode = 1;
     } else if (amount === null || amount === undefined || amount === '') {
       setError('Es wurde keine Menge angegeben.');
+      errorCode = 1;
     } else {
       setError(null);
+      errorCode = 0;
     }
     /* go on if there is no error */
-    if (error === null) {
+    if (errorCode === 0) {
       /* add product to the list */
       addProduct(
         productName,
@@ -78,6 +82,8 @@ function ProductFormScreen({ navigation }) {
         customNote,
         null
       );
+    }
+    if (errorCode === 0) {
       /* navigate to the list */
       navigation.navigate('ListScreen');
     }
