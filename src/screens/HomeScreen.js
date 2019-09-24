@@ -5,7 +5,7 @@ import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { StyledText } from '../components/styled-components/Text';
-import { FontSize } from '../components/styled-components/Variables';
+import { Colors, FontSize } from '../components/styled-components/Variables';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
@@ -43,16 +43,16 @@ function Statistics({ products }) {
     <React.Fragment>
       <View style={styles.numbersContainer}>
         {numbers.map((number, index) => (
-          <Text key={index} style={styles.statNumbers}>
+          <StyledText key={index} size="24px" fontWeight="bold" color={Colors.TertiaryColor}>
             {number}
-          </Text>
+          </StyledText>
         ))}
       </View>
       <View style={styles.labelsContainer}>
         {labels.map((label, index) => (
-          <Text key={index} style={styles.statLabels}>
+          <StyledText key={index} color={Colors.TertiaryColor} size={FontSize.small}>
             {label}
-          </Text>
+          </StyledText>
         ))}
       </View>
     </React.Fragment>
@@ -141,18 +141,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     flexDirection: 'row',
   },
-  statNumbers: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
   labelsContainer: {
     marginVertical: 10,
     paddingHorizontal: 20,
     justifyContent: 'space-around',
     flexDirection: 'row',
-  },
-  statLabels: {
-    fontSize: 14,
   },
   listEmpty: {
     textAlign: 'center',
