@@ -11,6 +11,7 @@ const StyledRowLink = styled.TouchableOpacity`
 const StyledRowLinkLabel = styled.Text`
   padding: 4px 0;
   font-size: 16px;
+  font-family: 'FridgerioPrimaryFont';
 `;
 export const RowLink = props => {
   const { name, title, onPress } = props;

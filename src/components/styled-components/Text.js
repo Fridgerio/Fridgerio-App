@@ -5,6 +5,7 @@ import { Colors, FontSize } from './Variables';
 // styled Text
 const StyledStyledText = styled.Text`
   color: ${props => props.color || Colors.DarkColor};
+  font-family: 'FridgerioPrimaryFont';
   font-size: ${props => props.size || FontSize.normal};
   margin: ${props => props.margin || '0'};
   flex: ${props => props.flex || 'none'};
@@ -24,6 +25,7 @@ export const StyledText = props => (
 // Headings
 const StyledHeading = styled.Text`
   color: ${props => props.color || Colors.TertiaryColor};
+  font-family: 'FridgerioPrimaryFont';
   font-size: ${props => props.size || FontSize.large};
   margin: ${props => props.margin || '25px 0 10px 0'};
   flex: ${props => props.flex || 'none'};
@@ -45,6 +47,7 @@ export const Heading = props => (
 const StyledBlockText = styled.Text`
   text-align: justify;
   margin: ${props => props.margin || '0'};
+  font-family: 'FridgerioPrimaryFont';
   font-size: ${props => props.size || FontSize.normal};
 `;
 export const BlockText = props => (

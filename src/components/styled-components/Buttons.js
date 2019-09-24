@@ -12,6 +12,7 @@ const StyledPrimaryButton = styled.TouchableOpacity`
   border-radius: 5px;
 `;
 const StyledPrimaryButtonText = styled.Text`
+  font-family: 'FridgerioPrimaryFont';
   text-align: center;
   font-size: ${props => props.size || '18px'};
   text-decoration: ${props => (props.active ? 'underline' : 'none')};
