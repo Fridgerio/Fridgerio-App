@@ -5,7 +5,7 @@ import { Colors, FontSize } from './Variables';
 // styled Text
 const StyledStyledText = styled.Text`
   color: ${props => props.color || Colors.DarkColor};
-  font-family: 'FridgerioPrimaryFont';
+  font-family: ${props => props.fontWeight=='bold'?'FridgerioPrimaryFont-Bold':'FridgerioPrimaryFont'};
   font-size: ${props => props.size || FontSize.normal};
   margin: ${props => props.margin || '0'};
   flex: ${props => props.flex || 'none'};
