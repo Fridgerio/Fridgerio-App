@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -64,7 +64,9 @@ export default function App() {
       require('./assets/img/uncategorized.png'),
     ]);
 
-    const fontAssets = cacheFonts([Ionicons.font]);
+    const fontAssets = cacheFonts([Ionicons.font, {
+      'FridgerioPrimaryFont': require('./assets/fonts/Ebrima.ttf'),
+    }]);
 
     await Promise.all([...imageAssets, ...fontAssets]);
   };
