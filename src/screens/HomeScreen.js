@@ -121,11 +121,6 @@ function HomeScreen({ navigation }) {
           }}
         />
       )}
-      <PrimaryButton
-        title={'Mitteilung'}
-        color={'orange'}
-        onPress={() => sendNotification()}
-      />
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"
