@@ -244,19 +244,6 @@ export default function ContextProvider({ children }) {
   useEffect(() => {
     getiOSNotificationPermission();
     listenForNotifications();
-    /* get stored products */
-    const asyncInit = async () => {
-      const storedProducts = await getStoredProducts();
-      if (storedProducts !== null && storedProducts.length > 0) {
-        /* set it to the local state if it is existing and not empty */
-        setProducts(storedProducts);
-      } else {
-        /* write the dummy data to asyncStorage if necessary */
-        const dataJSON = JSON.stringify(data);
-        await AsyncStorage.setItem('products', dataJSON);
-      }
-    };
-    asyncInit();
   });
   return (
     <Context.Provider
