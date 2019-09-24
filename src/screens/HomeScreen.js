@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, FlatList, Button } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
@@ -71,7 +71,7 @@ function HomeScreen({ navigation }) {
   } = useContext(Context);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Statistics style={styles.statistics} products={products} />
       <Expire />
       {/* wait for productsSortedByDate to receive data via the useEffect hook in Context */}
@@ -118,7 +118,7 @@ function HomeScreen({ navigation }) {
         // to figure out
         distanceCallback={distance => 60}
       />
-    </View>
+    </ScrollView>
   );
 }
 
