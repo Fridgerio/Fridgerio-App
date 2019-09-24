@@ -4,12 +4,14 @@ import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
 import { PrimaryButton } from '../components/styled-components/Buttons';
+import { StyledText } from '../components/styled-components/Text';
+import { FontSize } from '../components/styled-components/Variables';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
   return (
     <View style={styles.expireView}>
-      <Text style={styles.expireText}>Demnächst laufen ab:</Text>
+      <StyledText size={FontSize.large} fontWeight="bold">Demnächst laufen ab:</StyledText>
     </View>
   );
 }
@@ -129,10 +131,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: 60,
     marginBottom: 15,
-  },
-  expireText: {
-    fontWeight: 'bold',
-    fontSize: 18,
   },
   statistics: {
     marginTop: 120,

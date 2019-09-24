@@ -9,6 +9,7 @@ const StyledStyledText = styled.Text`
   font-size: ${props => props.size || FontSize.normal};
   margin: ${props => props.margin || '0'};
   flex: ${props => props.flex || 'none'};
+  font-weight: ${props => props.fontWeight || 'normal'};
 `;
 
 export const StyledText = props => (
@@ -17,6 +18,7 @@ export const StyledText = props => (
     size={props.size}
     margin={props.margin}
     flex={props.flex}
+    fontWeight={props.fontWeight}
   >
     {props.children}
   </StyledStyledText>
