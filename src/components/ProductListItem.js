@@ -24,7 +24,7 @@ function Product({ navigation, product }) {
       // element revealed by swipe gesture
       leftContent={
         <View style={styles.leftSwipeItem}>
-          <Text style={{ color: 'white' }}>Edit</Text>
+          <Text style={{ color: 'white' }}>Bearbeiten</Text>
         </View>
       }
       /* use onLeftActionActivate if the action should not be triggered automatically by lifting the thumb */
@@ -33,7 +33,7 @@ function Product({ navigation, product }) {
       // element revealed by swipe gesture
       rightContent={
         <View style={styles.rightSwipeItem}>
-          <Text style={{ color: 'white' }}>Delete</Text>
+          <Text style={{ color: 'white' }}>Löschen</Text>
         </View>
       }
       onRightActionRelease={() => deleteProduct(product.id)}

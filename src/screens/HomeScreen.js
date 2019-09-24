@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Text, FlatList, Button } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, FlatList, Button } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
 import { PrimaryButton } from '../components/styled-components/Buttons';
+import { StyledText } from '../components/styled-components/Text';
+import { Colors, FontSize } from '../components/styled-components/Variables';
 
 /* Title for the three product entries (Your products that will expire next) */
 function Expire() {
   return (
     <View style={styles.expireView}>
-      <Text style={styles.expireText}>Demnächst laufen ab:</Text>
+      <StyledText size={FontSize.large} fontWeight="bold">3 Produkte laufen demnächst ab:</StyledText>
     </View>
   );
 }
@@ -56,16 +58,16 @@ function Statistics({ products }) {
     <React.Fragment>
       <View style={styles.numbersContainer}>
         {numbers.map((number, index) => (
-          <Text key={index} style={styles.statNumbers}>
+          <StyledText key={index} size="24px" fontWeight="bold" color={Colors.TertiaryColor}>
             {number}
-          </Text>
+          </StyledText>
         ))}
       </View>
       <View style={styles.labelsContainer}>
         {labels.map((label, index) => (
-          <Text key={index} style={styles.statLabels}>
+          <StyledText key={index} color={Colors.TertiaryColor} size={FontSize.small}>
             {label}
-          </Text>
+          </StyledText>
         ))}
       </View>
     </React.Fragment>
@@ -84,7 +86,7 @@ function HomeScreen({ navigation }) {
   } = useContext(Context);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Statistics style={styles.statistics} products={products} />
       <Expire />
       {/* wait for productsSortedByDate to receive data via the useEffect hook in Context */}
@@ -108,9 +110,15 @@ function HomeScreen({ navigation }) {
         </React.Fragment>
       )}
       {products.length > 0 && (
-        <Button
+        <PrimaryButton
           title={'Alle Produkte'}
           onPress={() => navigation.navigate('ListScreen')}
+          style={{
+            marginTop: 30,
+            marginBottom: 30,
+            marginRight: 'auto',
+            marginLeft: 'auto',
+          }}
         />
       )}
       <SnackBar
@@ -126,7 +134,7 @@ function HomeScreen({ navigation }) {
         // to figure out
         distanceCallback={distance => 60}
       />
-    </View>
+    </ScrollView>
   );
 }
 
@@ -140,10 +148,6 @@ const styles = StyleSheet.create({
     marginTop: 60,
     marginBottom: 15,
   },
-  expireText: {
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
   statistics: {
     marginTop: 120,
   },
@@ -153,18 +157,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     flexDirection: 'row',
   },
-  statNumbers: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
   labelsContainer: {
     marginVertical: 10,
     paddingHorizontal: 20,
     justifyContent: 'space-around',
     flexDirection: 'row',
-  },
-  statLabels: {
-    fontSize: 14,
   },
   listEmpty: {
     textAlign: 'center',
@@ -172,7 +169,7 @@ const styles = StyleSheet.create({
 });
 
 HomeScreen.navigationOptions = {
-  title: 'Home',
+  title: 'Fridgerio',
 };
 
 export default HomeScreen;

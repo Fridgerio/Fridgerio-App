@@ -120,6 +120,7 @@ export default function ContextProvider({ children }) {
           barcode,
         },
       ];
+      // console.log(data);
     }
 
     /* store it in the state and in AsyncStorage */

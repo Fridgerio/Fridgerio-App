@@ -8,6 +8,7 @@ export const Colors = {
   LightColor: '#fff', // white
   DarkColor: '#000', // black
   PrimaryUtilityColor: '#f0f0f0', // light grey
+  SecondaryUtilityColor: '#bfbfbf' // gray
 };
 
 // Font sizes

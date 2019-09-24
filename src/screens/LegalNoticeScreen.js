@@ -35,7 +35,7 @@ function LegalNoticeScreen() {
     if (timestamp === 0) {
       const oldLegalRaw = await AsyncStorage.getItem('legal');
       const oldLegal = await JSON.parse(oldLegalRaw);
-      console.warn(timestamp);
+      // console.warn(timestamp);
       setLegal(oldLegal);
     } else {
       try {
