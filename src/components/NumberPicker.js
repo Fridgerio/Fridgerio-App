@@ -11,7 +11,14 @@ export default class NumberPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      numbers: [{ value: 1, label: '1' }],
+      numbers: [
+        {
+          value: this.props.defaultValue,
+          label: `${this.props.defaultValue} ${
+            this.props.type === 'notification' ? 'Tage vorher' : ''
+          }`,
+        },
+      ],
       maxNum: props.maxNum,
       title: props.title,
     };
@@ -50,7 +57,7 @@ export default class NumberPicker extends Component {
           <RNPickerSelect
             onValueChange={value => this.props.onValueChange(value)}
             items={numbers}
-            placeholder={{ label: 'Bitte wähle eine Zahl', value: null }}
+            placeholder={{}}
           />
           <Ionicons name="ios-arrow-down" size={24} />
         </Row>
@@ -66,10 +73,9 @@ export default class NumberPicker extends Component {
           <Text>{title}</Text>
         </Textbox>
         <RNPickerSelect
-          value={this.props.defaultValue}
           onValueChange={value => this.props.onValueChange(value)}
           items={numbers}
-          placeholder={{ label: 'Bitte wähle eine Zahl', value: null }}
+          placeholder={{}}
         />
       </Fragment>
     );
