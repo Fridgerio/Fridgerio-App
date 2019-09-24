@@ -11,7 +11,7 @@ import { Colors, FontSize } from '../components/styled-components/Variables';
 function Expire() {
   return (
     <View style={styles.expireView}>
-      <StyledText size={FontSize.large} fontWeight="bold">Demnächst laufen ab:</StyledText>
+      <StyledText size={FontSize.large} fontWeight="bold">3 Produkte laufen demnächst ab:</StyledText>
     </View>
   );
 }
