@@ -66,6 +66,8 @@ export default function App() {
 
     const fontAssets = cacheFonts([Ionicons.font, {
       'FridgerioPrimaryFont': require('./assets/fonts/Ebrima.ttf'),
+    }, {
+      'FridgerioPrimaryFont-Bold': require('./assets/fonts/Ebrima-Bold.ttf'),
     }]);
 
     await Promise.all([...imageAssets, ...fontAssets]);
