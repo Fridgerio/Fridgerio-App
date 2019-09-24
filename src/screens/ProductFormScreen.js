@@ -129,7 +129,7 @@ function ProductFormScreen({ navigation }) {
       <Textbox bottomLine={Colors.PrimaryUtilityColor}>
         <Input
           inputLabel="Notiz"
-          placeholder="Add custom note"
+          placeholder="Füge eine eigene Notiz hinzu"
           multiline
           editable
           textAlignVertical="top"
