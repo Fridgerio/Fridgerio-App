@@ -5,6 +5,7 @@ import { Colors, FontSize } from './Variables';
 
 // Input field
 const StyledInput = styled.TextInput(props => `
+  font-family: 'FridgerioPrimaryFont';
   flex: ${props.flex || '1'};
   padding: ${props.padding || '0'};
   font-size: ${props.size || FontSize.small};
@@ -17,6 +18,7 @@ const StyledInput = styled.TextInput(props => `
 
 const InputLabel = styled.Text(props => `
   padding: ${props.padding || '0'};
+  font-family: 'FridgerioPrimaryFont';
   font-size: ${props.size || FontSize.normal}
   margin-bottom: 7px
 `);

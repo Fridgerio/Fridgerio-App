@@ -38,7 +38,7 @@ function SettingsScreen({ navigation }) {
             <RowLink
               title="Hilfe / FAQ"
               onPress={() =>
-                Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
+                Linking.openURL('https://fridgerio.de/hilfe')}
             />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>

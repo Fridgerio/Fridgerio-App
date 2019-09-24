@@ -6,6 +6,7 @@ import { Colors, FontSize } from './Variables';
 const StyledExpiryDate = styled.Text`
   flex: ${props => props.flex || '1'};
   color: ${props => props.color || Colors.TertiaryColor};
+  font-family: 'FridgerioPrimaryFont';
   font-size: ${props => props.size || FontSize.normal};
 `;
 export const ExpiryDate = props => (
