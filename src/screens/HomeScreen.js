@@ -113,11 +113,6 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate('ListScreen')}
         />
       )}
-      <PrimaryButton
-        title={'Mitteilung'}
-        color={'orange'}
-        onPress={() => sendNotification()}
-      />
       <SnackBar
         visible={isSnackBarVisible}
         textMessage="Produkt gelöscht!"
