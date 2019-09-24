@@ -46,7 +46,15 @@ const StyledBlockText = styled.Text`
   text-align: justify;
   margin: ${props => props.margin || '0'};
   font-size: ${props => props.size || FontSize.normal};
+  color: ${props => props.color || 'black'};
+  font-weight: ${props => props.weight || 'normal'};
 `;
 export const BlockText = props => (
-  <StyledBlockText margin={props.margin}>{props.children}</StyledBlockText>
+  <StyledBlockText
+    margin={props.margin}
+    color={props.color}
+    weight={props.weight}
+  >
+    {props.children}
+  </StyledBlockText>
 );

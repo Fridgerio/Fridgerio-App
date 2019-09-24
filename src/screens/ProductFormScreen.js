@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { ScrollView, Text, FlatList } from 'react-native';
+import { ScrollView, Text, FlatList, KeyboardAvoidingView } from 'react-native';
 
 import CategoryPicker from '../components/CategoryPicker';
 import AddLabels from '../components/AddLabels';
@@ -12,90 +12,160 @@ import { Row } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
 import { Textbox, Elementbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
-import { StyledText } from '../components/styled-components/Text';
+import { BlockText, StyledText } from '../components/styled-components/Text';
 import { StyledIonicon } from '../components/styled-components/Icons';
 
 function ProductFormScreen({ navigation }) {
+  /* get data from CameraScreen */
   const product = navigation.state.params;
   const name = product ? product.productName : undefined;
   const category = product ? product.productCategory : undefined;
+  /* some states */
   const [productName, setProductName] = useState(name);
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState(1);
   const [productCategory, setProductCategory] = useState(category);
-  const [bestBeforeDate, setBestBeforeDate] = useState(null);
-  const [pushNotificationDate, setPushNotificationDate] = useState(null);
+  const [bestBeforeDate, setBestBeforeDate] = useState(dateOfToday());
+  const [pushNotificationDate, setPushNotificationDate] = useState(3);
   const [customNote, setCustomNote] = useState(null);
+  const [error, setError] = useState(null);
+  /* add function from Context */
   const { addProduct } = useContext(Context);
+  /* calculate the date for the notification */
   const getNotificationDate = days => {
     const notificationDate = new Date(bestBeforeDate - days * 24 * 60 * 60 * 1000).toLocaleDateString('de-DE');
     setPushNotificationDate(notificationDate);
   };
-  const dateOfToday = () => {
+  /* calculate the date of today */
+  function dateOfToday() {
     const date = new Date(Date.now());
-    return date.toLocaleDateString('de-DE');
-  };
+    let day = date.getDate();
+    day = day < 10 ? `0${day}` : `${day}`;
+    let month = date.getMonth() + 1;
+    month = month < 10 ? `0${month}` : `${month}`;
+    const year = date.getFullYear();
+    return [year, month, day].join('-');
+  }
+  /* clear the form (cancel button at the end of the form) */
   const clearForm = () => {
+    /* reset all states to original values */
     setProductName(productName);
-    setAmount(null);
+    setAmount(1);
     setProductCategory(productCategory);
     setBestBeforeDate(dateOfToday());
     setPushNotificationDate(null);
     setCustomNote(null);
+    /* navigate back to HomeScreen */
+    navigation.navigate('HomeScreen');
   };
+  /* function to add or edit a product (save button) */
   const addEditProduct = () => {
-    addProduct(
-      productName,
-      amount,
-      productCategory,
-      bestBeforeDate,
-      pushNotificationDate,
-      customNote,
-      null
-    );
+    /* check for empty required form fields */
+    let errorCode = 0;
+    if (
+      productName === null ||
+      productName === undefined ||
+      productName === ''
+    ) {
+      setError('Es wurde kein Name angegeben.');
+      errorCode = 1;
+    } else if (amount === null || amount === undefined || amount === '') {
+      setError('Es wurde keine Menge angegeben.');
+      errorCode = 1;
+    } else {
+      setError(null);
+      errorCode = 0;
+    }
+    /* go on if there is no error */
+    if (errorCode === 0) {
+      /* add product to the list */
+      addProduct(
+        productName,
+        amount,
+        productCategory,
+        bestBeforeDate,
+        pushNotificationDate,
+        customNote,
+        null
+      );
+    }
+    if (errorCode === 0) {
+      /* navigate to the list */
+      navigation.navigate('ListScreen');
+    }
   };
-  // console.log(product);
   return (
     <ScrollView>
-      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-        <Input
-          inputLabel="Name"
-          placeholder="z.B. Apfel"
-          defaultValue={name}
-          editable
-          onChangeText={text => setProductName(text)}
-          borderWidth='0'
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={100}
+        behavior={'position'}
+      >
+        <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+          <Input
+            inputLabel="Name"
+            placeholder="z.B. Apfel"
+            defaultValue={name}
+            editable
+            onChangeText={text => setProductName(text)}
+            borderWidth="0"
+          />
+        </Textbox>
+
+        <CategoryPicker
+          category={category}
+          onValueChange={setProductCategory}
         />
-      </Textbox>
 
-
-      <CategoryPicker category={category} onValueChange={setProductCategory} />
-
-      <NumberPicker title="Menge" maxNum={10} onValueChange={setAmount} />
-
-      <BestBeforeDatePicker onValueChange={setBestBeforeDate} />
-
-      <NumberPicker
-        title="Benachrichtigung"
-        maxNum={14}
-        onValueChange={getNotificationDate}
-      />
-
-      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-        <Input
-          inputLabel="Notiz"
-          placeholder="Add custom note"
-          multiline
-          editable
-          textAlignVertical="top"
-          borderWidth='0'
-          onChangeText={text => setCustomNote(text)}
+        <NumberPicker
+          title="Menge"
+          defaultValue={amount || 1}
+          maxNum={50}
+          onValueChange={setAmount}
         />
-      </Textbox>
 
-      <Elementbox>
-        <PrimaryButton title="Abbrechen" onPress={() => clearForm()} flex="1" margin="3px" />
-        <PrimaryButton title="Speichern" onPress={() => addEditProduct()} flex="1" margin="3px" />
-      </Elementbox>
+        <BestBeforeDatePicker onValueChange={setBestBeforeDate} />
+
+        <NumberPicker
+          title="Benachrichtigung"
+          maxNum={14}
+          onValueChange={getNotificationDate}
+          defaultValue={3}
+          type={'notification'}
+        />
+
+        <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+          <Input
+            inputLabel="Notiz"
+            placeholder="Füge eine eigene Notiz hinzu"
+            multiline
+            editable
+            textAlignVertical="top"
+            borderWidth="0"
+            onChangeText={text => setCustomNote(text)}
+          />
+        </Textbox>
+
+        {error && (
+          <BlockText color={'red'} weight={'bold'}>
+            {error}
+          </BlockText>
+        )}
+
+        <Elementbox>
+          <PrimaryButton
+            title="Abbrechen"
+            onPress={() => clearForm()}
+            flex="1"
+            margin="3px"
+          />
+          <PrimaryButton
+            title="Speichern"
+            onPress={() => addEditProduct()}
+            flex="1"
+            margin="3px"
+          />
+        </Elementbox>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 }
@@ -105,9 +175,14 @@ ProductFormScreen.navigationOptions = ({ navigation }) => ({
     navigation.dangerouslyGetParent().state.routeName == 'Add'
       ? 'Neues Produkt'
       : 'Produkt Bearbeiten',
-  headerRight: (
-    <StyledIonicon name="md-trash" color={Colors.LightColor} margin="0 10px" padding="5px" />
-  ),
+  // headerRight: (
+  // <StyledIonicon
+  //   name="md-trash"
+  //   color={Colors.LightColor}
+  //   margin="0 10px"
+  //   padding="5px"
+  // />
+  // ),
 });
 
 export default ProductFormScreen;
