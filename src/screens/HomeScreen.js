@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
 });
 
 HomeScreen.navigationOptions = {
-  title: 'Home',
+  title: 'Fridgerio',
 };
 
 export default HomeScreen;
