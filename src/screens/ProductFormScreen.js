@@ -38,7 +38,12 @@ function ProductFormScreen({ navigation }) {
   /* calculate the date of today */
   function dateOfToday() {
     const date = new Date(Date.now());
-    return date.toLocaleDateString('de-DE');
+    let day = date.getDate();
+    day = day < 10 ? `0${day}` : `${day}`;
+    let month = date.getMonth() + 1;
+    month = month < 10 ? `0${month}` : `${month}`;
+    const year = date.getFullYear();
+    return [year, month, day].join('-');
   }
   /* clear the form (cancel button at the end of the form) */
   const clearForm = () => {
