@@ -11,6 +11,7 @@ import PrivacyPolicyScreen from './screens/PrivacyPolicyScreen';
 import SettingsThemeScreen from './screens/SettingsThemeScreen';
 import CameraScreen from './screens/CameraScreen';
 import ProductDetailScreen from './screens/ProductDetailScreen';
+import { Colors } from './components/styled-components/Variables';
 
 /*
 ----------
@@ -23,15 +24,15 @@ https://reactnavigation.org/docs/en/stack-navigator.html
 const defaultOptions = {
   defaultNavigationOptions: {
     headerStyle: {
-      backgroundColor: '#1C4E55',
+      backgroundColor: Colors.PrimaryColor,
     },
-    headerTintColor: '#fff',
+    headerTintColor: Colors.TertiaryColor,
     headerTitleStyle: {
       fontWeight: 'normal',
-      color: '#fff', // overwrites headerTintColor
+      color: Colors.TertiaryColor, // overwrites headerTintColor
     },
     headerBackTitleStyle: {
-      color: '#fff',
+      color: Colors.TertiaryColor,
     },
     /* gesturesEnabled enables swiping between screens, defaults to true for iOS and to false on Android */
     gesturesEnabled: true,
