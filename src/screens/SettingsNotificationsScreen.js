@@ -11,15 +11,28 @@ function SettingsNotificationsScreen({ navigation }) {
     navigation.setParams({ title });
   }, [language]);
 
-  return (
-    <ScrollView>
-      <StyledText>Set default notifications:</StyledText>
-      <PrimaryButton
-        title={'Send notification'}
-        onPress={() => sendNotification()}
-      />
-    </ScrollView>
-  );
+  switch (language) {
+    case 'DE':
+      return (
+        <ScrollView>
+          <StyledText>Passe Benachrichtigungszeiträume an:</StyledText>
+          <PrimaryButton
+            title={'Sende Notification'}
+            onPress={() => sendNotification()}
+          />
+        </ScrollView>
+      );
+    default:
+      return (
+        <ScrollView>
+          <StyledText>Set default notifications:</StyledText>
+          <PrimaryButton
+            title={'Send notification'}
+            onPress={() => sendNotification()}
+          />
+        </ScrollView>
+      );
+  }
 }
 
 SettingsNotificationsScreen.navigationOptions = ({ navigation }) => ({
