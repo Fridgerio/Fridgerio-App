@@ -1,11 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ScrollView, Text, Picker } from 'react-native';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Context } from '../context/Context';
 import { StyledText } from '../components/styled-components/Text.js';
 
-function SettingsNotificationsScreen() {
-  const { sendNotification } = useContext(Context);
+function SettingsNotificationsScreen({ navigation }) {
+  const { sendNotification, language } = useContext(Context);
+  useEffect(() => {
+    const title = language === 'DE' ? 'Benachrichtigungen' : 'Notifications';
+    navigation.setParams({ title });
+  }, [language]);
+
   return (
     <ScrollView>
       <StyledText>Set default notifications:</StyledText>
@@ -17,8 +22,8 @@ function SettingsNotificationsScreen() {
   );
 }
 
-SettingsNotificationsScreen.navigationOptions = {
-  title: 'Notifications',
-};
+SettingsNotificationsScreen.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam('title'),
+});
 
 export default SettingsNotificationsScreen;
