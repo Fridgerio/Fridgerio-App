@@ -38,18 +38,18 @@ function CategoryFilter() {
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => setActiveCategoryFilter(item.name)}>
 
-            { (item.name == "all") && <All active={activeCategoryFilter === item.name} /> }
-            { (item.name == "bread") && <Bread active={activeCategoryFilter === item.name} /> }
-            { (item.name == "canned") && <Canned active={activeCategoryFilter === item.name} /> }
-            { (item.name == "dairy") && <Dairy active={activeCategoryFilter === item.name} /> }
-            { (item.name == "drinks") && <Drinks active={activeCategoryFilter === item.name} /> }
-            { (item.name == "frozen") && <Frozen active={activeCategoryFilter === item.name} /> }
-            { (item.name == "fruits") && <Fruits active={activeCategoryFilter === item.name} /> }
-            { (item.name == "meat") && <Meat active={activeCategoryFilter === item.name} /> }
-            { (item.name == "pasta") && <Pasta active={activeCategoryFilter === item.name} /> }
-            { (item.name == "sauces") && <Sauces active={activeCategoryFilter === item.name} /> }
-            { (item.name == "snacks") && <Snacks active={activeCategoryFilter === item.name} /> }
-            { (item.name == "uncategorized") && <Uncategorized active={activeCategoryFilter === item.name} /> }
+            { (item.name == "all") && <All active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "bread") && <Bread active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "canned") && <Canned active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "dairy") && <Dairy active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "drinks") && <Drinks active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "frozen") && <Frozen active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "fruits") && <Fruits active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "meat") && <Meat active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "pasta") && <Pasta active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "sauces") && <Sauces active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "snacks") && <Snacks active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "uncategorized") && <Uncategorized active={activeCategoryFilter === item.name} filterIcon /> }
             
           </TouchableOpacity>
         )}
