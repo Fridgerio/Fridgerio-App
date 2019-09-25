@@ -45,7 +45,7 @@ function Product({ navigation, product }) {
   useEffect(() => {
     const isItemExpired = getExpired(product);
     if (isItemExpired) {
-      setDateColor('red');
+      setDateColor(Colors.WarningColor);
     }
   }, []);
 
