@@ -15,21 +15,6 @@ import { Context } from '../context/Context';
 import { dateFormat } from '../helper/helper';
 import { All, Bread, Canned, Dairy, Drinks, Frozen, Fruits, Meat, Pasta, Sauces, Snacks, Uncategorized } from '../components/svg/CategoryIcons';
 
-const categories = [
-  { name: 'all' },
-  { name: 'bread' },
-  { name: 'canned' },
-  { name: 'dairy' },
-  { name: 'drinks' },
-  { name: 'frozen' },
-  { name: 'fruits' },
-  { name: 'meat' },
-  { name: 'pasta' },
-  { name: 'sauces' },
-  { name: 'snacks' },
-  { name: 'uncategorized' }
-];
-
 function Product({ navigation, product }) {
   const { categoryImages, deleteProduct } = useContext(Context);
 
