@@ -8,6 +8,7 @@ const StyledInput = styled.TextInput(props => `
   font-family: 'FridgerioPrimaryFont';
   flex: ${props.flex || '1'};
   padding: ${props.padding || '0'};
+  margin-left: ${props.marginLeft || '0'};
   font-size: ${props.size || FontSize.small};
   background-color: ${props.background || Colors.LightColor};
   border-color: ${props.borderColor || Colors.TertiaryColor};
@@ -57,6 +58,7 @@ export const Input = props => {
     borderStyle,
     borderWidth,
     onChangeText,
+    marginLeft
   } = props;
   return (
     <StyledInputContainer
@@ -84,6 +86,7 @@ export const Input = props => {
         borderStyle={borderStyle}
         borderWidth={borderWidth}
         onChangeText={onChangeText}
+        marginLeft={marginLeft}
       >
         {children}
       </StyledInput>
@@ -99,6 +102,7 @@ const StyledSearch = styled.View(props => `
   background-color: ${props.background || Colors.PrimaryUtilityColor};
   border-radius: ${props.radius || '5px'};
   margin: ${props.margin || '10px'};
+  padding: 0 0 0 10px
 `);
 
 // Search component consists of container, input field and search logo
@@ -116,7 +120,6 @@ export const Search = props => {
     background,
     radius,
     margin,
-    style
   } = props;
   return (
     <StyledSearch
@@ -133,7 +136,6 @@ export const Search = props => {
         size={size}
         padding={padding}
         borderWidth={borderWidth}
-        style={style}
       >
         {children}
       </StyledInput>
