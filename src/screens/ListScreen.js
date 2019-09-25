@@ -90,7 +90,7 @@ function ListScreen({ navigation }) {
             <Text style={styles.listEmpty}>
               {activeCategoryFilter === 'all'
                 ? 'Keine Produkte in deiner Liste.'
-                : `Keine Produkte in der Kategorie "${activeCategoryFilter}".`}
+                : `Keine Produkte in der Kategorie "${nameOfCategory(activeCategoryFilter)}".`}
             </Text>
           )}
         />
