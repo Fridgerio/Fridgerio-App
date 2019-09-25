@@ -1,5 +1,12 @@
 import React, { useContext } from 'react';
-import { View, ScrollView, StyleSheet, Text, FlatList, Button } from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  FlatList,
+  Button,
+} from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
@@ -8,10 +15,24 @@ import { StyledText } from '../components/styled-components/Text';
 import { Colors, FontSize } from '../components/styled-components/Variables';
 
 /* Title for the three product entries (Your products that will expire next) */
-function Expire() {
+function Expire(props) {
+  const { products } = props;
+  const numberOfProducts = products.length;
+  let titleOfList;
+  if (numberOfProducts >= 3) {
+    titleOfList = '3 Produkte laufen demnächst ab:';
+  } else if (numberOfProducts === 2) {
+    titleOfList = `${numberOfProducts} Produkte laufen demnächst ab:`;
+  } else if (numberOfProducts === 1) {
+    titleOfList = `${numberOfProducts} Produkt läuft demnächst ab:`;
+  } else {
+    titleOfList = null;
+  }
   return (
     <View style={styles.expireView}>
-      <StyledText size={FontSize.large} fontWeight="bold">3 Produkte laufen demnächst ab:</StyledText>
+      <StyledText size={FontSize.large} fontWeight="bold">
+        {titleOfList && titleOfList}
+      </StyledText>
     </View>
   );
 }
@@ -58,14 +79,23 @@ function Statistics({ products }) {
     <React.Fragment>
       <View style={styles.numbersContainer}>
         {numbers.map((number, index) => (
-          <StyledText key={index} size="24px" fontWeight="bold" color={Colors.TertiaryColor}>
+          <StyledText
+            key={index}
+            size="24px"
+            fontWeight="bold"
+            color={Colors.TertiaryColor}
+          >
             {number}
           </StyledText>
         ))}
       </View>
       <View style={styles.labelsContainer}>
         {labels.map((label, index) => (
-          <StyledText key={index} color={Colors.TertiaryColor} size={FontSize.small}>
+          <StyledText
+            key={index}
+            color={Colors.TertiaryColor}
+            size={FontSize.small}
+          >
             {label}
           </StyledText>
         ))}
@@ -88,7 +118,7 @@ function HomeScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       <Statistics style={styles.statistics} products={products} />
-      <Expire />
+      <Expire products={products} />
       {/* wait for productsSortedByDate to receive data via the useEffect hook in Context */}
       {productsSortedByDate && (
         <React.Fragment>
