@@ -36,6 +36,34 @@ function ListScreen({ navigation }) {
     setSortedProducts(products);
   }, [sortMethod, productsSortedByDate, productsSortedByName]);
 
+  const nameOfCategory = shortName => {
+    switch (shortName) {
+      case 'all':
+        return 'Alle';
+      case 'bread':
+        return 'Brot, Mehl und Gebäck';
+      case 'canned':
+        return 'Konserven und Fertiggerichte';
+      case 'dairy':
+        return 'Käse und Milchprodukte';
+      case 'drinks':
+        return 'Getränke';
+      case 'frozen':
+        return 'Tiefkühlnahrung';
+      case 'fruits':
+        return 'Obst und Gemüse';
+      case 'meat':
+        return 'Fleisch, Fisch & Wurst';
+      case 'pasta':
+        return 'Getreide & Teigwaren';
+      case 'sauces':
+        return 'Soßen & Gewürze';
+      case 'snacks':
+        return 'Snacks & Süßigkeiten';
+      default:
+        return 'Unkategorisiert';
+    }
+  };
   const filterProducts = () => {
     if (activeCategoryFilter !== 'all') {
       const filtered = sortedProducts.filter(ele => ele.productCategory === activeCategoryFilter);
