@@ -12,6 +12,7 @@ import { Elementbox } from './styled-components/Boxes';
 import { StyledText } from './styled-components/Text';
 import Swipeable from 'react-native-swipeable';
 import { Context } from '../context/Context';
+import { dateFormat } from '../helper/helper';
 
 function Product({ navigation, product }) {
   const { categoryImages, deleteProduct } = useContext(Context);
@@ -49,7 +50,7 @@ function Product({ navigation, product }) {
             style={{ height: 30, width: 30, marginRight: 20 }}
           />
           <StyledText flex="4">{product.productName}</StyledText>
-          <StyledText flex="2">{product.bestBeforeDate}</StyledText>
+          <StyledText flex="2">{dateFormat(product.bestBeforeDate)}</StyledText>
         </Elementbox>
       </TouchableOpacity>
     </Swipeable>
