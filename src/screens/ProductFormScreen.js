@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { ScrollView, Text, FlatList, KeyboardAvoidingView } from 'react-native';
 
 import CategoryPicker from '../components/CategoryPicker';
@@ -14,6 +14,7 @@ import { Textbox, Elementbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
 import { BlockText, StyledText } from '../components/styled-components/Text';
 import { StyledIonicon } from '../components/styled-components/Icons';
+import { Constants } from 'expo-barcode-scanner';
 
 function ProductFormScreen({ navigation }) {
   /* get data from CameraScreen */
@@ -28,6 +29,8 @@ function ProductFormScreen({ navigation }) {
   const [pushNotificationDate, setPushNotificationDate] = useState(3);
   const [customNote, setCustomNote] = useState(null);
   const [error, setError] = useState(null);
+  const nameField = useRef(null);
+  const noteField = useRef(null);
   /* add function from Context */
   const { addProduct } = useContext(Context);
   /* calculate the date for the notification */
@@ -95,44 +98,41 @@ function ProductFormScreen({ navigation }) {
   };
   return (
     <ScrollView>
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Input
+          inputLabel="Name"
+          placeholder="z.B. Apfel"
+          defaultValue={name}
+          editable
+          onChangeText={text => setProductName(text)}
+          borderWidth="0"
+          field={nameField}
+        />
+      </Textbox>
+
+      <CategoryPicker category={category} onValueChange={setProductCategory} />
+
+      <NumberPicker
+        title="Menge"
+        defaultValue={amount || 1}
+        maxNum={50}
+        onValueChange={setAmount}
+      />
+
+      <BestBeforeDatePicker onValueChange={setBestBeforeDate} />
+
+      <NumberPicker
+        title="Benachrichtigung"
+        maxNum={14}
+        onValueChange={getNotificationDate}
+        defaultValue={3}
+        type={'notification'}
+      />
+
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        keyboardVerticalOffset={100}
-        behavior={'position'}
+        keyboardVerticalOffset={Constants.statusBarHeight}
       >
-        <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-          <Input
-            inputLabel="Name"
-            placeholder="z.B. Apfel"
-            defaultValue={name}
-            editable
-            onChangeText={text => setProductName(text)}
-            borderWidth="0"
-          />
-        </Textbox>
-
-        <CategoryPicker
-          category={category}
-          onValueChange={setProductCategory}
-        />
-
-        <NumberPicker
-          title="Menge"
-          defaultValue={amount || 1}
-          maxNum={50}
-          onValueChange={setAmount}
-        />
-
-        <BestBeforeDatePicker onValueChange={setBestBeforeDate} />
-
-        <NumberPicker
-          title="Benachrichtigung"
-          maxNum={14}
-          onValueChange={getNotificationDate}
-          defaultValue={3}
-          type={'notification'}
-        />
-
         <Textbox bottomLine={Colors.PrimaryUtilityColor}>
           <Input
             inputLabel="Notiz"
@@ -142,30 +142,31 @@ function ProductFormScreen({ navigation }) {
             textAlignVertical="top"
             borderWidth="0"
             onChangeText={text => setCustomNote(text)}
+            field={noteField}
           />
         </Textbox>
-
-        {error && (
-          <BlockText color={'red'} weight={'bold'}>
-            {error}
-          </BlockText>
-        )}
-
-        <Elementbox>
-          <PrimaryButton
-            title="Abbrechen"
-            onPress={() => clearForm()}
-            flex="1"
-            margin="3px"
-          />
-          <PrimaryButton
-            title="Speichern"
-            onPress={() => addEditProduct()}
-            flex="1"
-            margin="3px"
-          />
-        </Elementbox>
       </KeyboardAvoidingView>
+
+      {error && (
+        <BlockText color={'red'} weight={'bold'}>
+          {error}
+        </BlockText>
+      )}
+
+      <Elementbox>
+        <PrimaryButton
+          title="Abbrechen"
+          onPress={() => clearForm()}
+          flex="1"
+          margin="3px"
+        />
+        <PrimaryButton
+          title="Speichern"
+          onPress={() => addEditProduct()}
+          flex="1"
+          margin="3px"
+        />
+      </Elementbox>
     </ScrollView>
   );
 }
