@@ -38,29 +38,19 @@ function CategoryFilter() {
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => setActiveCategoryFilter(item.name)}>
 
-            { (item.name == "all") && <All /> }
-            { (item.name == "bread") && <Bread /> }
-            { (item.name == "canned") && <Canned /> }
-            { (item.name == "dairy") && <Dairy /> }
-            { (item.name == "drinks") && <Drinks /> }
-            { (item.name == "frozen") && <Frozen /> }
-            { (item.name == "fruits") && <Fruits /> }
-            { (item.name == "meat") && <Meat /> }
-            { (item.name == "pasta") && <Pasta /> }
-            { (item.name == "sauces") && <Sauces /> }
-            { (item.name == "snacks") && <Snacks /> }
-            { (item.name == "uncategorized") && <Uncategorized /> }
+            { (item.name == "all") && <All active={activeCategoryFilter === item.name} /> }
+            { (item.name == "bread") && <Bread active={activeCategoryFilter === item.name} /> }
+            { (item.name == "canned") && <Canned active={activeCategoryFilter === item.name} /> }
+            { (item.name == "dairy") && <Dairy active={activeCategoryFilter === item.name} /> }
+            { (item.name == "drinks") && <Drinks active={activeCategoryFilter === item.name} /> }
+            { (item.name == "frozen") && <Frozen active={activeCategoryFilter === item.name} /> }
+            { (item.name == "fruits") && <Fruits active={activeCategoryFilter === item.name} /> }
+            { (item.name == "meat") && <Meat active={activeCategoryFilter === item.name} /> }
+            { (item.name == "pasta") && <Pasta active={activeCategoryFilter === item.name} /> }
+            { (item.name == "sauces") && <Sauces active={activeCategoryFilter === item.name} /> }
+            { (item.name == "snacks") && <Snacks active={activeCategoryFilter === item.name} /> }
+            { (item.name == "uncategorized") && <Uncategorized active={activeCategoryFilter === item.name} /> }
             
-            <Image
-              source={item.path}
-              style={{
-                height: 30,
-                width: 30,
-                marginRight: 20,
-                opacity: activeCategoryFilter === item.name ? 1 : 0.6,
-              }}
-            />
-
           </TouchableOpacity>
         )}
       />
