@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -17,6 +17,7 @@ import { Colors } from '../components/styled-components/Variables';
 
 function Product({ navigation, product }) {
   const { categoryImages, deleteProduct } = useContext(Context);
+  const [dateColor, setDateColor] = useState(Colors.QuaternaryColor);
 
   /* dynamically calculate width for different mobile screen sizes; variable is used to set the ActionActivationDistance prop; current value will trigger action when swiping horizontally 45% of the screen width */
   const width = Dimensions.get('window').width * 0.45;
@@ -51,7 +52,7 @@ function Product({ navigation, product }) {
             style={{ height: 30, width: 30, marginRight: 20 }}
           />
           <StyledText flex="4">{product.productName}</StyledText>
-          <StyledText flex="2" color={Colors.QuaternaryColor}>
+          <StyledText flex="2" color={dateColor}>
             {dateFormat(product.bestBeforeDate)}
           </StyledText>
         </Elementbox>
