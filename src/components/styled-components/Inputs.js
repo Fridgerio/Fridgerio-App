@@ -98,7 +98,7 @@ const StyledSearch = styled.View(props => `
   height: ${props.height || '35px'};
   background-color: ${props.background || Colors.PrimaryUtilityColor};
   border-radius: ${props.radius || '5px'};
-  margin: ${props.margin || '0 0 10px 0'};
+  margin: ${props.margin || '10px'};
 `);
 
 // Search component consists of container, input field and search logo
@@ -106,6 +106,7 @@ export const Search = props => {
   const {
     placeholder,
     onEndEditing,
+    borderWidth,
     children,
     flex,
     size,
@@ -115,6 +116,7 @@ export const Search = props => {
     background,
     radius,
     margin,
+    style
   } = props;
   return (
     <StyledSearch
@@ -130,6 +132,8 @@ export const Search = props => {
         flex={flex}
         size={size}
         padding={padding}
+        borderWidth={borderWidth}
+        style={style}
       >
         {children}
       </StyledInput>
