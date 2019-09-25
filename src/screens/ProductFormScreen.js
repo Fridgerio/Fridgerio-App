@@ -1,5 +1,5 @@
-import React, { useState, useContext, useRef } from 'react';
-import { ScrollView, Text, FlatList, KeyboardAvoidingView } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { ScrollView, Text, FlatList } from 'react-native';
 
 import CategoryPicker from '../components/CategoryPicker';
 import AddLabels from '../components/AddLabels';
@@ -29,8 +29,6 @@ function ProductFormScreen({ navigation }) {
   const [pushNotificationDate, setPushNotificationDate] = useState(3);
   const [customNote, setCustomNote] = useState(null);
   const [error, setError] = useState(null);
-  const nameField = useRef(null);
-  const noteField = useRef(null);
   /* add function from Context */
   const { addProduct } = useContext(Context);
   /* calculate the date for the notification */
@@ -106,7 +104,6 @@ function ProductFormScreen({ navigation }) {
           editable
           onChangeText={text => setProductName(text)}
           borderWidth="0"
-          field={nameField}
         />
       </Textbox>
 
@@ -129,23 +126,17 @@ function ProductFormScreen({ navigation }) {
         type={'notification'}
       />
 
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={Constants.statusBarHeight}
-      >
-        <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-          <Input
-            inputLabel="Notiz"
-            placeholder="Füge eine eigene Notiz hinzu"
-            multiline
-            editable
-            textAlignVertical="top"
-            borderWidth="0"
-            onChangeText={text => setCustomNote(text)}
-            field={noteField}
-          />
-        </Textbox>
-      </KeyboardAvoidingView>
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Input
+          inputLabel="Notiz"
+          placeholder="Füge eine eigene Notiz hinzu"
+          multiline
+          editable={false}
+          textAlignVertical="top"
+          borderWidth="0"
+          onChangeText={text => setCustomNote(text)}
+        />
+      </Textbox>
 
       {error && (
         <BlockText color={'red'} weight={'bold'}>
