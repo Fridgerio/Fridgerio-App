@@ -5,20 +5,7 @@ import { Platform, Alert, AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
-const images = {
-  all: require('../../assets/img/all.png'),
-  bread: require('../../assets/img/bread-pastry.png'),
-  canned: require('../../assets/img/canned.png'),
-  dairy: require('../../assets/img/dairy.png'),
-  drinks: require('../../assets/img/drinks.png'),
-  frozen: require('../../assets/img/frozen.png'),
-  fruits: require('../../assets/img/fruits-vegetables.png'),
-  meat: require('../../assets/img/meat.png'),
-  pasta: require('../../assets/img/pasta.png'),
-  sauces: require('../../assets/img/sauces-oils-spices.png'),
-  snacks: require('../../assets/img/snacks-sweets.png'),
-  uncategorized: require('../../assets/img/uncategorized.png'),
-};
+const images = {};
 
 export const Context = React.createContext(null);
 

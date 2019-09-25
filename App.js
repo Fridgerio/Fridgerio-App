@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import TabNavigator from './src/TabNavigator';
 import ContextProvider from './src/context/Context';
 
+
 /**
 ----------
 implement switchNavigator for authentication flow:
@@ -49,20 +50,7 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   const loadAssetsAsync = async () => {
-    const imageAssets = cacheImages([
-      require('./assets/img/all.png'),
-      require('./assets/img/bread-pastry.png'),
-      require('./assets/img/canned.png'),
-      require('./assets/img/dairy.png'),
-      require('./assets/img/drinks.png'),
-      require('./assets/img/frozen.png'),
-      require('./assets/img/fruits-vegetables.png'),
-      require('./assets/img/meat.png'),
-      require('./assets/img/pasta.png'),
-      require('./assets/img/sauces-oils-spices.png'),
-      require('./assets/img/snacks-sweets.png'),
-      require('./assets/img/uncategorized.png'),
-    ]);
+    const imageAssets = cacheImages([]);
 
     const fontAssets = cacheFonts([Ionicons.font, {
       'FridgerioPrimaryFont': require('./assets/fonts/Ebrima.ttf'),
