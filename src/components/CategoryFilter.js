@@ -6,31 +6,21 @@ import { Colors } from '../components/styled-components/Variables';
 import { Elementbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
 
+import { All, Bread, Canned, Dairy, Drinks, Frozen, Fruits, Meat, Pasta, Sauces, Snacks, Uncategorized } from '../components/svg/CategoryIcons';
+
 const categories = [
-  { name: 'all', path: require('../../assets/img/all.png') },
-  { name: 'bread', path: require('../../assets/img/bread-pastry.png') },
-  { name: 'canned', path: require('../../assets/img/canned.png') },
-  { name: 'dairy', path: require('../../assets/img/dairy.png') },
-  { name: 'drinks', path: require('../../assets/img/drinks.png') },
-  { name: 'frozen', path: require('../../assets/img/frozen.png') },
-  {
-    name: 'fruits',
-    path: require('../../assets/img/fruits-vegetables.png'),
-  },
-  { name: 'meat', path: require('../../assets/img/meat.png') },
-  { name: 'pasta', path: require('../../assets/img/pasta.png') },
-  {
-    name: 'sauces',
-    path: require('../../assets/img/sauces-oils-spices.png'),
-  },
-  {
-    name: 'snacks',
-    path: require('../../assets/img/snacks-sweets.png'),
-  },
-  {
-    name: 'uncategorized',
-    path: require('../../assets/img/uncategorized.png'),
-  },
+  { name: 'all' },
+  { name: 'bread' },
+  { name: 'canned' },
+  { name: 'dairy' },
+  { name: 'drinks' },
+  { name: 'frozen' },
+  { name: 'fruits' },
+  { name: 'meat' },
+  { name: 'pasta' },
+  { name: 'sauces' },
+  { name: 'snacks' },
+  { name: 'uncategorized' }
 ];
 
 function CategoryFilter() {
@@ -47,6 +37,20 @@ function CategoryFilter() {
         style={{ marginHorizontal: 22 }}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => setActiveCategoryFilter(item.name)}>
+
+            { (item.name == "all") && <All /> }
+            { (item.name == "bread") && <Bread /> }
+            { (item.name == "canned") && <Canned /> }
+            { (item.name == "dairy") && <Dairy /> }
+            { (item.name == "drinks") && <Drinks /> }
+            { (item.name == "frozen") && <Frozen /> }
+            { (item.name == "fruits") && <Fruits /> }
+            { (item.name == "meat") && <Meat /> }
+            { (item.name == "pasta") && <Pasta /> }
+            { (item.name == "sauces") && <Sauces /> }
+            { (item.name == "snacks") && <Snacks /> }
+            { (item.name == "uncategorized") && <Uncategorized /> }
+            
             <Image
               source={item.path}
               style={{
@@ -56,6 +60,7 @@ function CategoryFilter() {
                 opacity: activeCategoryFilter === item.name ? 1 : 0.6,
               }}
             />
+
           </TouchableOpacity>
         )}
       />
