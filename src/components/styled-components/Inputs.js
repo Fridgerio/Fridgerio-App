@@ -58,7 +58,7 @@ export const Input = props => {
     borderStyle,
     borderWidth,
     onChangeText,
-    marginLeft
+    marginLeft,
   } = props;
   return (
     <StyledInputContainer
