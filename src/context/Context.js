@@ -28,7 +28,9 @@ export default function ContextProvider({ children }) {
     if (allKeys.includes('products')) {
       const storedProductsJSON = await AsyncStorage.getItem('products');
       const storedProducts = await JSON.parse(storedProductsJSON);
-      return storedProducts;
+      if (storedProducts.length >= 25) {
+        return storedProducts;
+      }
     }
     return null;
   };

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { ScrollView, Text, FlatList, KeyboardAvoidingView } from 'react-native';
+import { ScrollView, Text, FlatList } from 'react-native';
 
 import CategoryPicker from '../components/CategoryPicker';
 import AddLabels from '../components/AddLabels';
@@ -14,6 +14,7 @@ import { Textbox, Elementbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
 import { BlockText, StyledText } from '../components/styled-components/Text';
 import { StyledIonicon } from '../components/styled-components/Icons';
+import { Constants } from 'expo-barcode-scanner';
 
 function ProductFormScreen({ navigation }) {
   /* get data from CameraScreen */
@@ -95,77 +96,68 @@ function ProductFormScreen({ navigation }) {
   };
   return (
     <ScrollView>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        keyboardVerticalOffset={100}
-        behavior={'position'}
-      >
-        <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-          <Input
-            inputLabel="Name"
-            placeholder="z.B. Apfel"
-            defaultValue={name}
-            editable
-            onChangeText={text => setProductName(text)}
-            borderWidth="0"
-          />
-        </Textbox>
-
-        <CategoryPicker
-          category={category}
-          onValueChange={setProductCategory}
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Input
+          inputLabel="Name"
+          placeholder="z.B. Apfel"
+          defaultValue={name}
+          editable
+          onChangeText={text => setProductName(text)}
+          borderWidth="0"
         />
+      </Textbox>
 
-        <NumberPicker
-          title="Menge"
-          defaultValue={amount || 1}
-          maxNum={50}
-          onValueChange={setAmount}
+      <CategoryPicker category={category} onValueChange={setProductCategory} />
+
+      <NumberPicker
+        title="Menge"
+        defaultValue={amount || 1}
+        maxNum={50}
+        onValueChange={setAmount}
+      />
+
+      <BestBeforeDatePicker onValueChange={setBestBeforeDate} />
+
+      <NumberPicker
+        title="Benachrichtigung"
+        maxNum={14}
+        onValueChange={getNotificationDate}
+        defaultValue={3}
+        type={'notification'}
+      />
+
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Input
+          inputLabel="Notiz"
+          placeholder="Füge eine eigene Notiz hinzu"
+          multiline
+          editable={false}
+          textAlignVertical="top"
+          borderWidth="0"
+          onChangeText={text => setCustomNote(text)}
         />
+      </Textbox>
 
-        <BestBeforeDatePicker onValueChange={setBestBeforeDate} />
+      {error && (
+        <BlockText color={'red'} weight={'bold'}>
+          {error}
+        </BlockText>
+      )}
 
-        <NumberPicker
-          title="Benachrichtigung"
-          maxNum={14}
-          onValueChange={getNotificationDate}
-          defaultValue={3}
-          type={'notification'}
+      <Elementbox>
+        <PrimaryButton
+          title="Abbrechen"
+          onPress={() => clearForm()}
+          flex="1"
+          margin="3px"
         />
-
-        <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-          <Input
-            inputLabel="Notiz"
-            placeholder="Füge eine eigene Notiz hinzu"
-            multiline
-            editable
-            textAlignVertical="top"
-            borderWidth="0"
-            onChangeText={text => setCustomNote(text)}
-          />
-        </Textbox>
-
-        {error && (
-          <BlockText color={'red'} weight={'bold'}>
-            {error}
-          </BlockText>
-        )}
-
-        <Elementbox>
-          <PrimaryButton
-            title="Abbrechen"
-            onPress={() => clearForm()}
-            flex="1"
-            margin="3px"
-          />
-          <PrimaryButton
-            title="Speichern"
-            onPress={() => addEditProduct()}
-            flex="1"
-            margin="3px"
-          />
-        </Elementbox>
-      </KeyboardAvoidingView>
+        <PrimaryButton
+          title="Speichern"
+          onPress={() => addEditProduct()}
+          flex="1"
+          margin="3px"
+        />
+      </Elementbox>
     </ScrollView>
   );
 }
