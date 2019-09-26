@@ -41,7 +41,9 @@ export default function ContextProvider({ children }) {
     if (allKeys.includes('products')) {
       const storedProductsJSON = await AsyncStorage.getItem('products');
       const storedProducts = await JSON.parse(storedProductsJSON);
-      return storedProducts;
+      if (storedProducts.length >= 25) {
+        return storedProducts;
+      }
     }
     return null;
   };
@@ -204,8 +206,10 @@ export default function ContextProvider({ children }) {
   const sendNotification = () => {
     /* notification to be sent */
     const localNotification = {
-      title: 'Produkt läuft ab',
-      body: `Das Produkt ${products[0].productName} läuft am ${formatDate(products[0].bestBeforeDate)} ab.`,
+      title: 'Product expires soon',
+      body: `Your product ${
+        products[0].productName
+      } is about to expire on ${formatDate(products[0].bestBeforeDate)}`,
       /* settings for android */
       android: {
         channelId: 'androidNotifications',
