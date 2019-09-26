@@ -6,31 +6,21 @@ import { Colors } from '../components/styled-components/Variables';
 import { Elementbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
 
+import { All, Bread, Canned, Dairy, Drinks, Frozen, Fruits, Meat, Pasta, Sauces, Snacks, Uncategorized } from '../components/svg/CategoryIcons';
+
 const categories = [
-  { name: 'all', path: require('../../assets/img/all.png') },
-  { name: 'bread', path: require('../../assets/img/bread-pastry.png') },
-  { name: 'canned', path: require('../../assets/img/canned.png') },
-  { name: 'dairy', path: require('../../assets/img/dairy.png') },
-  { name: 'drinks', path: require('../../assets/img/drinks.png') },
-  { name: 'frozen', path: require('../../assets/img/frozen.png') },
-  {
-    name: 'fruits',
-    path: require('../../assets/img/fruits-vegetables.png'),
-  },
-  { name: 'meat', path: require('../../assets/img/meat.png') },
-  { name: 'pasta', path: require('../../assets/img/pasta.png') },
-  {
-    name: 'sauces',
-    path: require('../../assets/img/sauces-oils-spices.png'),
-  },
-  {
-    name: 'snacks',
-    path: require('../../assets/img/snacks-sweets.png'),
-  },
-  {
-    name: 'uncategorized',
-    path: require('../../assets/img/uncategorized.png'),
-  },
+  { name: 'all' },
+  { name: 'bread' },
+  { name: 'canned' },
+  { name: 'dairy' },
+  { name: 'drinks' },
+  { name: 'frozen' },
+  { name: 'fruits' },
+  { name: 'meat' },
+  { name: 'pasta' },
+  { name: 'sauces' },
+  { name: 'snacks' },
+  { name: 'uncategorized' }
 ];
 
 function CategoryFilter() {
@@ -47,15 +37,20 @@ function CategoryFilter() {
         style={{ marginHorizontal: 22 }}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => setActiveCategoryFilter(item.name)}>
-            <Image
-              source={item.path}
-              style={{
-                height: 30,
-                width: 30,
-                marginRight: 20,
-                opacity: activeCategoryFilter === item.name ? 1 : 0.6,
-              }}
-            />
+
+            { (item.name == "all") && <All active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "bread") && <Bread active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "canned") && <Canned active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "dairy") && <Dairy active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "drinks") && <Drinks active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "frozen") && <Frozen active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "fruits") && <Fruits active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "meat") && <Meat active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "pasta") && <Pasta active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "sauces") && <Sauces active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "snacks") && <Snacks active={activeCategoryFilter === item.name} filterIcon /> }
+            { (item.name == "uncategorized") && <Uncategorized active={activeCategoryFilter === item.name} filterIcon /> }
+            
           </TouchableOpacity>
         )}
       />

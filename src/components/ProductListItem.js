@@ -13,6 +13,20 @@ import { StyledText } from './styled-components/Text';
 import Swipeable from 'react-native-swipeable';
 import { Context } from '../context/Context';
 import { dateFormat } from '../helper/helper';
+import {
+  All,
+  Bread,
+  Canned,
+  Dairy,
+  Drinks,
+  Frozen,
+  Fruits,
+  Meat,
+  Pasta,
+  Sauces,
+  Snacks,
+  Uncategorized,
+} from '../components/svg/CategoryIcons';
 import { Colors } from '../components/styled-components/Variables';
 
 /* function accepts product and checks if it is already expired*/
@@ -77,10 +91,18 @@ function Product({ navigation, product }) {
         activeOpacity={0.7}
       >
         <Elementbox withBottomLine>
-          <Image
-            source={categoryImages[product.productCategory]}
-            style={{ height: 30, width: 30, marginRight: 20 }}
-          />
+          {product.productCategory == 'all' && <All />}
+          {product.productCategory == 'bread' && <Bread />}
+          {product.productCategory == 'canned' && <Canned />}
+          {product.productCategory == 'dairy' && <Dairy />}
+          {product.productCategory == 'drinks' && <Drinks />}
+          {product.productCategory == 'frozen' && <Frozen />}
+          {product.productCategory == 'fruits' && <Fruits />}
+          {product.productCategory == 'meat' && <Meat />}
+          {product.productCategory == 'pasta' && <Pasta />}
+          {product.productCategory == 'sauces' && <Sauces />}
+          {product.productCategory == 'snacks' && <Snacks />}
+          {product.productCategory == 'uncategorized' && <Uncategorized />}
           <StyledText flex="4">{product.productName}</StyledText>
           <StyledText flex="2" color={dateColor}>
             {dateFormat(product.bestBeforeDate)}
