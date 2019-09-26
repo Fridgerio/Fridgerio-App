@@ -141,7 +141,6 @@
     ],
     "react/button-has-type": 2,
     "react/default-props-match-prop-types": 2,
-    "react/forbid-component-props": 2,
     "react/forbid-prop-types": 2,
     "react/jsx-boolean-value": [2, "never"],
     "react/jsx-child-element-spacing": 2,
