@@ -54,7 +54,7 @@ const getExpired = product => {
 
 function Product({ navigation, product }) {
   const { categoryImages, deleteProduct } = useContext(Context);
-  const [dateColor, setDateColor] = useState(Colors.QuaternaryColor);
+  const [dateColor, setDateColor] = useState(Colors.DarkColor);
 
   useEffect(() => {
     const isItemExpired = getExpired(product);
