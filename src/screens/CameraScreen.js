@@ -4,8 +4,9 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { StyledText } from '../components/styled-components/Text.js';
- import HelpText from '../components/CameraHelpText';
+import HelpText from '../components/CameraHelpText';
 import { NavigationEvents } from 'react-navigation';
+import { Elementbox } from '../components/styled-components/Boxes';
 
 function CameraScreen({ navigation }) {
   /* State Hooks and functions to change these states */
@@ -140,7 +141,7 @@ function CameraScreen({ navigation }) {
     return <Text>Frage Kameraerlaubnis ab.</Text>;
   } else if (hasCameraPermission === false) {
     /* Render this if camera permission is denied */
-    return <Text>Kein Zugriff auf Kamera.</Text>; 
+    return <Text>Kein Zugriff auf Kamera.</Text>;
   }
   /* Render this if camera permission is granted */
   return (
@@ -151,7 +152,18 @@ function CameraScreen({ navigation }) {
         justifyContent: 'space-around',
       }}
     >
-      <Image source={require("../../assets/BarcodeScannerWindow.png")} style={{width: '100%', height: '100%', position: "absolute", top: 0, right: 0, bottom: 0, left: 0}} />
+      <Image
+        source={require('../../assets/BarcodeScannerWindow.png')}
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+        }}
+      />
       <BarCodeScanner
         barCodeTypes={[
           BarCodeScanner.Constants.BarCodeType.ean8,
@@ -165,7 +177,7 @@ function CameraScreen({ navigation }) {
           top: 0,
           bottom: 0,
           flex: 2,
-          zIndex: -10
+          zIndex: -10,
         }}
       />
       <NavigationEvents
@@ -203,12 +215,14 @@ function CameraScreen({ navigation }) {
                 Produkt erkannt: {product.productName}
               </Text>
             )}
-            <PrimaryButton onPress={redirectRight} title={'Weiter'} />
-            <PrimaryButton
-              onPress={redirectFalse}
-              title={'Manuell eingeben'}
-              color={'red'}
-            />
+            <Elementbox>
+              <PrimaryButton onPress={redirectRight} title={'Weiter'} />
+              <PrimaryButton
+                onPress={redirectFalse}
+                title={'Manuell eingeben'}
+                color={'red'}
+              />
+            </Elementbox>
           </View>
         </View>
       </Modal>
