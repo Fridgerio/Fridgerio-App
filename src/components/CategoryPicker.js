@@ -37,7 +37,7 @@ function ComponentIOS(props) {
           onValueChange={value => props.onValueChange(value)}
           items={props.categories}
           itemKey={props ? props.category : null}
-          placeholder={{ label: 'Bitte wähle eine Kategorie', value: null }}
+          placeholder={{}}
           ref={props.categorySelector}
         />
         <Ionicons name="ios-arrow-down" size={24} />
@@ -56,7 +56,7 @@ function ComponentAndroid(props) {
         onValueChange={value => props.onValueChange(value)}
         items={props.categories}
         itemKey={props ? props.category : null}
-        placeholder={{ label: 'Bitte wähle eine Kategorie', value: null }}
+        placeholder={{}}
         ref={props.categorySelector}
       />
     </Fragment>
@@ -66,52 +66,51 @@ function ComponentAndroid(props) {
 // Returns picker with category names
 export default function CategoryPicker(props) {
   const { categoryImages } = useContext(Context);
-  const defaultCategories = Object.keys(categoryImages).map(category => {
-    let categoryName;
-    switch (category) {
-      case 'all':
-        categoryName = 'Alle';
-        break;
-      case 'bread':
-        categoryName = 'Brot, Mehl und Gebäck';
-        break;
-      case 'canned':
-        categoryName = 'Konserven und Fertiggerichte';
-        break;
-      case 'dairy':
-        categoryName = 'Käse und Milchprodukte';
-        break;
-      case 'drinks':
-        categoryName = 'Getränke';
-        break;
-      case 'frozen':
-        categoryName = 'Tiefkühlnahrung';
-        break;
-      case 'fruits':
-        categoryName = 'Obst und Gemüse';
-        break;
-      case 'meat':
-        categoryName = 'Fleisch, Fisch & Wurst';
-        break;
-      case 'pasta':
-        categoryName = 'Getreide & Teigwaren';
-        break;
-      case 'sauces':
-        categoryName = 'Soßen & Gewürze';
-        break;
-      case 'snacks':
-        categoryName = 'Snacks & Süßigkeiten';
-        break;
-      default:
-        categoryName = 'Unkategorisiert';
-    }
-    return {
-      value: `${category}`,
-      label: `${categoryName}`,
-      icon: categoryImages[category],
-      key: `${category}`,
-    };
-  });
+  const defaultCategories = Object.keys(categoryImages)
+    .filter(category => category !== 'all')
+    .map(category => {
+      let categoryName;
+      switch (category) {
+        case 'bread':
+          categoryName = 'Brot, Mehl und Gebäck';
+          break;
+        case 'canned':
+          categoryName = 'Konserven und Fertiggerichte';
+          break;
+        case 'dairy':
+          categoryName = 'Käse und Milchprodukte';
+          break;
+        case 'drinks':
+          categoryName = 'Getränke';
+          break;
+        case 'frozen':
+          categoryName = 'Tiefkühlnahrung';
+          break;
+        case 'fruits':
+          categoryName = 'Obst und Gemüse';
+          break;
+        case 'meat':
+          categoryName = 'Fleisch, Fisch & Wurst';
+          break;
+        case 'pasta':
+          categoryName = 'Getreide & Teigwaren';
+          break;
+        case 'sauces':
+          categoryName = 'Soßen & Gewürze';
+          break;
+        case 'snacks':
+          categoryName = 'Snacks & Süßigkeiten';
+          break;
+        default:
+          categoryName = 'Bitte wähle eine Kategorie';
+      }
+      return {
+        value: `${category}`,
+        label: `${categoryName}`,
+        icon: categoryImages[category],
+        key: `${category}`,
+      };
+    });
   const PickerCategories = defaultCategories.sort((a, b) => {
     if (a.label < b.label) {
       return -1;

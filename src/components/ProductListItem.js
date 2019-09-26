@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -13,9 +13,41 @@ import { StyledText } from './styled-components/Text';
 import Swipeable from 'react-native-swipeable';
 import { Context } from '../context/Context';
 import { dateFormat } from '../helper/helper';
+import { Colors } from '../components/styled-components/Variables';
+
+/* function accepts product and checks if it is already expired*/
+const getExpired = product => {
+  /* timestamp of now */
+  const todayDateObject = new Date(Date.now());
+  let day = todayDateObject.getDate();
+  let month = todayDateObject.getMonth() + 1;
+  const year = todayDateObject.getFullYear();
+  month = month < 10 ? `0${month}` : `${month}`;
+  day = day < 10 ? `0${day}` : `${day}`;
+
+  /* set reference time always to midnight */
+  const todayObject = new Date(`${year}-${month}-${day}T00:00:00`);
+
+  /* today and expiry date as timestamp */
+  const today = Number((todayObject.getTime() / 1000).toFixed(0));
+  const expDate = Number((new Date(`${product.bestBeforeDate}T00:00:00`).getTime() / 1000).toFixed(0));
+
+  if (expDate < today) {
+    /* return true if the expiry date is before today */
+    return true;
+  }
+};
 
 function Product({ navigation, product }) {
   const { categoryImages, deleteProduct } = useContext(Context);
+  const [dateColor, setDateColor] = useState(Colors.QuaternaryColor);
+
+  useEffect(() => {
+    const isItemExpired = getExpired(product);
+    if (isItemExpired) {
+      setDateColor(Colors.WarningColor);
+    }
+  }, []);
 
   /* dynamically calculate width for different mobile screen sizes; variable is used to set the ActionActivationDistance prop; current value will trigger action when swiping horizontally 45% of the screen width */
   const width = Dimensions.get('window').width * 0.45;
@@ -50,7 +82,9 @@ function Product({ navigation, product }) {
             style={{ height: 30, width: 30, marginRight: 20 }}
           />
           <StyledText flex="4">{product.productName}</StyledText>
-          <StyledText flex="2">{dateFormat(product.bestBeforeDate)}</StyledText>
+          <StyledText flex="2" color={dateColor}>
+            {dateFormat(product.bestBeforeDate)}
+          </StyledText>
         </Elementbox>
       </TouchableOpacity>
     </Swipeable>
