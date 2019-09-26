@@ -18,7 +18,6 @@ function ListScreen({ navigation }) {
   const {
     productsSortedByDate,
     productsSortedByName,
-    deleteProduct,
     isSnackBarVisible,
     addLastDeletedProduct,
     sortMethod,

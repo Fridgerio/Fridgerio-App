@@ -8,24 +8,6 @@ import RNPickerSelect from 'react-native-picker-select';
 import { Ionicons } from '@expo/vector-icons';
 import { Context } from '../context/Context';
 
-// const defaultCategories = [
-//   { value: '1', label: 'Alle', icon: 'food', key: 'Alle' },
-//   { value: '2', label: 'Obst&Gemüse', icon: 'food-apple', key: 'Obst&Gemüse' },
-//   {
-//     value: '3',
-//     label: 'Milchprodukte',
-//     icon: 'food-croissant',
-//     key: 'Milchprodukte',
-//   },
-//   {
-//     value: '4',
-//     label: 'Nudeln, Reis usw.',
-//     icon: 'food-fork-drink',
-//     key: 'Nudeln, Reis usw.',
-//   },
-//   { value: '5', label: 'Getränke', icon: 'food-variant', key: 'Getränke' },
-// ];
-
 function ComponentIOS(props) {
   return (
     <Textbox bottomLine={Colors.PrimaryUtilityColor}>

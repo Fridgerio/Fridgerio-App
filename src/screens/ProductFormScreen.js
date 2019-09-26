@@ -1,20 +1,15 @@
 import React, { useState, useContext } from 'react';
-import { ScrollView, Text, FlatList } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import CategoryPicker from '../components/CategoryPicker';
-import AddLabels from '../components/AddLabels';
 import NumberPicker from '../components/NumberPicker';
 import BestBeforeDatePicker from '../components/BestBeforeDatePicker';
-import { Ionicons } from '@expo/vector-icons';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Input } from '../components/styled-components/Inputs';
-import { Row } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
 import { Textbox, Elementbox } from '../components/styled-components/Boxes';
 import { Context } from '../context/Context';
-import { BlockText, StyledText } from '../components/styled-components/Text';
-import { StyledIonicon } from '../components/styled-components/Icons';
-import { Constants } from 'expo-barcode-scanner';
+import { BlockText } from '../components/styled-components/Text';
 
 function ProductFormScreen({ navigation }) {
   /* get data from CameraScreen */
@@ -164,7 +159,7 @@ function ProductFormScreen({ navigation }) {
 
 ProductFormScreen.navigationOptions = ({ navigation }) => ({
   title:
-    navigation.dangerouslyGetParent().state.routeName == 'Add'
+    navigation.dangerouslyGetParent().state.routeName === 'Add'
       ? 'Neues Produkt'
       : 'Produkt Bearbeiten',
   // headerRight: (

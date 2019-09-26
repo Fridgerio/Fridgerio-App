@@ -3,7 +3,6 @@ import HomeScreen from './screens/HomeScreen';
 import ProductFormScreen from './screens/ProductFormScreen';
 import ListScreen from './screens/ListScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import DummyScreen from './screens/DummyScreen';
 import SettingsLanguageScreen from './screens/SettingsLanguageScreen';
 import SettingsNotificationsScreen from './screens/SettingsNotificationsScreen';
 import LegalNoticeScreen from './screens/LegalNoticeScreen';

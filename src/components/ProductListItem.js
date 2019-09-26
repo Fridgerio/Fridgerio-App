@@ -5,9 +5,7 @@ import {
   Text,
   Dimensions,
   StyleSheet,
-  Image,
 } from 'react-native';
-import { MaterialCommunityIcon } from './styled-components/Icons';
 import { Elementbox } from './styled-components/Boxes';
 import { StyledText } from './styled-components/Text';
 import Swipeable from 'react-native-swipeable';
@@ -53,7 +51,7 @@ const getExpired = product => {
 };
 
 function Product({ navigation, product }) {
-  const { categoryImages, deleteProduct } = useContext(Context);
+  const { deleteProduct } = useContext(Context);
   const [dateColor, setDateColor] = useState(Colors.QuaternaryColor);
 
   useEffect(() => {
@@ -91,18 +89,18 @@ function Product({ navigation, product }) {
         activeOpacity={0.7}
       >
         <Elementbox withBottomLine>
-          {product.productCategory == 'all' && <All />}
-          {product.productCategory == 'bread' && <Bread />}
-          {product.productCategory == 'canned' && <Canned />}
-          {product.productCategory == 'dairy' && <Dairy />}
-          {product.productCategory == 'drinks' && <Drinks />}
-          {product.productCategory == 'frozen' && <Frozen />}
-          {product.productCategory == 'fruits' && <Fruits />}
-          {product.productCategory == 'meat' && <Meat />}
-          {product.productCategory == 'pasta' && <Pasta />}
-          {product.productCategory == 'sauces' && <Sauces />}
-          {product.productCategory == 'snacks' && <Snacks />}
-          {product.productCategory == 'uncategorized' && <Uncategorized />}
+          {product.productCategory === 'all' && <All />}
+          {product.productCategory === 'bread' && <Bread />}
+          {product.productCategory === 'canned' && <Canned />}
+          {product.productCategory === 'dairy' && <Dairy />}
+          {product.productCategory === 'drinks' && <Drinks />}
+          {product.productCategory === 'frozen' && <Frozen />}
+          {product.productCategory === 'fruits' && <Fruits />}
+          {product.productCategory === 'meat' && <Meat />}
+          {product.productCategory === 'pasta' && <Pasta />}
+          {product.productCategory === 'sauces' && <Sauces />}
+          {product.productCategory === 'snacks' && <Snacks />}
+          {product.productCategory === 'uncategorized' && <Uncategorized />}
           <StyledText flex="4">{product.productName}</StyledText>
           <StyledText flex="2" color={dateColor}>
             {dateFormat(product.bestBeforeDate)}

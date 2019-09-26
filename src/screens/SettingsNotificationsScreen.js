@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { ScrollView, Text, Picker } from 'react-native';
+import { ScrollView } from 'react-native';
 import { PrimaryButton } from '../components/styled-components/Buttons';
 import { Context } from '../context/Context';
 import { StyledText } from '../components/styled-components/Text.js';

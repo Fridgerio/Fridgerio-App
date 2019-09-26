@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { ScrollView, Linking, Text, View } from 'react-native';
+import { ScrollView, Linking } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
@@ -37,8 +37,7 @@ function SettingsScreen({ navigation }) {
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
             <RowLink
               title="Hilfe / FAQ"
-              onPress={() =>
-                Linking.openURL('https://fridgerio.de/hilfe')}
+              onPress={() => Linking.openURL('https://fridgerio.de/hilfe')}
             />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>

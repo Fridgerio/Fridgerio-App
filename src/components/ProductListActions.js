@@ -46,8 +46,6 @@ export function ProductDelete({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // borderColor: 'red',
-    // borderWidth: 1,
   },
   searchBarContainer: {
     flex: 1,

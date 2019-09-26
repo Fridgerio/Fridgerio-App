@@ -1,12 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Text,
-  FlatList,
-  Button,
-} from 'react-native';
+import { View, ScrollView, StyleSheet, Text, FlatList } from 'react-native';
 import Product from '../components/ProductListItem';
 import { Context } from '../context/Context';
 import SnackBar from 'react-native-snackbar-component';
@@ -111,8 +104,6 @@ function HomeScreen({ navigation }) {
     productsSortedByDate,
     isSnackBarVisible,
     addLastDeletedProduct,
-    deleteAll,
-    sendNotification,
   } = useContext(Context);
 
   return (
@@ -161,8 +152,6 @@ function HomeScreen({ navigation }) {
         accentColor={'#1C4E55'}
         // The color of main message text, default is	#FFFFFF
         messageColor={'#fff'}
-        // to figure out
-        distanceCallback={distance => 60}
       />
     </ScrollView>
   );

@@ -18,7 +18,14 @@ const StyledIon = styled(Ionicons)`
   margin: ${props => props.margin || '0'};
   padding: ${props => props.padding || '0'};
 `;
-export const StyledIonicon = props => <StyledIon name={props.name} size={props.size} margin={props.margin} padding={props.padding} />;
+export const StyledIonicon = props => (
+  <StyledIon
+    name={props.name}
+    size={props.size}
+    margin={props.margin}
+    padding={props.padding}
+  />
+);
 
 // MaterialCommunityIcons icons
 const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)`

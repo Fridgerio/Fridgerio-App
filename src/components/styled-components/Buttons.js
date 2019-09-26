@@ -20,8 +20,15 @@ const StyledPrimaryButtonText = styled.Text`
 export const PrimaryButton = props => {
   const { color, flex, title, style, onPress, active, size } = props;
   return (
-    <StyledPrimaryButton color={color} flex={flex} onPress={onPress} style={style}>
-      <StyledPrimaryButtonText active={active} size={size}>{title}</StyledPrimaryButtonText>
+    <StyledPrimaryButton
+      color={color}
+      flex={flex}
+      onPress={onPress}
+      style={style}
+    >
+      <StyledPrimaryButtonText active={active} size={size}>
+        {title}
+      </StyledPrimaryButtonText>
     </StyledPrimaryButton>
   );
 };

@@ -5,8 +5,6 @@ import { Platform, Alert, AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
-const images = {};
-
 export const Context = React.createContext(null);
 
 export default function ContextProvider({ children }) {
@@ -14,14 +12,11 @@ export default function ContextProvider({ children }) {
   const [productsSortedByDate, setProductsSortedByDate] = useState(null);
   const [productsSortedByName, setProductsSortedByName] = useState(null);
   const [lastDeletedProduct, setLastDeletedProduct] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
   const [sortMethod, setSortMethod] = useState('bestBeforeDate');
   const [language, setLanguage] = useState('DE');
   const [pushNotification, setPushNotification] = useState(null);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
-  const [categoryImages] = useState(images);
 
   const getStoredProducts = async () => {
     const allKeys = await AsyncStorage.getAllKeys();
@@ -253,7 +248,6 @@ export default function ContextProvider({ children }) {
         sortMethod,
         activeCategoryFilter,
         setActiveCategoryFilter,
-        categoryImages,
         sendNotification,
       }}
     >

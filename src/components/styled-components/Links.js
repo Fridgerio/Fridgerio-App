@@ -19,7 +19,11 @@ export const RowLink = props => {
   return (
     <StyledRowLink onPress={onPress}>
       <StyledRowLinkLabel>{title}</StyledRowLinkLabel>
-      <Ionicons color={Colors.SecondaryUtilityColor} name={name || 'ios-arrow-forward'} size={24} />
+      <Ionicons
+        color={Colors.SecondaryUtilityColor}
+        name={name || 'ios-arrow-forward'}
+        size={24}
+      />
     </StyledRowLink>
   );
 };
@@ -29,7 +33,11 @@ export const RowCheckLink = props => {
   return (
     <StyledRowLink onPress={onPress}>
       <StyledRowLinkLabel>{title}</StyledRowLinkLabel>
-      {name ? <Ionicons color={Colors.PrimaryColor} name={name} size={24} /> : <Text />}
+      {name ? (
+        <Ionicons color={Colors.PrimaryColor} name={name} size={24} />
+      ) : (
+        <Text />
+      )}
     </StyledRowLink>
   );
 };
@@ -40,10 +48,4 @@ const StyledRow = styled.View`
   padding: 5px 0;
 `;
 
-export const Row = props => {
-  return (
-    <StyledRow>
-      {props.children}
-    </StyledRow>
-  );
-};
+export const Row = props => <StyledRow>{props.children}</StyledRow>;

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowCheckLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
