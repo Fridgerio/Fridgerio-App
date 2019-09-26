@@ -216,10 +216,7 @@ function CameraScreen({ navigation }) {
               </Text>
             )}
             <Elementbox>
-              <PrimaryButton
-                onPress={redirectFalse}
-                title={'Manuell eingeben'}
-              />
+              <PrimaryButton onPress={redirectFalse} title={'Abbrechen'} />
               <PrimaryButton onPress={redirectRight} title={'Weiter'} />
             </Elementbox>
           </View>
