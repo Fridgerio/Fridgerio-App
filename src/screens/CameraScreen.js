@@ -220,7 +220,6 @@ function CameraScreen({ navigation }) {
               <PrimaryButton
                 onPress={redirectFalse}
                 title={'Manuell eingeben'}
-                color={'red'}
               />
             </Elementbox>
           </View>
