@@ -4,6 +4,35 @@ import { data } from './data';
 import { Platform, Alert, AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
+import {
+  All,
+  Bread,
+  Canned,
+  Dairy,
+  Drinks,
+  Frozen,
+  Fruits,
+  Meat,
+  Pasta,
+  Sauces,
+  Snacks,
+  Uncategorized,
+} from '../components/svg/CategoryIcons';
+
+const images = {
+  all: <All />,
+  bread: <Bread />,
+  canned: <Canned />,
+  dairy: <Dairy />,
+  drinks: <Drinks />,
+  frozen: <Frozen />,
+  fruits: <Fruits />,
+  meat: <Meat />,
+  pasta: <Pasta />,
+  sauces: <Sauces />,
+  snacks: <Snacks />,
+  uncategorized: <Uncategorized />,
+};
 
 export const Context = React.createContext(null);
 
@@ -17,6 +46,7 @@ export default function ContextProvider({ children }) {
   const [language, setLanguage] = useState('DE');
   const [pushNotification, setPushNotification] = useState(null);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState('all');
+  const [categoryImages] = useState(images);
 
   const getStoredProducts = async () => {
     const allKeys = await AsyncStorage.getAllKeys();
@@ -119,7 +149,9 @@ export default function ContextProvider({ children }) {
     const deletedProduct = products.find(product => product.id === productId);
 
     /* store the remaining products */
-    const updatedProducts = products.filter(product => product.id !== productId);
+    const updatedProducts = products.filter(
+      product => product.id !== productId
+    );
     /* write updated products to the state */
     saveProducts(updatedProducts);
     /* write deleted product to the state */
@@ -235,6 +267,7 @@ export default function ContextProvider({ children }) {
       value={{
         products,
         addProduct,
+        categoryImages,
         deleteProduct,
         // updateProduct,
         isSnackBarVisible,
