@@ -5,7 +5,20 @@ import { Platform, Alert, AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 
-const images = {};
+const images = [
+  'all',
+  'bread',
+  'canned',
+  'dairy',
+  'drinks',
+  'frozen',
+  'fruits',
+  'meat',
+  'pasta',
+  'sauces',
+  'snacks',
+  'uncategorized',
+];
 
 export const Context = React.createContext(null);
 
@@ -124,7 +137,9 @@ export default function ContextProvider({ children }) {
     const deletedProduct = products.find(product => product.id === productId);
 
     /* store the remaining products */
-    const updatedProducts = products.filter(product => product.id !== productId);
+    const updatedProducts = products.filter(
+      product => product.id !== productId
+    );
     /* write updated products to the state */
     saveProducts(updatedProducts);
     /* write deleted product to the state */

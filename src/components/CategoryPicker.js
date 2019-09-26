@@ -66,7 +66,7 @@ function ComponentAndroid(props) {
 // Returns picker with category names
 export default function CategoryPicker(props) {
   const { categoryImages } = useContext(Context);
-  const defaultCategories = Object.keys(categoryImages)
+  const defaultCategories = categoryImages
     .filter(category => category !== 'all')
     .map(category => {
       let categoryName;
