@@ -7,6 +7,7 @@ import {
   SettingsStack,
 } from './StackNavigators';
 import { Ionicons } from '@expo/vector-icons';
+import { Colors } from './components/styled-components/Variables';
 
 export default createBottomTabNavigator(
   {
@@ -42,7 +43,7 @@ export default createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#50C1C9',
+      activeTintColor: Colors.PrimaryColor,
       showLabel: false, // defaults to true
       showIcon: true, // defaults to true
       /* override the forceInset prop for <SafeAreaView> to set custom padding between icons (or label) and bottom screen border
