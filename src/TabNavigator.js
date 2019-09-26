@@ -42,7 +42,7 @@ export default createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#1C4E55',
+      activeTintColor: '#50C1C9',
       showLabel: false, // defaults to true
       showIcon: true, // defaults to true
       /* override the forceInset prop for <SafeAreaView> to set custom padding between icons (or label) and bottom screen border
