@@ -4,9 +4,13 @@ A mobile application that helps you keep track of your groceries, use them befor
 
 ## Project Status
 
-### Week 3
+### Week 4
 
 👩🏻‍💻👨🏻‍💻👩🏻‍💻👨🏻‍💻👨🏻‍💻...
+
+### Week 3
+
+![week 2](./screenshots/progress/week3.png)
 
 ### Week 2
 
