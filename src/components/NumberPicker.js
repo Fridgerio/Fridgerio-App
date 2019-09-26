@@ -1,13 +1,24 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { Component, Fragment } from 'react';
+import { Platform, Text } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
+import { StyledText } from './styled-components/Text';
+import { Row } from './styled-components/Links';
+import { Colors } from './styled-components/Variables';
 import RNPickerSelect from 'react-native-picker-select';
+import { Ionicons } from '@expo/vector-icons';
 
-export default class NumberPicker extends React.Component {
+export default class NumberPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      numbers: [{ value: 1, label: '1' }],
+      numbers: [
+        {
+          value: this.props.defaultValue,
+          label: `${this.props.defaultValue} ${
+            this.props.type === 'notification' ? 'Tage vorher' : ''
+          }`,
+        },
+      ],
       maxNum: props.maxNum,
       title: props.title,
     };
@@ -21,25 +32,60 @@ export default class NumberPicker extends React.Component {
   CreateNumberPicker = () => {
     const numbers = [];
     for (let i = 1; i <= this.state.maxNum; i++) {
-      numbers.push({ label: `${i}`, value: i });
+      if (this.props.type === 'notification') {
+        if (i === 1) {
+          numbers.push({ label: `${i} Tag vorher`, value: i });
+        } else {
+          numbers.push({ label: `${i} Tage vorher`, value: i });
+        }
+      } else {
+        numbers.push({ label: `${i}`, value: i });
+      }
     }
     this.setState({ numbers: numbers });
     return numbers;
   };
 
-  render() {
+  ComponentIOS = () => {
     const { title, numbers } = this.state;
     return (
-      <React.Fragment>
+      <Textbox bottomLine={Colors.PrimaryUtilityColor}>
+        <Row>
+          <StyledText>{title}</StyledText>
+        </Row>
+        <Row>
+          <RNPickerSelect
+            onValueChange={value => this.props.onValueChange(value)}
+            items={numbers}
+            placeholder={{}}
+          />
+          <Ionicons name="ios-arrow-down" size={24} />
+        </Row>
+      </Textbox>
+    );
+  };
+
+  ComponentAndroid = () => {
+    const { title, numbers } = this.state;
+    return (
+      <Fragment>
         <Textbox>
           <Text>{title}</Text>
         </Textbox>
         <RNPickerSelect
-          onValueChange={value => console.warn(value)}
+          onValueChange={value => this.props.onValueChange(value)}
           items={numbers}
-          placeholder={{ label: 'Bitte wähle eine Zahl', value: null }}
+          placeholder={{}}
         />
-      </React.Fragment>
+      </Fragment>
     );
+  };
+
+  render() {
+    const Component = Platform.select({
+      ios: () => this.ComponentIOS,
+      android: () => this.ComponentAndroid,
+    })();
+    return <Component />;
   }
 }

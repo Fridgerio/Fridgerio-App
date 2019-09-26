@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Modal, Platform, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
-import { BarcodeFrame } from '../components/svg/BarcodeFrame';
+import { StyledText } from '../components/styled-components/Text.js';
+import HelpText from '../components/CameraHelpText';
+import { NavigationEvents } from 'react-navigation';
+import { Elementbox } from '../components/styled-components/Boxes';
 
 function CameraScreen({ navigation }) {
   /* State Hooks and functions to change these states */
   const [hasCameraPermission, toggleCameraPermission] = useState(null);
   const [scanned, toggleScanned] = useState(false);
+  const [showModal, toggleModal] = useState(false);
+  const [product, setProduct] = useState(null);
+  const [showHelp, setShowHelp] = useState(false);
+
   /* Lifecycle method to check camera permission first */
   useEffect(() => {
     const askPermission = async () => {
@@ -16,7 +23,15 @@ function CameraScreen({ navigation }) {
       toggleCameraPermission(status === 'granted');
     };
     askPermission();
+    setHelpTimer();
   }, []);
+
+  /* Show help text after 8 seconds without successfull scan */
+  const setHelpTimer = () =>
+    setTimeout(() => {
+      setShowHelp(true);
+    }, 8000);
+
   /* method to build a product name from the API data */
   const generateName = (brand, name, quantity) => {
     let pbrand;
@@ -32,8 +47,9 @@ function CameraScreen({ navigation }) {
     identifier += quantity === '' || quantity === undefined ? 0 : 1;
     /* switch statement generates the optimal productName */
     switch (identifier) {
+      case 0:
       case 1:
-        return quantity;
+        return '';
       case 2:
         return name;
       case 3:
@@ -63,13 +79,20 @@ function CameraScreen({ navigation }) {
         /* if the product is found in the database */
         /* (1) generate a product name */
         const productName = generateName(brand, product_name, quantity);
-        /* (2) make an alert with the product name */
-        alert(`Produkt erkannt: ${productName}`);
-        /* (3) navigate to ProductFormScreen and pass the data */
-        navigation.navigate('ProductFormScreen', {
-          name: productName,
-          categories: categories,
-        });
+        const productCategory = categories ? categories[0] : undefined;
+        if (
+          productName === '' ||
+          productName === undefined ||
+          productName === null
+        ) {
+          alert('Produkt nicht in der Datenbank');
+          navigation.navigate('ProductFormScreen');
+        } else {
+          /* (2) set the product in the state */
+          setProduct({ productName, productCategory });
+          /* (3) show the modal */
+          toggleModal(true);
+        }
       } else {
         /* if product is not in the database */
         /* (1) make an alert */
@@ -82,7 +105,29 @@ function CameraScreen({ navigation }) {
       alert(`${error.message}`);
     }
   };
-  const handleBarCodeScanned = ({ type, data }) => {
+  const redirectRight = () => {
+    toggleModal(false);
+    toggleScanned(true);
+    const { productName, productCategory } = product;
+    navigation.navigate('ProductFormScreen', {
+      productName,
+      productCategory,
+    });
+  };
+  const redirectFalse = () => {
+    toggleModal(false);
+    toggleScanned(true);
+    navigation.navigate('ProductFormScreen');
+  };
+  const handleBarCodeScanned = Platform.select({
+    ios: ({ data }) => handleBarCodeIOS(data),
+    android: ({ type, data }) => handleBarCodeAndroid(type, data),
+  });
+  const handleBarCodeIOS = data => {
+    fetchProduct(data); // fetch the data from the products API
+    toggleScanned(true); // set scanned to true, to avoid multiple scanning
+  };
+  const handleBarCodeAndroid = (type, data) => {
     /* if it is ean13 or ean8 */
     if (type === 32 || type === 64) {
       fetchProduct(data); // fetch the data from the products API
@@ -107,6 +152,18 @@ function CameraScreen({ navigation }) {
         justifyContent: 'space-around',
       }}
     >
+      <Image
+        source={require('../../assets/BarcodeScannerWindow.png')}
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+        }}
+      />
       <BarCodeScanner
         barCodeTypes={[
           BarCodeScanner.Constants.BarCodeType.ean8,
@@ -120,30 +177,51 @@ function CameraScreen({ navigation }) {
           top: 0,
           bottom: 0,
           flex: 2,
+          zIndex: -10,
         }}
       />
-      <BarcodeFrame />
-      {scanned && (
-        <PrimaryButton
-          title={'Nochmals scannen'}
-          style={{
-            width: '70%',
-            marginRight: 'auto',
-            marginLeft: 'auto',
-          }}
-          onPress={() => toggleScanned(false)}
-        />
-      )}
+      <NavigationEvents
+        onDidBlur={() => {
+          toggleScanned(true);
+          setShowHelp(false);
+        }}
+        onDidFocus={() => {
+          toggleScanned(false);
+          setHelpTimer();
+        }}
+      />
+      {!showHelp && <StyledText />}
+      {showHelp && <HelpText />}
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
-        title={'Manuell eingeben'}
+        title={'Manuell\neingeben'}
+        size={'16px'}
         style={{
-          width: '70%',
+          opacity: 0.8,
           marginRight: 'auto',
           marginLeft: 'auto',
         }}
-        onPress={() => navigation.navigate('ProductFormScreen')}
+        onPress={() => {
+          navigation.navigate('ProductFormScreen');
+        }}
       />
+      <Modal animationType={'slide'} visible={showModal}>
+        <View style={{ marginVertical: 120, marginHorizontal: 25 }}>
+          <View>
+            {product && (
+              <Text
+                style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 36 }}
+              >
+                Produkt erkannt: {product.productName}
+              </Text>
+            )}
+            <Elementbox>
+              <PrimaryButton onPress={redirectFalse} title={'Abbrechen'} />
+              <PrimaryButton onPress={redirectRight} title={'Weiter'} />
+            </Elementbox>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

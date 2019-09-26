@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -6,6 +6,7 @@ import { Asset } from 'expo-asset';
 import { Ionicons } from '@expo/vector-icons';
 import TabNavigator from './src/TabNavigator';
 import ContextProvider from './src/context/Context';
+
 
 /**
 ----------
@@ -49,10 +50,13 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   const loadAssetsAsync = async () => {
-    // dummy import
-    const imageAssets = cacheImages([require('./assets/splash.png')]);
+    const imageAssets = cacheImages([]);
 
-    const fontAssets = cacheFonts([Ionicons.font]);
+    const fontAssets = cacheFonts([Ionicons.font, {
+      'FridgerioPrimaryFont': require('./assets/fonts/Ebrima.ttf'),
+    }, {
+      'FridgerioPrimaryFont-Bold': require('./assets/fonts/Ebrima-Bold.ttf'),
+    }]);
 
     await Promise.all([...imageAssets, ...fontAssets]);
   };
@@ -62,7 +66,7 @@ export default function App() {
       <AppLoading
         startAsync={loadAssetsAsync}
         onFinish={() => setIsReady(true)}
-        onError={console.warn}
+        // onError={console.warn}
       />
     );
   }

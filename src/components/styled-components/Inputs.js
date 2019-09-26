@@ -1,33 +1,38 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { SearchIcon } from './Icons';
-import { Colors } from './Variables';
-
-const normal = '16px';
+import { Colors, FontSize } from './Variables';
 
 // Input field
 const StyledInput = styled.TextInput(props => `
-flex: ${props.flex || '1'};
-padding: ${props.padding || '0 10px'};
-font-size: ${props.size || normal};
-background-color: ${props.background || Colors.PrimaryUtilityColor};
-border-radius: ${props.radius || '7px'};
+  font-family: 'FridgerioPrimaryFont';
+  flex: ${props.flex || '1'};
+  padding: ${props.padding || '0'};
+  margin-left: ${props.marginLeft || '0'};
+  font-size: ${props.size || FontSize.small};
+  background-color: ${props.background || Colors.LightColor};
+  border-color: ${props.borderColor || Colors.TertiaryColor};
+  border-style: ${props.borderStyle || 'solid'};
+  border-width: ${props.borderWidth || '1px'};
+  border-radius: ${props.radius || '5px'};
 `);
 
 const InputLabel = styled.Text(props => `
-  padding: ${props.padding || '0 10px'};
-  font-size: ${props.size || normal}
-  `);
+  padding: ${props.padding || '0'};
+  font-family: 'FridgerioPrimaryFont';
+  font-size: ${props.size || FontSize.normal}
+  margin-bottom: 7px
+`);
 
 // Text input and text area (multiline) container. When height property is not defined explicitly, the default height changes according to the TextInput multiline property of the child component
 const StyledInputContainer = styled.View(props => `
-flex: ${props.flex || '1'};
-flex-direction: ${props.direction || 'column'};
-height: ${props.height || props.multiline ? '120px' : '70px'};
-background-color: ${props.background || 'transparent'};
-border-radius: ${props.radius || '5px'};
+  flex: ${props.flex || '1'};
+  flex-direction: ${props.direction || 'column'};
+  height: ${props.height || props.multiline ? '120px' : '70px'};
+  background-color: ${props.background || 'transparent'};
+  border-radius: ${props.radius || '5px'};
   margin: ${props.margin || '0 0 10px 0'};
-  padding: ${props.padding || '10px'};
+  padding: ${props.padding || '0px'};
 `);
 
 // Input component consists of container, text-label and input field. In order to see the label, a string value for the property inputLabel must be supplied
@@ -49,6 +54,11 @@ export const Input = props => {
     margin,
     padding,
     radius,
+    borderColor,
+    borderStyle,
+    borderWidth,
+    onChangeText,
+    marginLeft,
   } = props;
   return (
     <StyledInputContainer
@@ -72,6 +82,11 @@ export const Input = props => {
         padding={padding}
         radius={radius}
         background={background}
+        borderColor={borderColor}
+        borderStyle={borderStyle}
+        borderWidth={borderWidth}
+        onChangeText={onChangeText}
+        marginLeft={marginLeft}
       >
         {children}
       </StyledInput>
@@ -81,12 +96,13 @@ export const Input = props => {
 
 // Search bar container
 const StyledSearch = styled.View(props => `
-flex: ${props.flex || '1'};
-flex-direction: ${props.direction || 'row'};
-height: ${props.height || '35px'};
-background-color: ${props.background || Colors.PrimaryUtilityColor};
-border-radius: ${props.radius || '5px'};
-  margin: ${props.margin || '0 0 10px 0'};
+  flex: ${props.flex || '1'};
+  flex-direction: ${props.direction || 'row'};
+  height: ${props.height || '35px'};
+  background-color: ${props.background || Colors.PrimaryUtilityColor};
+  border-radius: ${props.radius || '5px'};
+  margin: ${props.margin || '10px'};
+  padding: 0 0 0 10px
 `);
 
 // Search component consists of container, input field and search logo
@@ -94,6 +110,7 @@ export const Search = props => {
   const {
     placeholder,
     onEndEditing,
+    borderWidth,
     children,
     flex,
     size,
@@ -118,6 +135,7 @@ export const Search = props => {
         flex={flex}
         size={size}
         padding={padding}
+        borderWidth={borderWidth}
       >
         {children}
       </StyledInput>
