@@ -7,6 +7,7 @@ import { StyledText } from '../components/styled-components/Text.js';
 import HelpText from '../components/CameraHelpText';
 import { NavigationEvents } from 'react-navigation';
 import { Elementbox } from '../components/styled-components/Boxes';
+import { Colors } from '../components/styled-components/Variables';
 
 function CameraScreen({ navigation }) {
   /* State Hooks and functions to change these states */
@@ -216,7 +217,11 @@ function CameraScreen({ navigation }) {
               </Text>
             )}
             <Elementbox>
-              <PrimaryButton onPress={redirectFalse} title={'Abbrechen'} />
+              <PrimaryButton
+                onPress={redirectFalse}
+                title={'Abbrechen'}
+                color={Colors.PrimaryUtilityColor}
+              />
               <PrimaryButton onPress={redirectRight} title={'Weiter'} />
             </Elementbox>
           </View>
