@@ -68,7 +68,7 @@ function CameraScreen({ navigation }) {
   /* method to fetch the API data */
   const fetchProduct = async code => {
     try {
-      const url = `https://products.sklinkusch.now.sh/?${code}`;
+      const url = `https://products.fridgerio.now.sh/?${code}`;
       const response = await fetch(url);
       const data = await response.json();
       /* destructuring important data */
