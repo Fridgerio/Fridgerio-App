@@ -19,7 +19,7 @@ function PrivacyPolicyScreen() {
     const oldTimestampRaw = AsyncStorage.getItem('timestamp') || '0';
     const oldTimestamp = JSON.parse(oldTimestampRaw);
     /* fetch new timestamp from the web */
-    const timeUrl = 'https://impressum-api.sklinkusch.now.sh/timestamp';
+    const timeUrl = 'https://impressum-api.fridgerio.now.sh/timestamp';
     const timeResponse = await fetch(timeUrl);
     const timeData = await timeResponse.json();
     const { timestamp: newTimestamp } = await timeData;
@@ -40,7 +40,7 @@ function PrivacyPolicyScreen() {
     } else {
       /* fetch privacy data from the web */
       try {
-        const url = `https://impressum-api.sklinkusch.now.sh/datenschutz`;
+        const url = `https://impressum-api.fridgerio.now.sh/datenschutz`;
         const response = await fetch(url);
         const data = await response.json();
         setPrivacy(data);
