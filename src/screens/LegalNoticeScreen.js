@@ -19,7 +19,7 @@ function LegalNoticeScreen() {
     const oldTimestamp = AsyncStorage.getItem('ltimestamp') || '0';
     // const oldTimestamp = JSON.parse(oldTimestampRaw);
     /* get new timestamp from the web */
-    const timeUrl = 'https://impressum-api.sklinkusch.now.sh/timestamp';
+    const timeUrl = 'https://impressum-api.fridgerio.now.sh/timestamp';
     const timeResponse = await fetch(timeUrl);
     const timeData = await timeResponse.json();
     const { timestamp: newTimestamp } = await timeData;
@@ -39,7 +39,7 @@ function LegalNoticeScreen() {
       setLegal(oldLegal);
     } else {
       try {
-        const url = `https://impressum-api.sklinkusch.now.sh/impressum`;
+        const url = `https://impressum-api.fridgerio.now.sh/impressum`;
         const response = await fetch(url);
         const data = await response.json();
         setLegal(data);
