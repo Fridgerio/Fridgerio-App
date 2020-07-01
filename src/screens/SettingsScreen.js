@@ -37,7 +37,10 @@ function SettingsScreen({ navigation }) {
             />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-            <RowLink title="Bewerte die App" />
+            <RowLink
+              title="Bewerte die App"
+              onPress={() => Linking.openURL('https://fridgerio.de/bewerten')}
+            />
             <RowLink title="Teile die App" onPress={onShare} />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
