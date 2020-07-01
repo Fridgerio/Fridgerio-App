@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import { ScrollView, Linking, Share } from 'react-native';
+import { ScrollView, Linking, Share, Text } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
 import { Context } from '../context/Context';
+import app from '../../app.json';
 
 function SettingsScreen({ navigation }) {
   const { language } = useContext(Context);
@@ -59,6 +60,11 @@ function SettingsScreen({ navigation }) {
               onPress={() => navigation.navigate('PrivacyPolicyScreen')}
             />
           </Textbox>
+          <Textbox>
+            <Text style={{ color: '#8b8b8b' }}>
+              Version: {app.expo.version}
+            </Text>
+          </Textbox>
         </ScrollView>
       );
     default:
@@ -100,6 +106,11 @@ function SettingsScreen({ navigation }) {
               title="Privacy Policy"
               onPress={() => navigation.navigate('PrivacyPolicyScreen')}
             />
+          </Textbox>
+          <Textbox>
+            <Text style={{ color: '#8b8b8b' }}>
+              Version: {app.expo.version}
+            </Text>
           </Textbox>
         </ScrollView>
       );
