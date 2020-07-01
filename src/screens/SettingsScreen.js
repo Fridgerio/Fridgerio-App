@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { ScrollView, Linking, Text, View } from 'react-native';
+import { ScrollView, Linking, Share } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
@@ -11,6 +11,12 @@ function SettingsScreen({ navigation }) {
     const title = language === 'DE' ? 'Einstellungen' : 'Settings';
     navigation.setParams({ title });
   }, [language]);
+
+  const onShare = () => {
+    Share.share({
+      message: 'Fridgerio - Prevent food waste',
+    });
+  };
 
   switch (language) {
     case 'DE':
@@ -32,13 +38,12 @@ function SettingsScreen({ navigation }) {
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
             <RowLink title="Bewerte die App" />
-            <RowLink title="Teile die App" />
+            <RowLink title="Teile die App" onPress={onShare} />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
             <RowLink
               title="Hilfe / FAQ"
-              onPress={() =>
-                Linking.openURL('https://fridgerio.de/hilfe')}
+              onPress={() => Linking.openURL('https://fridgerio.de/hilfe')}
             />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
@@ -78,7 +83,10 @@ function SettingsScreen({ navigation }) {
             <RowLink
               title="Help / FAQ"
               onPress={() =>
-                Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
+                Linking.openURL(
+                  'https://facebook.github.io/react-native/docs/linking'
+                )
+              }
             />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
