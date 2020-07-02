@@ -16,6 +16,7 @@ function CameraScreen({ navigation }) {
   const [showModal, toggleModal] = useState(false);
   const [product, setProduct] = useState(null);
   const [showHelp, setShowHelp] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   /* Lifecycle method to check camera permission first */
   useEffect(() => {
@@ -68,6 +69,8 @@ function CameraScreen({ navigation }) {
   /* method to fetch the API data */
   const fetchProduct = async code => {
     try {
+      setLoading(true);
+      setShowHelp(false);
       const url = `https://products.sklinkusch.now.sh/?${code}`;
       const response = await fetch(url);
       const data = await response.json();
@@ -109,6 +112,7 @@ function CameraScreen({ navigation }) {
   const redirectRight = () => {
     toggleModal(false);
     toggleScanned(true);
+    setLoading(false);
     const { productName, productCategory } = product;
     navigation.navigate('ProductFormScreen', {
       productName,
@@ -118,6 +122,7 @@ function CameraScreen({ navigation }) {
   const redirectFalse = () => {
     toggleModal(false);
     toggleScanned(true);
+    setLoading(false);
     navigation.navigate('ProductFormScreen');
   };
   const handleBarCodeScanned = Platform.select({
@@ -193,6 +198,7 @@ function CameraScreen({ navigation }) {
       />
       {!showHelp && <StyledText />}
       {showHelp && <HelpText />}
+      {loading && <Text>Barcode erkannt. Bitte warten...</Text>}
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
         title={'Manuell\neingeben'}
