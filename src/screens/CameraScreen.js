@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, Platform, Image } from 'react-native';
+import { View, Text, Modal, Platform, Image, Vibration } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import { PrimaryButton } from '../components/styled-components/Buttons';
-import { StyledText } from '../components/styled-components/Text.js';
 import HelpText from '../components/CameraHelpText';
 import { NavigationEvents } from 'react-navigation';
 import { Elementbox } from '../components/styled-components/Boxes';
@@ -69,6 +68,7 @@ function CameraScreen({ navigation }) {
   /* method to fetch the API data */
   const fetchProduct = async code => {
     try {
+      Vibration.vibrate();
       setLoading(true);
       setShowHelp(false);
       const url = `https://products.sklinkusch.now.sh/?${code}`;
@@ -196,9 +196,9 @@ function CameraScreen({ navigation }) {
           setHelpTimer();
         }}
       />
-      {!showHelp && <StyledText />}
-      {showHelp && <HelpText />}
-      {loading && <Text>Barcode erkannt. Bitte warten...</Text>}
+      {!showHelp && !loading && <HelpText />}
+      {showHelp && <HelpText title="Barcode mittig positionieren" />}
+      {loading && <HelpText title="Barcode wurde erkannt. Bitte warten..." />}
       {/* Go to product input form if this button is tapped */}
       <PrimaryButton
         title={'Manuell\neingeben'}
