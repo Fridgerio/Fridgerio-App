@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import { ScrollView, Linking, Text, View } from 'react-native';
+import { ScrollView, Linking, Share, Text } from 'react-native';
 import { Textbox } from '../components/styled-components/Boxes';
 import { RowLink } from '../components/styled-components/Links';
 import { Colors } from '../components/styled-components/Variables';
 import { Context } from '../context/Context';
+import app from '../../app.json';
 
 function SettingsScreen({ navigation }) {
   const { language } = useContext(Context);
@@ -11,6 +12,12 @@ function SettingsScreen({ navigation }) {
     const title = language === 'DE' ? 'Einstellungen' : 'Settings';
     navigation.setParams({ title });
   }, [language]);
+
+  const onShare = () => {
+    Share.share({
+      message: 'Fridgerio - Prevent food waste',
+    });
+  };
 
   switch (language) {
     case 'DE':
@@ -31,8 +38,11 @@ function SettingsScreen({ navigation }) {
             />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-            <RowLink title="Bewerte die App" />
-            <RowLink title="Teile die App" />
+            <RowLink
+              title="Bewerte die App"
+              onPress={() => Linking.openURL('https://fridgerio.de/bewerten')}
+            />
+            <RowLink title="Teile die App" onPress={onShare} />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
             <RowLink
@@ -49,6 +59,11 @@ function SettingsScreen({ navigation }) {
               title="Datenschutzerklärung"
               onPress={() => navigation.navigate('PrivacyPolicyScreen')}
             />
+          </Textbox>
+          <Textbox>
+            <Text style={{ color: '#8b8b8b' }}>
+              Version: {app.expo.version}
+            </Text>
           </Textbox>
         </ScrollView>
       );
@@ -70,8 +85,11 @@ function SettingsScreen({ navigation }) {
             />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
-            <RowLink title="Rate App" />
-            <RowLink title="Share App" />
+            <RowLink
+              title="Rate App"
+              onPress={() => Linking.openURL('https://fridgerio.de/bewerten')}
+            />
+            <RowLink title="Share App" onPress={onShare} />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
             <RowLink
@@ -88,6 +106,11 @@ function SettingsScreen({ navigation }) {
               title="Privacy Policy"
               onPress={() => navigation.navigate('PrivacyPolicyScreen')}
             />
+          </Textbox>
+          <Textbox>
+            <Text style={{ color: '#8b8b8b' }}>
+              Version: {app.expo.version}
+            </Text>
           </Textbox>
         </ScrollView>
       );
