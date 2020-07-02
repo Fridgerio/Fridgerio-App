@@ -37,8 +37,7 @@ function SettingsScreen({ navigation }) {
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
             <RowLink
               title="Hilfe / FAQ"
-              onPress={() =>
-                Linking.openURL('https://fridgerio.de/hilfe')}
+              onPress={() => Linking.openURL('https://fridgerio.de/hilfe')}
             />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
@@ -77,8 +76,7 @@ function SettingsScreen({ navigation }) {
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>
             <RowLink
               title="Help / FAQ"
-              onPress={() =>
-                Linking.openURL('https://facebook.github.io/react-native/docs/linking')}
+              onPress={() => Linking.openURL('https://fridgerio.de/hilfe')}
             />
           </Textbox>
           <Textbox bottomLine={Colors.PrimaryUtilityColor}>

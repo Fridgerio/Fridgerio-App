@@ -71,7 +71,7 @@ function CameraScreen({ navigation }) {
       Vibration.vibrate();
       setLoading(true);
       setShowHelp(false);
-      const url = `https://products.sklinkusch.now.sh/?${code}`;
+      const url = `https://products.fridgerio.now.sh/?${code}`;
       const response = await fetch(url);
       const data = await response.json();
       /* destructuring important data */
